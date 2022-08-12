@@ -1,0 +1,99 @@
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h4>Data Perusahaan</h4>
+      <div class="card-header-form">
+        <% if current_user.can? { |permissions| permissions.data_company.create? } %>
+        <div class="align-items-center">
+          <a href="<%= new_data_company_path %>" class="btn btn-primary btn-sm">+ Data Perusahaan</a>
+        </div>
+        <% end %>  
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <div id="tableExport_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+          <table id="dataTable_data_companies" class="table table-bordered">
+            <%= form_tag(:action => :index) do %>
+              <%= select_tag "data_company", options_for_select(@category),{class: "form-control select col-md-3 filter" ,prompt: "-- Pilih Kategori --"} %>
+            <% end %>
+            <br>  
+            <thead>
+                <tr>
+                  <th class="text-center" style="width: 12px;">No</th>
+                  <th>Kategori</th>
+                  <th>Cluster</th>
+                  <th>Nama Entitas</th>
+                  <th>Area</th>
+                  <th>Lokasi Kerja</th>
+                  <th>Alamat</th>
+                  <th>Website</th>
+                  <th>Daftar Pekerjaan Terkait</th>
+                  <th>Keterangan</th>
+                  <th class="text-center" style="width: 100px;">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% @data_companies.each_with_index do |data_company, index| %>
+                <tr>
+                  <td class="text-center"><%= index+1 %></td>
+                  <td><%= data_company.category.try(:name) %></td>
+                  <td><%= data_company.cluster %></td>
+                  <td><%= data_company.nama_entitas %></td>
+                  <td><%= data_company.area %></td>
+                  <td><%= data_company.lokasi_kerja %></td>
+                  <td><%= data_company.alamat %></td>
+                  <td><%= data_company.website %></td>
+                  <td><%= data_company.daftar_pekerjaan%></td>
+                  <td><%= data_company.keterangan%></td>
+                  <td class="text-center">
+                    <% if current_user.can? { |permissions| permissions.data_company.read? } %>
+                    <a href="<%= data_company_path(data_company) %>" class="btn btn-info btn-circle btn-sm">
+                      <i class="fas fa-eye"></i>
+                    </a>
+                    <% end %>
+                    <% if current_user.can? { |permissions| permissions.data_company.update? } %>
+                    <a href="<%= edit_data_company_path(data_company) %>" class="btn btn-warning btn-circle btn-sm">
+                      <i class="fas fa-pencil-alt"></i>
+                    </a>
+                    <% end %>
+                    <% if current_user.can? { |permissions| permissions.data_company.destroy? } %>
+                    <a href="<%= data_company_path(data_company) %>" class="btn btn-danger btn-circle btn-sm" data-method="DELETE" data-confirm="Are you sure?">
+                      <i class="fas fa-trash-alt"></i>
+                    </a>
+                    <% end %>
+                  </td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>
+
+
+<script>
+   //filter custom by colum
+  $(document).ready(function() {
+      dataTable = $("#dataTable_data_companies").DataTable({
+        "columnDefs": [
+              {
+                  "targets": [8],
+                  // "visible": false
+              }
+          ]
+        
+      });
+    
+          
+      $('.filter').on('change', function(e){
+        var status = $(this).val();
+        $('.filter').val(status)
+        // console.log(status)
+        //dataTable.column(5).search('\\s' + status + '\\s', true, false, true).draw();
+        dataTable.column(1).search(status).draw();
+      })
+  });
+</script>

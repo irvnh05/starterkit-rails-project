@@ -1,0 +1,25 @@
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row justify-content-between">
+        <div class="col align-items-center pt-2">
+          <h6 class="font-weight-bold">Satuan Kerja</h6>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="card-body py-3">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td width="30%">Satuan Kerja</td>
+            <td><%= @work_unit.name%></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer py-3 ">
+      <a href="<%= work_units_path %>" class="btn btn-info">Kembali</a>
+    </div>
+  </div>
+</div>

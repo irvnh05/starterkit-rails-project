@@ -1,0 +1,111 @@
+<div class="row" style="justify-content: center;" >
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <%= form_for @contact, multipart: true do |f| %>
+          <% if @contact.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this site_project from being saved:</h2>
+              <ul>
+              <% @contact.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <%# <%= f.hidden_field :user_id , :class => "user_id" %> 
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label>Kategori*</label>
+              <%= f.collection_select :category_id, Category.all, :id, :name, {prompt: "-- Pilih Kategori --"}, class: 'form-control', id: 'category', :required => true %>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="intpuCluster">Cluster*</label>
+              <%= f.text_field :cluster, class: "form-control", :required => true %>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="intpuCluster">Nama Entitas*</label>
+              <%= f.text_field :nama_entitas, class: "form-control", :required => true %>
+            </div>
+          </div>
+
+          <%# <div class="form-row"> %>
+            <%# <div class="form-group col"> %>
+              <%# <label for="intpuCluster">Satuan Kerja</label> %>
+               <%# <%= f.collection_select :work_unit_id, WorkUnit.all, :id, :name, {prompt: "-- Pilih Satuan Kerja --"}, class: 'form-control', id: 'work_unit' %> 
+            <%# </div> %>
+          <%# </div> %>
+
+            <div class="form-row">
+    <div class="form-group col">
+      <label for="intpuCluster">Satuan Kerja*</label>
+      <%= f.text_field :satuan_kerja, class: "form-control", :required => true %>
+    </div>
+  </div>
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="intpuCluster">Lokasi Kerja*</label>
+              <%= f.text_field :lokasi_kerja, class: "form-control", :required => true %>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="intpuCluster">Nama PIC</label>
+              <%= f.text_field :nama_pic, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="intpuCluster">Jabatan PIC</label>
+              <%= f.text_field :jabatan_pic, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="intpuCluster">Emaiil PIC</label>
+              <%= f.text_field :emaiil_pic, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="intpuCluster">Kontak PIC</label>
+              <%= f.number_field :kontak_pic, class: "form-control"%>
+            </div>
+          </div>
+
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="intpuCluster">Keterangan</label>
+              <%= f.text_field :keterangan, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+           <button type="submit" class="btn btn-primary px-3 pull-right">Submit</button>
+            <a href="<%= contacts_path %>" class="btn btn-light pull-left">Cancel</a>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  //  function id(value){
+  //    $('.user_id').val(value);
+  // }
+
+</script>

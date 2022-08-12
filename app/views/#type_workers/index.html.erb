@@ -1,0 +1,52 @@
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+      <div class="card-header mt-2">
+        <h4>Data Jabatan</h4>
+        <div class="card-header-form">
+          <% if current_user.can? { |permissions| permissions.user.create? } %>
+            <div class="align-items-center">
+              <%= link_to "+ Data Jabatan", new_type_worker_path, class: "btn btn-primary btn-sm" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable_type_worker" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th style="width: 20px;" class="text-center">No</th>
+              <th>Nama</th>
+              <th style="width: 150px;" class="text-center">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @type_workers.each_with_index do |type_worker, index| %>
+            <tr>
+              <td style="width: 50px;" class="text-center"><%= index+1 %></td>
+              <td><%= type_worker.name %></td>
+              <td style="width: 150px;" class="text-center">
+                <% if current_user.can? { |permissions| permissions.type_worker.update? } %>
+                <a href="<%= edit_type_worker_path(type_worker) %>" class="btn btn-warning btn-circle btn-sm">
+                  <i class="fas fa-pencil-alt"></i>
+                </a>
+                <% end %>
+                <% if current_user.can? { |permissions| permissions.type_worker.destroy? } %>
+                <a href="<%= type_worker_path(type_worker) %>" class="btn btn-danger btn-circle btn-sm" data-method="DELETE" data-confirm="Are you sure?">
+                  <i class="fas fa-trash-alt"></i>
+                </a>
+                <% end %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#dataTable_type_worker").dataTable();
+</script>

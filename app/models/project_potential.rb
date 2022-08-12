@@ -1,0 +1,2 @@
+class ProjectPotential < ApplicationRecord
+end

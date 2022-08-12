@@ -1,0 +1,46 @@
+en:
+  role_core:
+    models:
+      user: User
+      role: Role
+      contact: Kontak
+      data_company: Data Perusahaan
+      work_unit: Satuan Kerja
+      category: Kategori
+    attributes:
+      user:
+        create: Tambah User
+        destroy: Hapus User
+        update: Ubah User
+        read: Detail User
+        index: Daftar User
+      role:
+        create: Tambah Role
+        destroy: Hapus Role
+        update: Ubah Role
+        read: Detail Role
+        index: Daftar Role
+      contact:
+        create: Tambah Kontak
+        destroy: Hapus Kontak
+        update: Ubah Kontak
+        read: Detail Kontak
+        index: Daftar Kontak
+      data_company:
+        create: Tambah Data Perusahaan
+        destroy: Hapus Data Perusahaan
+        update: Ubah Data Perusahaan
+        read: Detail Data Perusahaan
+        index: Daftar Data Perusahaan
+      work_unit:
+        create: Tambah Satuan Kerja
+        destroy: Hapus Satuan Kerja
+        update: Ubah Satuan Kerja
+        read: Detail Satuan Kerja
+        index: Daftar Satuan Kerja
+      category:
+        create: Tambah Kategori
+        destroy: Hapus Kategori
+        update: Ubah Kategori
+        read: Detail Kategori
+        index: Daftar Kategori

@@ -1,0 +1,2 @@
+class TypeWorker < ApplicationRecord
+end

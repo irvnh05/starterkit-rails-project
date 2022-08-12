@@ -1,0 +1,2 @@
+module ProjectPotentialsHelper
+end

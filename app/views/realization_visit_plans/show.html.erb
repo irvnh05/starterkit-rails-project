@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row justify-content-between">
+        <div class="col align-items-center pt-2">
+          <h6 class="font-weight-bold">Rencana Kunjungan Sales</h6>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="card-body py-3">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td width="30%">Kategori</td>
+            <td><%= @realization_visit_plan.category.try(:name) %></td>
+          </tr>
+          <tr>
+            <td width="30%">Realisasi tgl peretemuan</td>
+            <td><%= @realization_visit_plan.realisasi_tgl_peretemuan%></td>
+          </tr>
+          <tr>
+            <td width="30%">Jenis Realisasi</td>
+            <td><%= @realization_visit_plan.realisasi%></td>
+          </tr>
+          <tr>
+            <td width="30%">Cluster</td>
+            <td><%= @realization_visit_plan.cluster%></td>
+          </tr>
+          <tr>
+            <td width="30%">Subjek deksripsi pekerjaan</td>
+            <td><%= @realization_visit_plan.subjek_deksripsi_pekerjaan%></td>
+          </tr>
+          <tr>
+            <td width="30%">Nama entitas lokasi pengadaan</td>
+            <td><%= @realization_visit_plan.nama_entitas_lokasi_pengadaan%></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer py-3 ">
+      <a href="<%= activity_sales_path %>" class="btn btn-info">Kembali</a>
+    </div>
+  </div>
+</div>

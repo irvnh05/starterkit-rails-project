@@ -1,0 +1,155 @@
+<div class="container-fluid">
+  <%# Rencana %>
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h4>Rencana Kunjungan Sales</h4>
+      <div class="card-header-form">
+        <% if current_user.can? { |permissions| permissions.sales_visit_plan.create? } %>
+        <div class="align-items-center">
+          <a href="<%= new_sales_visit_plan_path %>" class="btn btn-primary btn-sm">+ Tambah Data</a>
+        </div>
+        <% end %>  
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <div id="tableExport_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+          <table id="dataTable_sales_visit_plans" class="table table-bordered" >  
+            <%# filter %>
+            <br>  
+            <thead>
+                <tr>
+                  <th class="text-center" style="width: 12px;">No</th>
+                  <th>Nama entitas lokasi pengadaan</th>
+                  <th>Jenis pekerjaan</th>
+                  <th>Deksripsi pekerjaan</th>
+                  <th>Cluster</th>
+                  <th>Estimasi tgl peretemuan</th>
+                  <th>Nama</th>
+                  <th>Minggu1</th>
+                  <th>Minggu2</th>
+                  <th>Minggu3</th>
+                  <th>Minggu4</th>
+                  <th>Category</th>
+                  <th class="text-center" style="width: 100px;">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% @sales_visit_plans.each_with_index do |sales_visit_plan, index| %>
+                <tr>
+                  <td class="text-center"><%= index+1 %></td>
+                  <td><%= sales_visit_plan.nama_entitas_lokasi_pengadaan %></td>
+                  <td><%= sales_visit_plan.jenis_pekerjaan %></td>
+                  <td><%= sales_visit_plan.deksripsi_pekerjaan %></td>
+                  <td><%= sales_visit_plan.cluster %></td>
+                  <td><%= sales_visit_plan.estimasi_tgl_peretemuan %></td>
+                  <td><%= sales_visit_plan.nama %></td>
+                  <td><%= sales_visit_plan.minggu1 %></td>
+                  <td><%= sales_visit_plan.minggu2 %></td>
+                  <td><%= sales_visit_plan.minggu3 %></td>
+                  <td><%= sales_visit_plan.minggu4 %></td>
+                  <td><%= sales_visit_plan.category.try(:name) %></td>
+                  <td class="text-center">
+                    <% if current_user.can? { |permissions| permissions.sales_visit_plan.read? } %>
+                    <a href="<%= sales_visit_plan_path(sales_visit_plan) %>" class="btn btn-info btn-circle btn-sm">
+                      <i class="fas fa-eye"></i>
+                    </a>
+                    <% end %>
+                    <% if current_user.can? { |permissions| permissions.sales_visit_plan.update? } %>
+                    <a href="<%= edit_sales_visit_plan_path(sales_visit_plan) %>" class="btn btn-warning btn-circle btn-sm">
+                      <i class="fas fa-pencil-alt"></i>
+                    </a>
+                    <% end %>
+                    <% if current_user.can? { |permissions| permissions.sales_visit_plan.destroy? } %>
+                    <a href="<%= sales_visit_plan_path(sales_visit_plan) %>" class="btn btn-danger btn-circle btn-sm" data-method="DELETE" data-confirm="Are you sure?">
+                      <i class="fas fa-trash-alt"></i>
+                    </a>
+                    <% end %>
+                  </td>
+                </tr>
+                <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>  
+
+  <%# Realisasi %>
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h4>Realisasi Kunjungan Sales</h4>
+      <div class="card-header-form">
+        <% if current_user.can? { |permissions| permissions.realization_visit_plan.create? } %>
+        <div class="align-items-center">
+          <a href="<%= new_realization_visit_plan_path %>" class="btn btn-primary btn-sm">+ Tambah Data</a>
+        </div>
+        <% end %>  
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <div id="tableExport_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+          <table id="dataTable_realisasi_visit_plans" class="table table-bordered" >  
+            <%# filter %>
+            <br>  
+            <thead>
+                <tr>
+                  <th class="text-center" style="width: 12px;">No</th>
+                  <th>Nama entitas lokasi pengadaan</th>
+                  <th>Subjek deksripsi pekerjaan</th>
+                  <th>Cluster</th>
+                  <th>Realisasi</th>
+                  <th>Realisasi tgl peretemuan</th>
+                  <th>Category</th>
+                  <th class="text-center" style="width: 100px;">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% @realization_visit_plans.each_with_index do |realization_visit_plan, index| %>
+                <tr>
+                  <td class="text-center"><%= index+1 %></td>
+                  <td><%= realization_visit_plan.nama_entitas_lokasi_pengadaan %></td>
+                  <td><%= realization_visit_plan.subjek_deksripsi_pekerjaan %></td>
+                  <td><%= realization_visit_plan.cluster %></td>
+                  <td><%= realization_visit_plan.realisasi %></td>
+                  <td><%= realization_visit_plan.realisasi_tgl_peretemuan %></td>
+                  <td><%= realization_visit_plan.category.try(:name) %></td>
+                  <td class="text-center">
+                    <% if current_user.can? { |permissions| permissions.realization_visit_plan.read? } %>
+                    <a href="<%= realization_visit_plan_path(realization_visit_plan) %>" class="btn btn-info btn-circle btn-sm">
+                      <i class="fas fa-eye"></i>
+                    </a>
+                    <% end %>
+                    <% if current_user.can? { |permissions| permissions.realization_visit_plan.update? } %>
+                    <a href="<%= edit_realization_visit_plan_path(realization_visit_plan) %>" class="btn btn-warning btn-circle btn-sm">
+                      <i class="fas fa-pencil-alt"></i>
+                    </a>
+                    <% end %>
+                    <% if current_user.can? { |permissions| permissions.realization_visit_plan.destroy? } %>
+                    <a href="<%= realization_visit_plan_path(realization_visit_plan) %>" class="btn btn-danger btn-circle btn-sm" data-method="DELETE" data-confirm="Are you sure?">
+                      <i class="fas fa-trash-alt"></i>
+                    </a>
+                    <% end %>
+                  </td>
+                </tr>
+                <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>
+
+
+<script>
+    $(document).ready(function() {
+        // rencana
+        $("#dataTable_sales_visit_plans").dataTable();
+        // realisasi
+        $("#dataTable_realisasi_visit_plans").dataTable();
+    });
+
+
+</script>

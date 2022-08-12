@@ -1,0 +1,75 @@
+<style>
+.h7{
+    color: #111111;
+    font-size: 7px;
+ }
+
+.sidebar #sidebarToggle::after {
+    font-weight: 500;
+    content: '\f104';
+    font-family: 'Montserrat Alternates';
+    margin-right: 0.1rem;
+}
+</style>
+        <aside id="sidebar-wrapper">
+          <div class="sidebar-brand">
+            <a href="<%= root_path %>"> <img alt="image" src="/assets/img/logo1.png" class="header-logo" /> <span
+                class="logo-name"><br> <h6 class="h6"> Sales Management Solution </h6></span>
+            </a>
+          </div>
+          <ul class="sidebar-menu">
+            <li class="dropdown active">
+              <a href="<%= root_path %>" class="fa-solid fa-grid-horizontal"><i data-feather="layout"></i><span>Dashboard</span></a> 
+            </li>
+            <% if current_user.can? { |permissions| permissions.category.index? || permissions.work_unit.index? } %>
+            <li>
+            <a class="nav-link" href="<%= master_index_path %>">
+              <i data-feather="database"></i>
+                <span>Master Data</span>
+            </a>
+          </li>
+            <% end %>
+            <% if current_user.can? { |permissions| permissions.contact.index? || permissions.data_company.index? } %>
+              <% if current_user.can? { |permissions| permissions.contact.index? } %>
+                <li>
+                  <a class="nav-link" href="<%= contacts_path %>">
+                    <i data-feather="file"></i>
+                      <span>Kontak</span>
+                  </a>
+                </li>
+              <% end %>  
+              <% if current_user.can? { |permissions| permissions.data_company.index? } %>
+                <li>
+                  <a class="nav-link" href="<%= data_companies_path %>">
+                    <i data-feather="file-text"></i>
+                      <span>Data Perusahaan</span>
+                  </a>
+                </li>
+              <% end %>  
+            
+              <li class="dropdown">
+                <a href="#" class="menu-toggle nav-link has-dropdown"><i
+                    data-feather="bar-chart"></i><span>Aktivitas Sales</span></a>
+                <ul class="dropdown-menu">
+                  <li><a class="nav-link" href="<%= activity_sales_path %>">Aktivitas</a></li>
+                  <li><a class="nav-link" href="<%= status_laporan_activity_sales_path	%>">Status Laporan</a></li>
+                  <li><a class="nav-link" href="<%= rekap_activity_sales_path%>">Rekap</a></li>
+                </ul>
+              </li>
+
+              <li><a class="nav-link" href="<%= project_potentials_path %>"><i data-feather="file"></i><span>Data Potensi Proyek</span></a></li>
+            <% end %>
+          </ul>
+        </aside>
+
+  <footer class="text-center pt-5 mt-5">
+    <div class="pt-5 mt-5 ">
+      <div class="pt-5">
+       <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg collapse-btn pt-5 mt-5"> 
+                  <%# <i data-feather="chevron-right" class="">
+                  </i> %>
+        <svg width="38px" height="38px" viewBox="0 0 24 24" id="magicoon-Filled" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#41416e;}</style></defs><title>chevron-circle-right</title><g id="chevron-circle-right-Filled"><path id="chevron-circle-right-Filled-2" data-name="chevron-circle-right-Filled" class="cls-1" d="M12,2.5A9.5,9.5,0,1,0,21.5,12,9.509,9.509,0,0,0,12,2.5Zm2.71,10.21-3,3a1.014,1.014,0,0,1-1.42,0,1.008,1.008,0,0,1,0-1.42L12.59,12l-2.3-2.29a1,1,0,0,1,1.42-1.42l3,3A1.008,1.008,0,0,1,14.71,12.71Z"/></g></svg>
+       </a>
+       </div> 
+    </div>
+  </footer>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nama_entitas_lokasi_pengadaan: MyString
+  subjek_deksripsi_pekerjaan: MyString
+  cluster: MyString
+  realisasi: MyString
+  realisasi_tgl_peretemuan: 2022-07-15
+  category: one
+
+two:
+  nama_entitas_lokasi_pengadaan: MyString
+  subjek_deksripsi_pekerjaan: MyString
+  cluster: MyString
+  realisasi: MyString
+  realisasi_tgl_peretemuan: 2022-07-15
+  category: two

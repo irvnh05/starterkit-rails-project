@@ -1,0 +1,134 @@
+<div class="row" style="justify-content: center;" >
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <%# <%= form_for :realization_visit_plan, url: realization_visit_plans_create_path, method: :post, html: {class: "form-horizontal", role: "form"} do |f| %> 
+        <%= form_for @realization_visit_plan, multipart: true do |f| %>
+          <% if @realization_visit_plan.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@realization_visit_plan.errors.count, "error") %> prohibited this  from being saved:</h2>
+              <ul>
+              <% @realization_visit_plan.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <%# <input type="hidden" name="sales_id" value="<%= params[:id] %>
+          <%# "> %> 
+          <%# <%= f.text_field :sales_id, class: 'form-control', :readonly => true %> 
+          <div class="form-row">
+            <div class="form-group col">
+              <label>Kategori*</label>
+              <%= f.collection_select :category_id, Category.all, :id, :name, {prompt: "-- Pilih Kategori --"}, class: 'form-control', id: 'category', :required => true  %>
+            </div>
+          </div>
+
+
+
+          <%# <div class="form-row">
+            <div class="form-group col">
+              <label for="intpuCluster">Nama Entitas/Lokasi Pengadaan</label> %>
+                <%# <%= f.collection_select :nama_entitas_lokasi_pengadaan, SalesVisitPlan.all, :nama_entitas_lokasi_pengadaan, :nama_entitas_lokasi_pengadaan, {prompt: "-- Pilih Nama Entitas --", :onclick => "select_project()"}, class: 'form-control selectProject', id: 'realization_visit_plan' %> 
+              <%# <%= f.text_field :nama_entitas_lokasi_pengadaan, class: "form-control" %>
+            <%# </div>
+          </div> %>
+
+          <%# test %>
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="intpuCluster">Nama Entitas/Lokasi Pengadaan</label>
+              <select data-placeholder="Pilih Nama Entitas" class="form-control selectProject" id="sales_plan"  onclick="select_project()">
+                <%= raw(getSalesPlan)%>
+            </select>
+                </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="intpuCluster">Subjek Deksripsi Pekerjaan</label>
+              <%= f.text_field :subjek_deksripsi_pekerjaan, class: 'form-control', :readonly => false %>
+              <%# <%= f.text_field :subjek_deksripsi_pekerjaan, class: "form-control" %> 
+            </div>
+          </div>
+          <%#  %>
+
+                    <%# <div class="form-row"> %>
+            <%# <div class="form-group col"> %>
+              <%# <label for="intpuCluster">Subjek Deksripsi Pekerjaan</label> %>
+               <%# <%= f.collection_select :subjek_deksripsi_pekerjaan, SalesVisitPlan.all, :deksripsi_pekerjaan, :deksripsi_pekerjaan, {prompt: "-- Pilih Deksripsi Pekerjaan --"}, class: 'form-control', id: 'realization_visit_plan' %> 
+              <%# <%= f.text_field :subjek_deksripsi_pekerjaan, class: "form-control" %> 
+            <%# </div>
+          </div> %>
+
+                    <div class="form-row">
+            <div class="form-group col">
+              <label for="intpuCluster">Cluster</label>
+              <%= f.collection_select :cluster, SalesVisitPlan.all, :cluster, :cluster, {prompt: "-- Pilih Cluster --"}, class: 'form-control', id: 'realization_visit_plan' %>             
+              <%# <%= f.text_field :cluster, class: "form-control" %>
+            </div>
+          </div>
+
+          <%# 
+                    <div class="form-row">
+            <div class="form-group col">
+              <label for="intpuCluster">Realisasi</label> %>
+              <%# <%= f.text_field :realisasi, class: "form-control" %>
+            <%# </div>
+          </div> %>
+
+                    <div class="form-row">
+            <div class="form-group col">
+              <label for="intpuCluster">Realisasi Tgl Pertemuan</label>
+              <%= f.date_field :realisasi_tgl_peretemuan, class: "form-control" %>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+           <button type="submit" class="btn btn-primary px-3 pull-right">Submit</button>
+            <a href="<%= activity_sales_path %>" class="btn btn-light pull-left">Cancel</a>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // $('#sales_plan').select2();
+    $('#sales_plan').select2({
+    // selectOnClose: true
+    templateSelection: formatState
+    });
+    function formatState (state) {
+      if (!state.id) {
+        return state.text;
+      }
+
+      var baseUrl = "/user/pages/images/flags";
+      var $state = $(
+        '<span><img class="img-flag" /> <span></span></span>'
+      );
+
+      // Use .text() instead of HTML string concatenation to avoid script injection issues
+      $state.find("span").text(state.text);
+      // $state.find("img").attr("src", baseUrl + "/" + state.element.value.toLowerCase() + ".png");
+
+      return $state;
+    };
+    select_project();
+    function select_project() {
+      
+        $('.selectProject').change(function(){
+            if ($(this).val() !== '') {
+                const value = $(this).val();
+                const array = value.split(" | ") //https://www.w3schools.com/jsref/jsref_split.asp
+                $('.nama-proyek').val(array[1]);
+                $('#realization_visit_plan_subjek_deksripsi_pekerjaan').val(array[0]);
+                // $('#worker_lokasi').val(array[2]);
+                console.log(value)
+            }
+        });
+    }
+</script>

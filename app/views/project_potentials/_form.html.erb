@@ -1,0 +1,77 @@
+<%= form_with(model: project_potential, local: true) do |form| %>
+  <% if project_potential.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(project_potential.errors.count, "error") %> prohibited this project_potential from being saved:</h2>
+
+      <ul>
+      <% project_potential.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :nama_entitas %>
+    <%= form.text_field :nama_entitas %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cluster %>
+    <%= form.text_field :cluster %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lokasi %>
+    <%= form.text_field :lokasi %>
+  </div>
+
+  <div class="field">
+    <%= form.label :judul_tender %>
+    <%= form.text_field :judul_tender %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nilai %>
+    <%= form.text_field :nilai %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nominal %>
+    <%= form.number_field :nominal %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lini_bisnis %>
+    <%= form.text_field :lini_bisnis %>
+  </div>
+
+  <div class="field">
+    <%= form.label :jadwal_perkiraan_tender %>
+    <%= form.date_select :jadwal_perkiraan_tender %>
+  </div>
+
+  <div class="field">
+    <%= form.label :durasi_proyek %>
+    <%= form.number_field :durasi_proyek %>
+  </div>
+
+  <div class="field">
+    <%= form.label :remark %>
+    <%= form.text_field :remark %>
+  </div>
+
+  <div class="field">
+    <%= form.label :konfirmasi %>
+    <%= form.text_field :konfirmasi %>
+  </div>
+
+  <div class="field">
+    <%= form.label :informasi_tambahan %>
+    <%= form.text_field :informasi_tambahan %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,30 @@
+<div class="row" style="justify-content: center;" >
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <%= form_for @type_worker do |f| %>
+          <% if @type_worker.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@type_worker.errors.count, "error") %> prohibited this type_worker from being saved:</h2>
+
+              <ul>
+              <% @type_worker.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+            <div class="form-group">
+            <label>Jabatan</label>
+            <%= f.text_field :name, class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <a href="<%= master_index_path(pilihan: "Data Jenis Pekerjaan") %>" class="btn btn-light px-3 pull-left">Cancel</a>
+            <button type="submit" class="btn btn-primary px-3 pull-right">Submit</button>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

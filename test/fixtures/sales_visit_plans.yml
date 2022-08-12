@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nama_entitas_lokasi_pengadaan: MyString
+  jenis_pekerjaan: MyString
+  deksripsi_pekerjaan: MyString
+  cluster: MyString
+  estimasi_tgl_peretemuan: 2022-07-15
+  nama: MyString
+  minggu1: false
+  minggu2: false
+  minggu3: false
+  minggu4: false
+  category: one
+
+two:
+  nama_entitas_lokasi_pengadaan: MyString
+  jenis_pekerjaan: MyString
+  deksripsi_pekerjaan: MyString
+  cluster: MyString
+  estimasi_tgl_peretemuan: 2022-07-15
+  nama: MyString
+  minggu1: false
+  minggu2: false
+  minggu3: false
+  minggu4: false
+  category: two

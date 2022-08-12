@@ -1,0 +1,61 @@
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row justify-content-between">
+        <div class="col align-items-center pt-2">
+          <h6 class="font-weight-bold">Contact</h6>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="card-body py-3">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td width="30%">Kategori</td>
+            <td><%= @contact.category.try(:name) %></td>
+          </tr>
+          <tr>
+            <td width="30%">Cluster</td>
+            <td><%= @contact.cluster%></td>
+          </tr>
+          <tr>
+            <td width="30%">Nama Entitas</td>
+            <td><%= @contact.nama_entitas%></td>
+          </tr>
+          <tr>
+            <td width="30%">Satuan Kerja</td>
+            <td><%= @contact.satuan_kerja %></td>
+          </tr>
+          <tr>
+            <td width="30%">Lokasi Kerja</td>
+            <td><%= @contact.lokasi_kerja%></td>
+          </tr>
+          <tr>
+            <td width="30%">Nama PIC</td>
+            <td><%= @contact.nama_pic%></td>
+          </tr>
+           <tr>
+            <td width="30%">Jabatan PIC</td>
+            <td><%= @contact.jabatan_pic%></td>
+          </tr>
+          <tr>
+            <td width="30%">Email PIC</td>
+            <td><%= @contact.emaiil_pic%></td>
+          </tr>
+          <tr>
+            <td width="30%">Kontak PIC</td>
+            <td>0<%= @contact.kontak_pic.to_i%></td>
+          </tr>
+          <tr>
+            <td width="30%">Keterangan</td>
+            <td><%= @contact.keterangan%></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer py-3 ">
+      <a href="<%= contacts_path %>" class="btn btn-info">Kembali</a>
+    </div>
+  </div>
+</div>
