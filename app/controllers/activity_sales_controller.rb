@@ -1,5 +1,5 @@
 class ActivitySalesController < ApplicationController
-  before_action :set_data_status_laporan,  only: [:status_laporan_destroy ]
+  before_action :set_data_status_laporan,  only: [:status_laporan_destroy, :show ]
   # GET /activity_sales or /activity_sales.json
   def index
     @sales_visit_plans = SalesVisitPlan.all
@@ -42,6 +42,11 @@ class ActivitySalesController < ApplicationController
       format.html { redirect_to status_laporan_activity_sales_path, notice: "Status Laporan was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  
+  def show
+
   end
 
   private

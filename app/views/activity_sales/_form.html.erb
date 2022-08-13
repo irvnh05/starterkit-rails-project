@@ -88,7 +88,7 @@
               <% @sales_visit_plan.file_lampiran.each do |lampiran| %>
                 <span style="margin-right: 10px">
                   <%= link_to "#{[ "#{lampiran.filename}" ]}", rails_blob_path(lampiran, disposition: 'preview'), :target => "_blank" %>
-                  <%= link_to '', url_for(controller: :insidens, action: :delete_lampiran, attachment_id: lampiran.id), class: 'fa fa-close', method: "DELETE", data: { confirm: 'Are you sure?' } %>
+                  <%= link_to '', url_for(controller: :activity_sales, action: :delete_lampiran, attachment_id: lampiran.id), class: 'fa fa-close', method: "DELETE", data: { confirm: 'Are you sure?' } %>
                   <br>
                 </span>
               <% end %>

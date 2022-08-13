@@ -19,12 +19,23 @@
           <%# <%= f.text_field :sales_id, class: 'form-control', :readonly => true %> 
           <div class="form-row">
             <div class="form-group col">
+              <label for="intpuCluster">Nama Entitas/Lokasi Pengadaan</label>
+              <select data-placeholder="Pilih Nama Entitas" class="form-control selectProject id_100" id="sales_plan"  onclick="select_project()">
+               <option value="1">--Pilih--</option>
+                <%= raw(getSalesPlan)%>
+              </select>
+            </div>
+          </div>
+
+           <input type="hidden" id="realization_visit_plan_nama_entitas" name="realization_visit_plan[nama_entitas_lokasi_pengadaan]">
+
+
+          <div class="form-row">
+            <div class="form-group col">
               <label>Kategori*</label>
               <%= f.collection_select :category_id, Category.all, :id, :name, {prompt: "-- Pilih Kategori --"}, class: 'form-control', id: 'category', :required => true  %>
             </div>
           </div>
-
-
 
           <%# <div class="form-row">
             <div class="form-group col">
@@ -35,19 +46,31 @@
           </div> %>
 
           <%# test %>
+<%
+=begin 
+%>
           <div class="form-row">
             <div class="form-group col">
-              <label for="intpuCluster">Nama Entitas/Lokasi Pengadaan</label>
-              <select data-placeholder="Pilih Nama Entitas" class="form-control selectProject" id="sales_plan"  onclick="select_project()">
-                <%= raw(getSalesPlan)%>
-            </select>
-                </div>
+              <label for="intpuCluster">Kategori</label>
+              <%= f.text_field :category_id, class: 'form-control', :readonly => true %>
+              <%# <%= f.text_field :subjek_deksripsi_pekerjaan, class: "form-control" %> 
+            </div>
           </div>
-
+<%
+=end 
+%>
           <div class="form-row">
             <div class="form-group col">
               <label for="intpuCluster">Subjek Deksripsi Pekerjaan</label>
               <%= f.text_field :subjek_deksripsi_pekerjaan, class: 'form-control', :readonly => false %>
+              <%# <%= f.text_field :subjek_deksripsi_pekerjaan, class: "form-control" %> 
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="intpuCluster">Cluster</label>
+              <%= f.text_field :cluster, class: 'form-control', :readonly => false %>
               <%# <%= f.text_field :subjek_deksripsi_pekerjaan, class: "form-control" %> 
             </div>
           </div>
@@ -61,14 +84,17 @@
             <%# </div>
           </div> %>
 
-                    <div class="form-row">
+<%
+=begin%>
+          <div class="form-row">
             <div class="form-group col">
               <label for="intpuCluster">Cluster</label>
               <%= f.collection_select :cluster, SalesVisitPlan.all, :cluster, :cluster, {prompt: "-- Pilih Cluster --"}, class: 'form-control', id: 'realization_visit_plan' %>             
               <%# <%= f.text_field :cluster, class: "form-control" %>
             </div>
           </div>
-
+<%
+=end%>
           <%# 
                     <div class="form-row">
             <div class="form-group col">
@@ -76,15 +102,57 @@
               <%# <%= f.text_field :realisasi, class: "form-control" %>
             <%# </div>
           </div> %>
+<%
+=begin  %>
+            <div class="form-row">
+              <div class="form-group col">
+                <label for="intpuCluster">Realisasi</label> 
+                <%= f.text_field :realisasi, class: "form-control", :readonly => true%>
+              </div>
+            </div> 
+<%
+=end %>
+             <div class="form-row">
+             <div class="form-group col">
+              <label for="intpuCluster">Realisasi</label>
+              <%= select_tag :realisasi, options_for_select(["Minggu 1", "Minggu 2", "Minggu 3", "Minggu 4"], params[:pilihan]), :prompt=>"--Pilih--", class: "form-control",:required => true, id: 'pilih' %>
+                <%# <select name="realization_visit_plan[realisasi]" id="pilih" class="form-control m-b" required>
+                  <option value="Minggu 1 ">Minggu 1</option>
+                  <option value="Minggu 2 ">Minggu 2</option>
+                  <option value="Minggu 3 ">Minggu 3</option>
+                  <option value="Minggu 4 ">Minggu 4</option>
+                </select> %>
+             </div>
+           </div>
 
-                    <div class="form-row">
+          <div class="form-row">
             <div class="form-group col">
               <label for="intpuCluster">Realisasi Tgl Pertemuan</label>
               <%= f.date_field :realisasi_tgl_peretemuan, class: "form-control" %>
             </div>
           </div>
 
+          <input type="hidden" id="realization_visit_plan_sales_id" class="id-sales">
+          
+          <div class="form-group">
+            <label>Upload Materi</label>
+            <%= f.file_field :file_lampiran, class: "form-control", direct_upload: true, accept: 'image/jpeg, image/jpg, image/png, application/pdf', multiple: true %>
+            <div style="margin-top: 10px;" value="<%= params[:id] %>" class="pilih">
+              <% if 
+              @sales_visit_plan = SalesVisitPlan.find_by(id: params[:id])
+              @sales_visit_plan.file_lampiran.include? %>
+                <% @sales_visit_plan.file_lampiran.each do |lampiran| %>
+                <span style="margin-right: 10px">
+                  <%= link_to "#{["#{lampiran.filename}"]}", rails_blob_path(lampiran, disposition: 'preview'), :target => "_blank" %>
+                  <br>
+                </span>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
 
+           <%# <%= f.hidden_field :sales_id,class: 'form-control', :readonly => true %>
+           
           <div class="form-group">
            <button type="submit" class="btn btn-primary px-3 pull-right">Submit</button>
             <a href="<%= activity_sales_path %>" class="btn btn-light pull-left">Cancel</a>
@@ -115,8 +183,11 @@
       $state.find("span").text(state.text);
       // $state.find("img").attr("src", baseUrl + "/" + state.element.value.toLowerCase() + ".png");
 
+      
       return $state;
     };
+
+     
     select_project();
     function select_project() {
       
@@ -124,11 +195,21 @@
             if ($(this).val() !== '') {
                 const value = $(this).val();
                 const array = value.split(" | ") //https://www.w3schools.com/jsref/jsref_split.asp
-                $('.nama-proyek').val(array[1]);
-                $('#realization_visit_plan_subjek_deksripsi_pekerjaan').val(array[0]);
+                $('#realization_visit_plan_subjek_deksripsi_pekerjaan').val(array[2]);
+                $('#category').val(array[1]);
+                // $('#realization_visit_plan_realisasi').val(array[4]);
+                $('#pilih').val(array[4]);
+                $('#realization_visit_plan_nama_entitas').val(array[0]);
+                $('#realization_visit_plan_sales_id').val(array[5]);
+                $('#realization_visit_plan_cluster').val(array[3]);
+                // $('#realization_visit_plan_lampiran').val(array[5]);
                 // $('#worker_lokasi').val(array[2]);
-                console.log(value)
+                console.log(array[4])
+                
             }
         });
+    $('.id_100').val(1).change();
+      
+        
     }
 </script>

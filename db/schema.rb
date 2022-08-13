@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_08_080932) do
+ActiveRecord::Schema.define(version: 2022_08_13_133724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,7 +107,9 @@ ActiveRecord::Schema.define(version: 2022_08_08_080932) do
     t.datetime "updated_at", null: false
     t.string "sales_id"
     t.string "email_user"
+    t.bigint "sales_visit_plan_id"
     t.index ["category_id"], name: "index_realization_visit_plans_on_category_id"
+    t.index ["sales_visit_plan_id"], name: "index_realization_visit_plans_on_sales_visit_plan_id"
   end
 
   create_table "role_assignments", force: :cascade do |t|
@@ -151,6 +153,8 @@ ActiveRecord::Schema.define(version: 2022_08_08_080932) do
     t.string "hasil_kunjungan"
     t.date "tgl_aktivitas"
     t.bigint "realization_visit_plan_id"
+    t.string "status_laporan"
+    t.date "tgl_direview"
     t.index ["realization_visit_plan_id"], name: "index_status_reports_on_realization_visit_plan_id"
   end
 
@@ -188,6 +192,7 @@ ActiveRecord::Schema.define(version: 2022_08_08_080932) do
   add_foreign_key "contacts", "work_units"
   add_foreign_key "data_companies", "categories"
   add_foreign_key "realization_visit_plans", "categories"
+  add_foreign_key "realization_visit_plans", "sales_visit_plans"
   add_foreign_key "role_assignments", "roles"
   add_foreign_key "role_assignments", "users"
   add_foreign_key "sales_visit_plans", "categories"

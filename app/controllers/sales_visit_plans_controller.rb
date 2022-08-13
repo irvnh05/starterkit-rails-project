@@ -30,13 +30,13 @@ class SalesVisitPlansController < ApplicationController
     @sales_visit_plan = SalesVisitPlan.new(sales_visit_plan_params)    # if      
    
     if params[:pilihan].eql? "Minggu 1"
-      @sales_visit_plan.minggu1 = @sales_visit_plan.nama
+      @sales_visit_plan.minggu1 = "Minggu 1"
     elsif params[:pilihan].eql?  "Minggu 2"
-      @sales_visit_plan.minggu2 = @sales_visit_plan.nama
+      @sales_visit_plan.minggu2 = "Minggu 2"
     elsif params[:pilihan].eql?  "Minggu 3"
-      @sales_visit_plan.minggu3 = @sales_visit_plan.nama
+      @sales_visit_plan.minggu3 = "Minggu 3"
     else
-      @sales_visit_plan.minggu4 = @sales_visit_plan.nama
+      @sales_visit_plan.minggu4 = "Minggu 4"
     end
 
     respond_to do |format|

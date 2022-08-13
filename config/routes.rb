@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       get "status_laporan", to: "activity_sales#status_laporan"
       delete 'status_laporan/:id' => 'activity_sales#status_laporan_destroy'
       resources :status_reports, :path => "status_laporan"
+      post '/update' , to: "status_reports#update"
     end
   end
   

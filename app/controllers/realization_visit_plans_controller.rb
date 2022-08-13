@@ -16,9 +16,20 @@ class RealizationVisitPlansController < ApplicationController
   # GET /realization_visit_plans/new
   
   def new
-    # @realization_visit_plan = RealizationVisitPlan.new
+    # @sales_visit_plan = SalesVisitPlan.with_attached_file_lampiran
     @sales_visit_plans =  SalesVisitPlan.find_by(email_user: current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") )
-
+    # @realisasi = 
+    
+    # if @sales_visit_plans.minggu1.present? 
+    #     "Minggu1"
+    #   elsif @sales_visit_plans.minggu2.present? 
+    #     "Minggu2"
+    #   elsif @sales_visit_plans.minggu3.present? 
+    #     "Minggu3"
+    #   else
+    #     "Minggu4"
+    # end
+    
     if @sales_visit_plans.present?
       @realization_visit_plan = RealizationVisitPlan.new
     else
@@ -34,6 +45,15 @@ class RealizationVisitPlansController < ApplicationController
   def create
     @realization_visit_plan = RealizationVisitPlan.new(realization_visit_plan_params)
 
+    if params[:pilihan].eql? "Minggu 1"
+      @realization_visit_plan.realisasi = "Minggu 1"
+    elsif params[:pilihan].eql?  "Minggu 2"
+      @realization_visit_plan.realisasi = "Minggu 2"
+    elsif params[:pilihan].eql?  "Minggu 3"
+      @realization_visit_plan.realisasi = "Minggu 3"
+    else
+      @realization_visit_plan.realisasi = "Minggu 4"
+    end
     # @status_laporan = StatusReport.new()
       # @status_laporan = StatusReport.new
       # status_laporan.realization_visit_plan_id = @realization_visit_plan.id
@@ -52,6 +72,8 @@ class RealizationVisitPlansController < ApplicationController
       if @realization_visit_plan.save
         status_laporan = StatusReport.new
         # status_laporan.nama_entitas_lokasi_pengadaan = @nama_entitas_lokasi_pengadaan.nama_entitas_lokasi_pengadaan
+        status_laporan.hasil_kunjungan = @realization_visit_plan.subjek_deksripsi_pekerjaan
+        status_laporan.status_laporan = 0
         status_laporan.realization_visit_plan_id = @realization_visit_plan.id
         status_laporan.tgl_aktivitas = @realization_visit_plan.realisasi_tgl_peretemuan
         status_laporan.save
@@ -87,6 +109,8 @@ class RealizationVisitPlansController < ApplicationController
     end
   end
 
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_realization_visit_plan
@@ -96,7 +120,7 @@ class RealizationVisitPlansController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def realization_visit_plan_params
-      params.require(:realization_visit_plan).permit(:email_user, :sales_id, :nama_entitas_lokasi_pengadaan, :subjek_deksripsi_pekerjaan, :cluster, :realisasi, :realisasi_tgl_peretemuan, :category_id)
+      params.require(:realization_visit_plan).permit(:email_user, :sales_id, :nama_entitas_lokasi_pengadaan, :subjek_deksripsi_pekerjaan, :cluster, :realisasi, :realisasi_tgl_peretemuan, :category_id, file_lampiran: [] )
     end
 
     def id_params

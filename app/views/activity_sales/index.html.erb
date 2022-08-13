@@ -178,15 +178,49 @@
                   <td class="text-center"><%= index+1 %></td>
                   <td><%= realization_visit_plan.nama_entitas_lokasi_pengadaan %></td>
                   <td><%= realization_visit_plan.category.try(:name) %></td>
+                  <td></td>
                   <td><%= realization_visit_plan.subjek_deksripsi_pekerjaan %></td>
                   <td><%= realization_visit_plan.cluster %></td>
-                  <td><%= realization_visit_plan.realisasi %></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><%if realization_visit_plan.realisasi == "Minggu 1"%> Minggu 1<%end%></td>
+                  <td><%if realization_visit_plan.realisasi == "Minggu 2"%> Minggu 2<%end%></td>
+                  <td><%if realization_visit_plan.realisasi == "Minggu 3"%> Minggu 3<%end%></td>
+                  <td><%if realization_visit_plan.realisasi == "Minggu 4"%> Minggu 4<%end%></td>
                   <td><%= realization_visit_plan.realisasi_tgl_peretemuan.strftime("%d/%m/%y") %></td>
+                  <td>
+                      <!-- Modal -->
+                    <% if realization_visit_plan.file_lampiran.attached? %>
+                    <!-- Button trigger modal -->
+                      <a data-toggle="modal" data-target="#exampleModal" class="fas fa-eye"></a>
+                    <% realization_visit_plan.file_lampiran.each do |lampiran| %>
+                      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel"><%=lampiran.filename%></h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <span style="margin-right: 10px">
+                              <%# <%= link_to "", rails_blob_path(lampiran, disposition: 'preview'), :target => "_bnk"  %> 
+                              <%= image_tag(lampiran) %>
+                                <br>
+                              </span>
+                            
+                            </div>
+                            <div class="modal-footer">
+                              <%# <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> %>
+                              <%# <button type="button" class="btn btn-primary">Download</button> %>
+                              
+                              <%= link_to 'Download', rails_blob_path(lampiran, disposition: "attachment"), :class => "btn btn-primary" %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <% end %>
+                    <% end %>
+                  </td>
                   <td style="display:none;"><%= realization_visit_plan.realisasi_tgl_peretemuan.strftime("%m") %></td>
                   <td class="text-center">
                     <% if current_user.can? { |permissions| permissions.realization_visit_plan.read? } %>
@@ -226,7 +260,7 @@
             $('.filter_category_plan').val(category)
             console.log(category)
             //dataTable.column(5).search('\\s' + status + '\\s', true, false, true).draw();
-            table1.column(1).search(category).draw();
+            table1.column(2).search(category).draw();
           });
           // cluster
           $('.filter_cluster_plan').on('change', function(e){
@@ -253,7 +287,7 @@
             $('.filter_category_realisasi').val(category)
             console.log(category)
             //dataTable.column(5).search('\\s' + status + '\\s', true, false, true).draw();
-            table2.column(1).search(category).draw();
+            table2.column(2).search(category).draw();
           });
           // cluster
           $('.filter_cluster_realisasi').on('change', function(e){
@@ -269,7 +303,7 @@
             $('.filter_month_realisasi').val(month)
             console.log(month)
             //dataTable.column(5).search('\\s' + status + '\\s', true, false, true).draw();
-            table2.column(7).search(month).draw();
+            table2.column(12).search(month).draw();
         });
 
     });
