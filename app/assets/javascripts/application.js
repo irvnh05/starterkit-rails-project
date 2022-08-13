@@ -20,4 +20,5 @@
 //= require select2
 //= require toastr
 //= require activestorage
+//= require checkbox
 //= require_tree .
