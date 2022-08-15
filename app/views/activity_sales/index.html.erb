@@ -20,7 +20,7 @@
     <div class="card-body">
       <div class="table-responsive">
         <div id="tableExport_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-          <table id="dataTable_sales_visit_plans" class="table table-bordered" >  
+          <table id="dataTable_sales_visit_plans" class="table table-bordered plans" >  
             <%# filter %>
             <%= form_tag(:action => :index) do %>
             <div class="row">
@@ -253,6 +253,8 @@
 
 
 <script>
+
+
     $(document).ready(function() {
         // rencana
         var table1 = $('#dataTable_sales_visit_plans').DataTable()
@@ -309,5 +311,6 @@
         });
 
     });
+
 
 </script>
