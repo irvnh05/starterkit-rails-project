@@ -15,6 +15,7 @@
  *= require css/style.css
  *= require css/custom.css
  *= require css/components.css
+ *= require css/checkbox.css
  *= require datatables/dataTables.bootstrap4.min
  *= require select2
  *= require toastr
