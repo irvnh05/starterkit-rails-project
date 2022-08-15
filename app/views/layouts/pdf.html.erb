@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PGN SOLUTION</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= wicked_pdf_stylesheet_link_tag 'pdf_styles' %>
+  <%= wicked_pdf_stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" %>
+  <%= wicked_pdf_stylesheet_link_tag "https://fonts.googleapis.com/css?family=Amatic+SC|Caveat|Crimson+Text|Montserrat|Open+Sans|Abril+Fatface|Quicksand&display=swap" %>
+  <%= javascript_include_tag 'application' %>
+  <%= wicked_pdf_javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" %>
+</head>
+<body>
+  <%= yield %>
+</body>
+</html>
+
+

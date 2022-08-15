@@ -63,6 +63,20 @@
               <%= f.text_field :nama, class: "form-control" %>
             </div>
           </div>
+
+          <div class="form-group">
+            <label>Lampiran</label>
+            <%= f.file_field :file_lampiran, class: "form-control", direct_upload: true, accept: 'image/jpeg, image/jpg, image/png, application/pdf', multiple: true %>
+            <div style="margin-top: 10px;">
+              <% @sales_visit_plan.file_lampiran.each do |lampiran| %>
+                <span style="margin-right: 10px">
+                  <%= link_to "#{[ "#{lampiran.filename}" ]}", rails_blob_path(lampiran, disposition: 'preview'), :target => "_blank" %>
+                  <%= link_to '', url_for(controller: :sales_visit_plans, action: :delete_file_lampiran, attachment_id: lampiran.id), class: 'fas fa-window-close', method: "DELETE", data: { confirm: 'Are you sure?' } %>
+                  <br>
+                </span>
+              <% end %>
+            </div>
+          </div>
           
           <div class="form-group">
            <button type="submit" class="btn btn-primary px-3 pull-right">Next</button>

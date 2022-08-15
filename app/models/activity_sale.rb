@@ -1,0 +1,3 @@
+class ActivitySale < ApplicationRecord
+
+end

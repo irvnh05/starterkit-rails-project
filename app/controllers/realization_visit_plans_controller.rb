@@ -72,10 +72,10 @@ class RealizationVisitPlansController < ApplicationController
       if @realization_visit_plan.save
         status_laporan = StatusReport.new
         # status_laporan.nama_entitas_lokasi_pengadaan = @nama_entitas_lokasi_pengadaan.nama_entitas_lokasi_pengadaan
-        status_laporan.hasil_kunjungan = @realization_visit_plan.subjek_deksripsi_pekerjaan
-        status_laporan.status_laporan = 0
+        # status_laporan.hasil_kunjungan = @realization_visit_plan.subjek_deksripsi_pekerjaan
+        # status_laporan.status_laporan = 0
         status_laporan.realization_visit_plan_id = @realization_visit_plan.id
-        status_laporan.tgl_aktivitas = @realization_visit_plan.realisasi_tgl_peretemuan
+        # status_laporan.tgl_aktivitas = @realization_visit_plan.realisasi_tgl_peretemuan
         status_laporan.save
         format.html { redirect_to activity_sales_path, notice: "Realization visit plan was successfully created." }
         format.json { render :show, status: :created, location: @realization_visit_plan }
@@ -83,7 +83,7 @@ class RealizationVisitPlansController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @realization_visit_plan.errors, status: :unprocessable_entity }
         # s
-      end
+      end 
     end
   end
 
@@ -120,7 +120,7 @@ class RealizationVisitPlansController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def realization_visit_plan_params
-      params.require(:realization_visit_plan).permit(:email_user, :sales_id, :nama_entitas_lokasi_pengadaan, :subjek_deksripsi_pekerjaan, :cluster, :realisasi, :realisasi_tgl_peretemuan, :category_id, file_lampiran: [] )
+      params.require(:realization_visit_plan).permit(:email_user, :sales_visit_plan_id,:sales_id, :nama_entitas_lokasi_pengadaan, :subjek_deksripsi_pekerjaan, :cluster, :realisasi, :realisasi_tgl_peretemuan, :category_id, file_lampiran: [] )
     end
 
     def id_params

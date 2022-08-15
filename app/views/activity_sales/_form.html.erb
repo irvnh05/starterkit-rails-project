@@ -20,21 +20,21 @@
           <div class="form-row">
              <div class="form-group col">
               <label for="intpuCluster">Nama Entitas/Lokasi Pengadaan*</label>
-              <%= f.text_field :nama_entitas_lokasi_pengadaan, class: "form-control",:required => true  %>
-             </div>
-          </div>
+              <%# <%= f.collection_select :data_company_id, DataCompany.all, :id, :nama_entitas, {prompt: "-- Pilih Entitas --"}, class: 'form-control', id: 'category', :required => true  %> 
+              <%# <%= f.text_field :nama_entitas_lokasi_pengadaan, class: "form-control",:required => true  %> 
 
-          <div class="form-row">
-            <div class="form-group col">
-              <label>Kategori*</label>
-              <%= f.collection_select :category_id, Category.all, :id, :name, {prompt: "-- Pilih Kategori --"}, class: 'form-control', id: 'category', :required => true  %>
+              <%= f.text_field :nama_entitas_lokasi_pengadaan, list: "nama_entitas" , class: "form-control select-company"%>
+              <%= f.hidden_field :data_company_id, id: "company_id" , class: "form-control select-company" %>
+              <datalist id="nama_entitas" >
+                <%= f.collection_select :id, DataCompany.all, :nama_entitas, :id, {prompt: "-- Pilih Entitas --"}, class: 'form-control', id: 'company-id', :required => true, :onchange => "select_company()" %> 
+              </datalist>
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group col">
-              <label for="intpuCluster">Jenis Pekerjaan*</label>
-              <%= f.text_field :jenis_pekerjaan, class: "form-control", :required => true  %>
+              <label>Kategori*</label>
+              <%= f.collection_select :category_id, Category.all, :id, :name, {prompt: "-- Pilih Kategori --"}, class: 'form-control category', id: 'category', :required => true  %>
             </div>
           </div>
 
@@ -43,12 +43,19 @@
               <label for="intpuCluster">Dekripsi Pekerjaan</label>
               <%= f.text_field :deksripsi_pekerjaan, class: "form-control" %>
             </div>
+          </div> 
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="intpuCluster">Jenis Pekerjaan</label>
+              <%= f.text_field :jenis_pekerjaan, class: "form-control" %>
+            </div>
           </div>
 
           <div class="form-row">
             <div class="form-group col">
               <label for="intpuCluster">Cluster*</label>
-              <%= f.text_field :cluster, class: "form-control",:required => true  %>
+              <%= f.text_field :cluster, class: "form-control cluster",:required => true  %>
             </div>
           </div>
 
@@ -88,7 +95,7 @@
               <% @sales_visit_plan.file_lampiran.each do |lampiran| %>
                 <span style="margin-right: 10px">
                   <%= link_to "#{[ "#{lampiran.filename}" ]}", rails_blob_path(lampiran, disposition: 'preview'), :target => "_blank" %>
-                  <%= link_to '', url_for(controller: :activity_sales, action: :delete_lampiran, attachment_id: lampiran.id), class: 'fa fa-close', method: "DELETE", data: { confirm: 'Are you sure?' } %>
+                  <%= link_to '', url_for(controller: :activity_sales, action: :delete_lampiran, attachment_id: lampiran.id), class: 'fa-trash-alt', method: "DELETE", data: { confirm: 'Are you sure?' } %>
                   <br>
                 </span>
               <% end %>
@@ -107,4 +114,45 @@
 </div>
 
 <script>
+
+    select_company();
+    function select_company() { 
+      $('.select-company').change(function(){
+            if ($(this).val() !== '') {
+                const value = $(this).val();
+               
+        //  console.log(value)
+              $.getJSON("/helper_json/" +value+ "/getDataCompany",
+               function ( callback ) {
+                if (callback != "error"){
+                    $('#company_id').val(callback).change();
+                  callback.map(myFunction); //https://www.w3schools.com/js/js_array_iteration.asp
+                }
+              });
+            }
+      });
+    }
+    function myFunction(value){
+      // console.log(value)
+      $.getJSON("/helper_json/" +value+ "/getDataCompanyCluster",
+      
+               function ( callback ) {
+                if (callback != "error"){
+                  // console.log(callback)
+                   id = $('.cluster').val(callback).change();
+                }
+      });
+           $.getJSON("/helper_json/" +value+ "/getDataCompanyCategory",
+      
+               function ( callback ) {
+                if (callback != "error"){
+                  // console.log(callback)
+                   id = $('.category').val(callback).change();
+                }
+      });
+    }
+
+    
+
+    
 </script>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_13_133724) do
+ActiveRecord::Schema.define(version: 2022_08_15_133122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,7 +145,9 @@ ActiveRecord::Schema.define(version: 2022_08_13_133724) do
     t.string "minggu2"
     t.string "minggu3"
     t.string "minggu4"
+    t.bigint "data_company_id"
     t.index ["category_id"], name: "index_sales_visit_plans_on_category_id"
+    t.index ["data_company_id"], name: "index_sales_visit_plans_on_data_company_id"
   end
 
   create_table "status_reports", force: :cascade do |t|
@@ -196,5 +198,6 @@ ActiveRecord::Schema.define(version: 2022_08_13_133724) do
   add_foreign_key "role_assignments", "roles"
   add_foreign_key "role_assignments", "users"
   add_foreign_key "sales_visit_plans", "categories"
+  add_foreign_key "sales_visit_plans", "data_companies"
   add_foreign_key "status_reports", "realization_visit_plans"
 end

@@ -7,6 +7,8 @@ en:
       data_company: Data Perusahaan
       work_unit: Satuan Kerja
       category: Kategori
+      status_report: Status Report
+      activity_sale: Status Report
     attributes:
       user:
         create: Tambah User
@@ -14,33 +16,55 @@ en:
         update: Ubah User
         read: Detail User
         index: Daftar User
+        download: Download User
       role:
         create: Tambah Role
         destroy: Hapus Role
         update: Ubah Role
         read: Detail Role
         index: Daftar Role
+        download: Download Role
       contact:
         create: Tambah Kontak
         destroy: Hapus Kontak
         update: Ubah Kontak
         read: Detail Kontak
         index: Daftar Kontak
+        download: Download Kontak
       data_company:
         create: Tambah Data Perusahaan
         destroy: Hapus Data Perusahaan
         update: Ubah Data Perusahaan
         read: Detail Data Perusahaan
         index: Daftar Data Perusahaan
+        download: Download Data Perusahaan
       work_unit:
         create: Tambah Satuan Kerja
         destroy: Hapus Satuan Kerja
         update: Ubah Satuan Kerja
         read: Detail Satuan Kerja
         index: Daftar Satuan Kerja
+        download: Download Satuan Kerja
       category:
         create: Tambah Kategori
         destroy: Hapus Kategori
         update: Ubah Kategori
         read: Detail Kategori
         index: Daftar Kategori
+        download: Download Kategori
+      status_report:
+        create: Tambah Status Report
+        destroy: Hapus Status Report
+        update: Ubah Status Report
+        read: Detail Status Report
+        index: Daftar Status Report
+        download: Download Status Report
+      activity_sale:
+        create: Tambah Aktivitas Sales
+        destroy: Hapus Aktivitas Sales
+        update: Ubah Aktivitas Sales
+        read: Detail Aktivitas Sales
+        index: Daftar Aktivitas Sales
+        download: Download Aktivitas Sales  
+        
+

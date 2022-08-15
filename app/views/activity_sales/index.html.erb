@@ -52,7 +52,14 @@
             <% @sales_visit_plans.each_with_index do |sales_visit_plan, index| %>
                 <tr>
                   <td class="text-center"><%= index+1 %></td>
-                  <td><%= sales_visit_plan.try(:nama_entitas_lokasi_pengadaan) %></td>
+                  <td class="text-center"><%= sales_visit_plan.nama_entitas_lokasi_pengadaan %></td>
+<%
+=begin
+%>
+                  <td><%= sales_visit_plan.data_company.try(:nama_entitas) %></td>
+<%
+=end
+%>
                   <td><%= sales_visit_plan.category.try(:name)%></td>
                   <td><%= sales_visit_plan.try(:jenis_pekerjaan) %></td>
                   <td><%= sales_visit_plan.try(:deksripsi_pekerjaan) %></td>

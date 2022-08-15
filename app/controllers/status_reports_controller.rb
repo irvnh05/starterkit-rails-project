@@ -1,13 +1,32 @@
 class StatusReportsController < ApplicationController
-  before_action :set_status_report, only: [:show, :edit, :update, :destroy]
+  before_action :set_status_report, only: [:show, :edit, :update, :destroy, :download]
 
   # GET /status_reports or /status_reports.json
   # def index
   #   @status_reports = StatusReport.all
   # end
 
+  def download
+    @status_report = StatusReport.find_by(id: params[:id])
+    
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "status_report", 
+        disable_smart_shrinking: true,
+        layout:'pdf.html',
+        template: 'status_reports/download',
+        page_size: 'A4',
+        orientation: 'Landscape',
+        encoding:"UTF-8",
+        show_as_html: params.key?('debug')
+      end
+    end
+  end
+
   # GET /status_reports/1 or /status_reports/1.json
   def show
+    @status_report = StatusReport.find_by(id: params[:id])
   end
 
   # GET /status_reports/new
@@ -47,6 +66,24 @@ class StatusReportsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to status_reports_url, notice: "Status Report was successfully destroyed." }
       format.json { head :no_content }
+    end
+  end
+
+  def cetak_pdf
+    @status_report = StatusReport.find_by(id: params[:id])
+    
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "activity_sales", 
+        disable_smart_shrinking: true,
+        layout:'pdf.html',
+        template: 'activity_sales/status_laporan',
+        page_size: 'A4',
+        orientation: 'Landscape',
+        encoding:"UTF-8",
+        show_as_html: params.key?('debug')
+      end
     end
   end
 

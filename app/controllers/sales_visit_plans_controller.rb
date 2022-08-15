@@ -76,6 +76,13 @@ class SalesVisitPlansController < ApplicationController
     end
   end
 
+
+  def delete_file_lampiran
+    @attachment = ActiveStorage::Attachment.find(params[:attachment_id])
+    @attachment.purge # or use purge_later
+    redirect_back(fallback_location: request.referer)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sales_visit_plan
@@ -98,6 +105,7 @@ class SalesVisitPlansController < ApplicationController
         # :minggu4, 
         :minggu_kunjungan,
         :category_id,
+        :data_company_id,
         file_lampiran: [],
         )
     end
