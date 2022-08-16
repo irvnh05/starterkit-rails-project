@@ -136,7 +136,7 @@
           
           <div class="form-group">
             <label>Upload Materi</label>
-            <%= f.file_field :file_lampiran, class: "form-control", direct_upload: true, accept: 'image/jpeg, image/jpg, image/png, application/pdf', multiple: true %>
+            <%= f.file_field :file_lampiran, class: "form-control multi-pt", direct_upload: true, accept: 'image/jpeg, image/jpg, image/png, application/pdf', multiple: true %>
             <div style="margin-top: 10px;" value="<%= params[:id] %>" class="pilih">
               <% if 
               @sales_visit_plan = SalesVisitPlan.find_by(id: params[:id])
@@ -164,6 +164,7 @@
 </div>
 
 <script>
+    
   // $('#sales_plan').select2();
     $('#sales_plan').select2({
     // selectOnClose: true

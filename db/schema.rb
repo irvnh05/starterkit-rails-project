@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_15_133122) do
+ActiveRecord::Schema.define(version: 2022_08_16_034019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(version: 2022_08_15_133122) do
     t.string "sales_id"
     t.string "email_user"
     t.bigint "sales_visit_plan_id"
+    t.string "jenis_pekerjaan"
     t.index ["category_id"], name: "index_realization_visit_plans_on_category_id"
     t.index ["sales_visit_plan_id"], name: "index_realization_visit_plans_on_sales_visit_plan_id"
   end
