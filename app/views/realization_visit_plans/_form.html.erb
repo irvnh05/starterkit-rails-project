@@ -33,7 +33,7 @@
           <div class="form-row">
             <div class="form-group col">
               <label>Kategori*</label>
-              <%= f.collection_select :category_id, Category.all, :id, :name, {prompt: "-- Pilih Kategori --"}, class: 'form-control', id: 'category', :required => true  %>
+              <%= f.collection_select :category_id, Category.all, :id, :name, {prompt: "-- Pilih Kategori --"}, class: 'form-control', id: 'category'  %>
             </div>
           </div>
 

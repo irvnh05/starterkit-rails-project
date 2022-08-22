@@ -8,7 +8,8 @@ en:
       work_unit: Satuan Kerja
       category: Kategori
       status_report: Status Report
-      activity_sale: Status Report
+      activity_sale: Aktivitas Sales
+      project_potential: Data Potensi Proyek 
     attributes:
       user:
         create: Tambah User
@@ -66,5 +67,15 @@ en:
         read: Detail Aktivitas Sales
         index: Daftar Aktivitas Sales
         download: Download Aktivitas Sales  
+      project_potential:
+        create: Tambah Data Potensi Proyek
+        destroy: Hapus Data Potensi Proyek
+        update: Ubah Data Potensi Proyek
+        read: Detail Data Potensi Proyek
+        index: Daftar Data Potensi Proyek
+        tab_data_proyek: Tab Data Potensi Proyek
+        tab_detail_proyek: Tab Detail Potensi Proyek   
+        tab_tambah_data_proyek: Tab Tambah Data Potensi Proyek         
+        
         
 

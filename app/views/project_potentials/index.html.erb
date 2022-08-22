@@ -4,16 +4,22 @@
       <h4>Data Potensi Proyek</h4>
     </div> %>
     <div class="card-body">
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <ul class="nav nav-tabs" id="myTab tabs-menu " role="tablist">
+       <% if current_user.can? { |permissions| permissions.project_potential.tab_data_proyek? } %>
         <li class="nav-item">
           <a class="nav-link active" id="data-proyek-tab" data-toggle="tab" href="#data-proyek" role="tab" aria-controls="data-proyek" aria-selected="true">Data Proyek</a>
         </li>
+       <% end %> 
+       <% if current_user.can? { |permissions| permissions.project_potential.tab_detail_proyek? } %>
         <li class="nav-item">
           <a class="nav-link" id="detail-proyek-tab" data-toggle="tab" href="#detail-proyek" role="tab" aria-controls="detail-proyek" aria-selected="false">Detail Proyek</a>
         </li>
+       <% end %>  
+       <% if current_user.can? { |permissions| permissions.project_potential.tab_tambah_data_proyek? } %> 
         <li class="nav-item">
           <a class="nav-link" id="tambah-data-tab" data-toggle="tab" href="#tambah-data" role="tab" aria-controls="tambah-data" aria-selected="false">Tambah Data</a>
         </li>
+       <% end %>  
       </ul>
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="data-proyek" role="tabpanel" aria-labelledby="data-proyek-tab">
@@ -21,11 +27,25 @@
         </div>
         <div class="tab-pane fade" id="detail-proyek" role="tabpanel" aria-labelledby="detail-proyek-tab">
           <%= render 'detail' %>
+          <% if current_user.can? { |permissions| permissions.data_company.create? } %>
+            <div class="align-items-center">
+               <a class="btn btn-primary btn-sm pull-right mr-5" onclick='$("#tambah-data-tab").trigger("click");'>
+                <span class="text-white">+Tambah Data Proyek</span>
+               </a>
+              <%# <a class=" tab-pane fade btn btn-primary btn-sm pull-right mr-3" id="tambah-data-tab" data-toggle="tab" href="#tambah-data" role="tab" aria-controls="tambah-data" aria-selected="false">Tambah Data</a> %>
+            </div>
+          <% end %>  
         </div>
-        <div class="tab-pane fade" id="tambah-data" role="tabpanel" aria-labelledby="tambah-data-tab">
+        <div class="tab-pane tab-data fade" id="tambah-data" role="tabpanel" aria-labelledby="tambah-data-tab">
           <%= render 'form', project_potential: @project_potential %>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+    $(function() {        
+        $( "#tabs" ).tabs();
+    });
+</script>

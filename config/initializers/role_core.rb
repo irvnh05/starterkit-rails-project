@@ -25,14 +25,13 @@ RoleCore.permission_set_class.draw do
   #     permission :read
   #     permission :read_public
   #
-  #     # `group` supports nesting
-  #     group :task do
-  #       permission :create
-  #       permission :destroy
-  #       permission :update
-  #       permission :read
-  #     end
-  #   end
+      # `group` supports nesting
+      group :project_potential do
+        permission :tab_data_proyek
+        permission :tab_detail_proyek
+        permission :tab_tambah_data_proyek
+      end
+    # end
   #
   # group :status_report, model_name: 'status_report' do
   #   permission :download

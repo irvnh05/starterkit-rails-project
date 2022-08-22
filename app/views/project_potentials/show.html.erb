@@ -1,64 +1,74 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Nama entitas:</strong>
-  <%= @project_potential.nama_entitas %>
-</p>
-
-<p>
-  <strong>Cluster:</strong>
-  <%= @project_potential.cluster %>
-</p>
-
-<p>
-  <strong>Lokasi:</strong>
-  <%= @project_potential.lokasi %>
-</p>
-
-<p>
-  <strong>Judul tender:</strong>
-  <%= @project_potential.judul_tender %>
-</p>
-
-<p>
-  <strong>Nilai:</strong>
-  <%= @project_potential.nilai %>
-</p>
-
-<p>
-  <strong>Nominal:</strong>
-  <%= @project_potential.nominal %>
-</p>
-
-<p>
-  <strong>Lini bisnis:</strong>
-  <%= @project_potential.lini_bisnis %>
-</p>
-
-<p>
-  <strong>Jadwal perkiraan tender:</strong>
-  <%= @project_potential.jadwal_perkiraan_tender %>
-</p>
-
-<p>
-  <strong>Durasi proyek:</strong>
-  <%= @project_potential.durasi_proyek %>
-</p>
-
-<p>
-  <strong>Remark:</strong>
-  <%= @project_potential.remark %>
-</p>
-
-<p>
-  <strong>Konfirmasi:</strong>
-  <%= @project_potential.konfirmasi %>
-</p>
-
-<p>
-  <strong>Informasi tambahan:</strong>
-  <%= @project_potential.informasi_tambahan %>
-</p>
-
-<%= link_to 'Edit', edit_project_potential_path(@project_potential) %> |
-<%= link_to 'Back', project_potentials_path %>
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row justify-content-between">
+        <div class="col align-items-center pt-2">
+          <h6 class="font-weight-bold">Data Potensi Proyek</h6>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="card-body py-3">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td width="30%">Nama Entitas</td>
+            <td><%= @project_potential.try(:nama_entitas) %></td>
+          </tr>
+          <tr>
+            <td width="30%">Cluster</td>
+            <td><%= @project_potential.try(:cluster)%></td>
+          </tr>
+          <tr>
+            <td width="30%">Lokasi</td>
+            <td><%= @project_potential.try(:lokasi)%></td>
+          </tr>
+          <tr>
+            <td width="30%">Judul Tender</td>
+            <td><%= @project_potential.try(:judul_tender)%></td>
+          </tr>
+          <tr>
+            <td width="30%">Nilai(IDR)</td>
+            <td><%= @project_potential.try(:nilai)%></td>
+          </tr>
+          <tr>
+            <td width="30%">Nominal</td>
+            <td><%= @project_potential.try(:nominal)%></td>
+          </tr>
+           <tr>
+            <td width="30%">Lini Bisnis</td>
+            <td><%= @project_potential.try(:lini_bisnis)%></td>
+          </tr>
+          <tr>
+            <td width="30%">Jadwal Perkiraan Tender</td>
+            <td><%= @project_potential.try(:jadwal_perkiraan_tender) %>
+            </td>
+          </tr>
+          <tr>
+            <td width="30%">Durasi Proyek</td>
+            <td><%= @project_potential.try(:durasi_proyek) %>
+            </td>
+          </tr>
+          <tr>
+            <td width="30%">Remark</td>
+            <td><%= @project_potential.try(:remark) %>
+            </td>
+          </tr>
+          <tr>
+            <td width="30%">Konfirmasi</td>
+            <td><%= @project_potential.try(:konfirmasi) %>
+            </td>
+          </tr>
+          <tr>
+            <td width="30%">informasi_tambahan</td>
+            <td><%= @project_potential.try(:informasi_tambahan) %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer py-3 ">
+      <a href="<%= project_potentials_path %>" class="btn btn-info">Kembali</a>
+    </div>
+  </div>
+</div>
