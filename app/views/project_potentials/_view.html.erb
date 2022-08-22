@@ -1,49 +1,66 @@
-<p id="notice"><%= notice %></p>
+<div class="container-fluid">
+ <%= form_for @project_potential, multipart: true do |f| %>
+  <div class="">
+      <table class="table table-bordered" id="sinergi">
+        <thead>
+            <tr colspan="3">
+              <th class="text-center" style="width: 12px;" rowspan="3">No</th>
+              <th rowspan="3">Nama Entitas</th>
+              <th rowspan="3">Total Jumlah Proyek</th>
+              <th rowspan="3">Jumlah Total Nilai</th>
+              <th colspan="6">Rincian</th>
+            </tr>
+            <tr>
+              <td>Jumlah Proyek</td>
+              <td>Perkiraan Nilai Proyek</td>
+                <td>Jumlah Proyek</td>
+                <td>Perkiraan Nilai Proyek</td>
+                <td>Jumlah Proyek</td>
+                <td>Perkiraan Nilai Proyek</td>
+            </tr>
+            <tr>
+                <td colspan="2">100%</td>
+                <td colspan="2">75%</td>
+                <td colspan="2">50%</td>
+            </tr>
+            <tr>
+              <td colspan="10">SINERGI</td>
+            </tr>
+        </thead>  
+        <tbody>
+            <% @project_potentials.each_with_index do |project_potential, index| %>
+                <tr>
+                
+                </tr>
+            <% end %>
+        </tbody>
+        <thead>
+            <tr>
+              <td colspan="10">NON SINERGI</td>
+            </tr>
+        </thead>
+        <tbody>
+            <% @project_potentials.each_with_index do |project_potential, index| %>
+                <tr>
+                
+                </tr>
+            <% end %>
+        </tbody>
+      </table>
 
-<h1>Project Potentials</h1>
+      
+  </div>
+ <% end %>
+</div> 
 
-<table>
-  <thead>
-    <tr>
-      <th>Nama entitas</th>
-      <th>Cluster</th>
-      <th>Lokasi</th>
-      <th>Judul tender</th>
-      <th>Nilai</th>
-      <th>Nominal</th>
-      <th>Lini bisnis</th>
-      <th>Jadwal perkiraan tender</th>
-      <th>Durasi proyek</th>
-      <th>Remark</th>
-      <th>Konfirmasi</th>
-      <th>Informasi tambahan</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @project_potentials.each do |project_potential| %>
-      <tr>
-        <td><%= project_potential.nama_entitas %></td>
-        <td><%= project_potential.cluster %></td>
-        <td><%= project_potential.lokasi %></td>
-        <td><%= project_potential.judul_tender %></td>
-        <td><%= project_potential.nilai %></td>
-        <td><%= project_potential.nominal %></td>
-        <td><%= project_potential.lini_bisnis %></td>
-        <td><%= project_potential.jadwal_perkiraan_tender %></td>
-        <td><%= project_potential.durasi_proyek %></td>
-        <td><%= project_potential.remark %></td>
-        <td><%= project_potential.konfirmasi %></td>
-        <td><%= project_potential.informasi_tambahan %></td>
-        <td><%= link_to 'Show', project_potential %></td>
-        <td><%= link_to 'Edit', edit_project_potential_path(project_potential) %></td>
-        <td><%= link_to 'Destroy', project_potential, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
+<script>
+//  $(document).ready(function () {
+//     $("#form-catatan").hide();
+//     $("#catatan").on('click', function(){
+//         $("#form-catatan").toggle('slow');
+//     })
+// });
 
-<%= link_to 'New Project Potential', new_project_potential_path %>
+</script>

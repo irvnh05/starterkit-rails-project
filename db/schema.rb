@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_13_133724) do
+ActiveRecord::Schema.define(version: 2022_08_18_041941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,7 +58,10 @@ ActiveRecord::Schema.define(version: 2022_08_13_133724) do
     t.string "kontak_pic"
     t.bigint "user_id"
     t.string "email_user"
+    t.string "create_by"
+    t.bigint "data_company_id"
     t.index ["category_id"], name: "index_contacts_on_category_id"
+    t.index ["data_company_id"], name: "index_contacts_on_data_company_id"
     t.index ["user_id"], name: "index_contacts_on_user_id"
     t.index ["work_unit_id"], name: "index_contacts_on_work_unit_id"
   end
@@ -76,7 +79,12 @@ ActiveRecord::Schema.define(version: 2022_08_13_133724) do
     t.datetime "updated_at", null: false
     t.string "email_user"
     t.string "keterangan"
+    t.bigint "sales_visit_plan_id"
+    t.string "create_by"
+    t.bigint "contact_id"
     t.index ["category_id"], name: "index_data_companies_on_category_id"
+    t.index ["contact_id"], name: "index_data_companies_on_contact_id"
+    t.index ["sales_visit_plan_id"], name: "index_data_companies_on_sales_visit_plan_id"
   end
 
   create_table "project_potentials", force: :cascade do |t|
@@ -108,6 +116,7 @@ ActiveRecord::Schema.define(version: 2022_08_13_133724) do
     t.string "sales_id"
     t.string "email_user"
     t.bigint "sales_visit_plan_id"
+    t.string "jenis_pekerjaan"
     t.index ["category_id"], name: "index_realization_visit_plans_on_category_id"
     t.index ["sales_visit_plan_id"], name: "index_realization_visit_plans_on_sales_visit_plan_id"
   end
@@ -145,7 +154,9 @@ ActiveRecord::Schema.define(version: 2022_08_13_133724) do
     t.string "minggu2"
     t.string "minggu3"
     t.string "minggu4"
+    t.bigint "data_company_id"
     t.index ["category_id"], name: "index_sales_visit_plans_on_category_id"
+    t.index ["data_company_id"], name: "index_sales_visit_plans_on_data_company_id"
   end
 
   create_table "status_reports", force: :cascade do |t|
@@ -188,13 +199,17 @@ ActiveRecord::Schema.define(version: 2022_08_13_133724) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "contacts", "categories"
+  add_foreign_key "contacts", "data_companies"
   add_foreign_key "contacts", "users"
   add_foreign_key "contacts", "work_units"
   add_foreign_key "data_companies", "categories"
+  add_foreign_key "data_companies", "contacts"
+  add_foreign_key "data_companies", "sales_visit_plans"
   add_foreign_key "realization_visit_plans", "categories"
   add_foreign_key "realization_visit_plans", "sales_visit_plans"
   add_foreign_key "role_assignments", "roles"
   add_foreign_key "role_assignments", "users"
   add_foreign_key "sales_visit_plans", "categories"
+  add_foreign_key "sales_visit_plans", "data_companies"
   add_foreign_key "status_reports", "realization_visit_plans"
 end

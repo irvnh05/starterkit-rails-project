@@ -1,46 +1,87 @@
 class HelperJsonController < ApplicationController
-    # def editRapidTest
-    #     id = params[:id]
-    #     render json: RapidTest.select('*')
-    #                     .where('id = ?', id)
-    #                     .map{ |vendor|
-    #                         { 
-    #                             :tanggal => vendor.tanggal,
-    #                             :hasil_test => vendor.hasil_test, 
-    #                         }
-    #                     }
-    # end
 
-    # def editVaksinasi
-    #     id = params[:id]
-    #     render json: Vaccination.select('*')
-    #                     .where('id = ?', id)
-    #                     .map{ |vendor|
-    #                         { 
-    #                             :tanggal_pelaksanaan => vendor.tanggal_pelaksanaan,
-    #                             :dosis => vendor.dosis, 
-    #                         }
-    #                     }
-    # end
+    def getDataCompanyCategory
+        id = params[:id]
+        render json: DataCompany.select('*')
+          .where('id = ?', id)
+          .map{ |vendor|
+              vendor.category_id
+        }
+    end
 
-    # def editMCU
-    #     id = params[:id]
-    #     render json: Mcu.select('*')
-    #                     .where('id = ?', id)
-    #                     .map{ |vendor|
-    #                         { 
-    #                             :tanggal_pelaksanaan => vendor.tanggal_pelaksanaan,
-    #                             :dosis => vendor.keterangan, 
-    #                         }
-    #                     }
-    # end
+    def getDataCompanyCluster
+        id = params[:id]
+        render json: DataCompany.select('*')
+          .where('id = ?', id)
+          .map{ |vendor|
+              vendor.cluster
+        }
+    end
 
-    # def getPekerja
-    #     id = params[:id]
-    #     render json: Worker.select('nama_pekerja')
-    #                     .where('kode_proyek LIKE ?', "%#{id}%")
-    #                     .map{ |vendor|
-    #                         vendor.nama_pekerja
-    #                     }
-    # end
+    def getDataCompany
+        # id = params[:id]
+        # render json: DataCompany.select('*')
+        #                 .where('nama_entitas = ?', id)
+        #                 .map{ |vendor|
+        #                     { 
+        #                         :id => vendor.id,
+        #                         :cluster => vendor.cluster, 
+        #                         :category_id => vendor.category_id, 
+        #                     }
+        #                 }
+        id = params[:id]
+        render json: DataCompany.select('*')
+          .where('nama_entitas = ?', id)
+          .map{ |vendor|
+              vendor.id
+      }
+    end
+
+    def getDataContact
+        # id = params[:id]
+        # render json: DataCompany.select('*')
+        #                 .where('nama_entitas = ?', id)
+        #                 .map{ |vendor|
+        #                     { 
+        #                         :id => vendor.id,
+        #                         :cluster => vendor.cluster, 
+        #                         :category_id => vendor.category_id, 
+        #                     }
+        #                 }
+        id = params[:id]
+        render json: Contact.select('*')
+          .where('nama_entitas = ?', id)
+          .map{ |vendor|
+              vendor.id
+      }
+    end
+
+
+    def getDataContactCategory
+        id = params[:id]
+        render json: Contact.select('*')
+          .where('id = ?', id)
+          .map{ |vendor|
+              vendor.category_id
+        }
+    end
+
+    def getDataContactCluster
+        id = params[:id]
+        render json: Contact.select('*')
+          .where('id = ?', id)
+          .map{ |vendor|
+              vendor.cluster
+        }
+    end
+
+    def getDataContactLokasiKerja
+        id = params[:id]
+        render json: Contact.select('*')
+          .where('id = ?', id)
+          .map{ |vendor|
+              vendor.lokasi_kerja
+        }
+    end
+
 end

@@ -1,5 +1,5 @@
 class ActivitySalesController < ApplicationController
-  before_action :set_data_status_laporan,  only: [:status_laporan_destroy, :show ]
+  before_action :set_data_status_laporan,  only: [:status_laporan_destroy, :show, :download ]
   # GET /activity_sales or /activity_sales.json
   def index
     @sales_visit_plans = SalesVisitPlan.all
@@ -34,7 +34,10 @@ class ActivitySalesController < ApplicationController
 
   def status_laporan
     @status_laporan = StatusReport.all
+ 
   end
+
+  
 
   def status_laporan_destroy
     @status_laporan.destroy
@@ -44,10 +47,29 @@ class ActivitySalesController < ApplicationController
     end
   end
 
+
   
   def show
 
   end
+
+  # def download
+  #   @status_report = StatusReport.find_by(id: params[:id])
+    
+  #   respond_to do |format|
+  #     format.html
+  #     format.pdf do
+  #       render pdf: "activity_sale", 
+  #       disable_smart_shrinking: true,
+  #       layout:'pdf.html',
+  #       template: 'activity_sales/status_laporan',
+  #       page_size: 'A4',
+  #       orientation: 'Landscape',
+  #       encoding:"UTF-8",
+  #       show_as_html: params.key?('debug')
+  #     end
+  #   end
+  # end
 
   private
   # Use callbacks to share common setup or constraints between actions.

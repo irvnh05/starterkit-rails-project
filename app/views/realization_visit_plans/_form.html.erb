@@ -16,7 +16,7 @@
           <% end %>
           <%# <input type="hidden" name="sales_id" value="<%= params[:id] %>
           <%# "> %> 
-          <%# <%= f.text_field :sales_id, class: 'form-control', :readonly => true %> 
+          <%= f.hidden_field :sales_visit_plan_id, class: 'form-control' %>
           <div class="form-row">
             <div class="form-group col">
               <label for="intpuCluster">Nama Entitas/Lokasi Pengadaan</label>
@@ -33,7 +33,7 @@
           <div class="form-row">
             <div class="form-group col">
               <label>Kategori*</label>
-              <%= f.collection_select :category_id, Category.all, :id, :name, {prompt: "-- Pilih Kategori --"}, class: 'form-control', id: 'category', :required => true  %>
+              <%= f.collection_select :category_id, Category.all, :id, :name, {prompt: "-- Pilih Kategori --"}, class: 'form-control', id: 'category'  %>
             </div>
           </div>
 
@@ -132,11 +132,11 @@
             </div>
           </div>
 
-          <input type="hidden" id="realization_visit_plan_sales_id" class="id-sales">
+          <%# <input type="hidden" id="sales_visit_plan_id" class="id-sales"> %>
           
           <div class="form-group">
             <label>Upload Materi</label>
-            <%= f.file_field :file_lampiran, class: "form-control", direct_upload: true, accept: 'image/jpeg, image/jpg, image/png, application/pdf', multiple: true %>
+            <%= f.file_field :file_lampiran, class: "form-control multi-pt", direct_upload: true, accept: 'image/jpeg, image/jpg, image/png, application/pdf', multiple: true %>
             <div style="margin-top: 10px;" value="<%= params[:id] %>" class="pilih">
               <% if 
               @sales_visit_plan = SalesVisitPlan.find_by(id: params[:id])
@@ -164,6 +164,7 @@
 </div>
 
 <script>
+    
   // $('#sales_plan').select2();
     $('#sales_plan').select2({
     // selectOnClose: true
@@ -200,7 +201,7 @@
                 // $('#realization_visit_plan_realisasi').val(array[4]);
                 $('#pilih').val(array[4]);
                 $('#realization_visit_plan_nama_entitas').val(array[0]);
-                $('#realization_visit_plan_sales_id').val(array[5]);
+                $('#realization_visit_plan_sales_visit_plan_id').val(array[5]);
                 $('#realization_visit_plan_cluster').val(array[3]);
                 // $('#realization_visit_plan_lampiran').val(array[5]);
                 // $('#worker_lokasi').val(array[2]);

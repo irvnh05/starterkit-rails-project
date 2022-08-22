@@ -1,10 +1,15 @@
 class ProjectPotentialsController < ApplicationController
-  before_action :set_project_potential, only: %i[ show edit update destroy ]
+  before_action :set_project_potential, only: [:show, :edit, :update, :destroy]
 
   # GET /project_potentials or /project_potentials.json
   def index
     @project_potentials = ProjectPotential.all
     @project_potential = ProjectPotential.new
+
+    # filter
+    @konfirmasi = @project_potentials.select(:konfirmasi).map(&:konfirmasi).uniq
+    @perusahaan = @project_potentials.select(:nama_entitas).map(&:nama_entitas).uniq
+    @status = @project_potentials.select(:remark).map(&:remark).uniq
   end
 
   # GET /project_potentials/1 or /project_potentials/1.json
@@ -26,20 +31,21 @@ class ProjectPotentialsController < ApplicationController
 
     respond_to do |format|
       if @project_potential.save
-        format.html { redirect_to project_potential_url(@project_potential), notice: "Project potential was successfully created." }
+        format.html { redirect_to project_potentials_path, notice: "Project potential was successfully created." }
         format.json { render :show, status: :created, location: @project_potential }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @project_potential.errors, status: :unprocessable_entity }
       end
     end
+    # s
   end
 
   # PATCH/PUT /project_potentials/1 or /project_potentials/1.json
   def update
     respond_to do |format|
       if @project_potential.update(project_potential_params)
-        format.html { redirect_to project_potential_url(@project_potential), notice: "Project potential was successfully updated." }
+        format.html { redirect_to project_potentials_path, notice: "Project potential was successfully updated." }
         format.json { render :show, status: :ok, location: @project_potential }
       else
         format.html { render :edit, status: :unprocessable_entity }

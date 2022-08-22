@@ -80,6 +80,6 @@ class DataCompaniesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def data_company_params
-      params.require(:data_company).permit(:category_id, :cluster, :nama_entitas, :area, :lokasi_kerja, :alamat, :website, :daftar_pekerjaan, :email_user, :keterangan)
+      params.require(:data_company).permit(:category_id, :cluster, :nama_entitas, :area, :lokasi_kerja, :alamat, :website, :daftar_pekerjaan, :email_user, :keterangan, :create_by , :sales_visit_plan_id)
     end
 end

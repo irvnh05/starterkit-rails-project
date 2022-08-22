@@ -1,6 +1,14 @@
 <style>
  .modal-backdrop { display: none; } 
  /* .modal { background: rgba(0,0,0,0.5); }  */
+ .move-left{
+    display: block;
+    float: left;
+}
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
 </style>
 
 <div class="container-fluid">
@@ -12,10 +20,27 @@
       <%# add %>
       <%# </div> %>
     <%# </div> %>
+    
     <div class="card-body">
       <div class="table-responsive">
         <div id="tableExport_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
           <table id="dataTable_status_laporans" class="table table-bordered" >  
+              <div class="card-body nopadding">
+                <div class="dropdown d-inline mr-2">
+                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  -- Download --
+                 </button>
+                 <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+                   <div class="m-2">
+                      <%= link_to 'PDF', url_for(controller: :status_reports, action: :cetak_pdf, format: "pdf"), class: 'dropdown-item btn btn-danger', target: '_blank' %>
+                     <%# <button class="dropdown-item btn btn-danger" href="#">PDF</button> %>
+                   </div>
+                   <div class="m-2">
+                     <button class="dropdown-item btn btn-success" href="#">Excel</button>
+                   </div>
+                 </div>
+                </div>
+              </div>  
             <br>  
             <thead>
                 <tr>
@@ -28,7 +53,7 @@
                   <th>Tanggal Review</th>
                   <th>Catatan</th>
                   <th>Status Laporan</th>
-                  <th class="text-center" style="width: 100px;">Aksi</th>
+                  <th class="text-center" style="width: 200px;" >Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -70,7 +95,7 @@
                             <%# <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> %>
                             <%# <button type="button" class="btn btn-primary">Download</button> %>
                             
-                            <%= link_to 'Download', rails_blob_path(lampiran, disposition: "attachment"), :class => "btn btn-primary" %>
+                            <%# <%= link_to 'Download', rails_blob_path(lampiran, disposition: "attachment"), :class => "btn btn-primary" %> 
                           </div>
                         </div>
                       </div>
@@ -92,7 +117,7 @@
                   </td>
                   <%# <td style="display:none;"><%= status_laporan.estimasi_tgl_peretemuan.strftime("%m") %>
                   <%# </td> %> 
-                  <td class="text-center">
+                  <td class="text-center" >
                     <% if current_user.can? { |permissions| permissions.status_report.read? } %>
                     <a href="<%= status_report_path(status_laporan) %>" class="btn btn-info btn-circle btn-sm">
                       <i class="fas fa-eye"></i>
@@ -108,6 +133,12 @@
                       <i class="fas fa-trash-alt"></i>
                     </a>
                     <% end %>
+                    <% if current_user.can? { |permissions| permissions.status_report.download? } %>
+                    <a href="<%= download_activity_sales_path(status_laporan , format: "pdf") %>" class="btn btn-success btn-circle btn-sm", target: '_blank' >
+                      <i class="fas fa-download"></i>
+                    </a>
+                    <% end %>
+                 
                   </td>
                 </tr>
                 <% end %>
@@ -121,68 +152,69 @@
 
 
 <script>
-        $(document).ready(function() {
-        // rencana
-        var table1 = $('#dataTable_status_laporans').DataTable({ 
-          paging: false,
-          // ordering: false,
-          // info: false,
-              buttons: [
-                {
-                    extend: 'collection',
-                    className: "btn btn-primary",
-                    text: '-- Download --',
-                    fieldSeparator: ';',
-                    buttons: [
-                        { 
-                            className: "my-1",
-                            extend: 'excel',
+  $('#dataTable_status_laporans').DataTable();
+  // $(document).ready(function() {
+    //     // rencana
+    //     var table1 = $('#dataTable_status_laporans').DataTable({ 
+    //       paging: false,
+    //       // ordering: false,
+    //       // info: false,
+    //           buttons: [
+    //             {
+    //                 extend: 'collection',
+    //                 className: "btn btn-primary",
+    //                 text: '-- Download --',
+    //                 fieldSeparator: ';',
+    //                 buttons: [
+    //                     { 
+    //                         className: "my-1",
+    //                         extend: 'excel',
                           
-                          //   exportOptions: {
-                          //   rows: { selected: true }
-                          // }
-                        },
-                        {
-                            className: "my-1",
-                            extend: 'pdf',
-                            // title: 'My title' + '\n' + 'a new line', // judul folder
-                             // custom format add text,dll
-                            // customize: function(doc) {
-                            //   doc.styles.title = {
-                            //     color: 'red',
-                            //     fontSize: '40',
-                            //     background: 'blue',
-                            //     alignment: 'center'
-                            //   }   
-                            // }
-                        }
+    //                       //   exportOptions: {
+    //                       //   rows: { selected: true }
+    //                       // }
+    //                     },
+    //                     {
+    //                         className: "my-1",
+    //                         extend: 'pdf',
+    //                         // title: 'My title' + '\n' + 'a new line', // judul folder
+    //                          // custom format add text,dll
+    //                         // customize: function(doc) {
+    //                         //   doc.styles.title = {
+    //                         //     color: 'red',
+    //                         //     fontSize: '40',
+    //                         //     background: 'blue',
+    //                         //     alignment: 'center'
+    //                         //   }   
+    //                         // }
+    //                     }
                         
-                        // {
-                        //     collectionTitle: 'Visibility control',
-                        //     extend: 'colvis'
-                        // }
-                    ]
-                }
-              ],
-              // columnDefs: [
-              //   {
-              //       targets: 0,
-              //       checkboxes: {
-              //         selectRow: true
-              //       }
-              //   }
-              // ],
-              // select: {
-              //   style: 'multi'
-              // },
-              // order: [[1, 'asc']]
-          });
+    //                     // {
+    //                     //     collectionTitle: 'Visibility control',
+    //                     //     extend: 'colvis'
+    //                     // }
+    //                 ]
+    //             }
+    //           ],
+    //           // columnDefs: [
+    //           //   {
+    //           //       targets: 0,
+    //           //       checkboxes: {
+    //           //         selectRow: true
+    //           //       }
+    //           //   }
+    //           // ],
+    //           // select: {
+    //           //   style: 'multi'
+    //           // },
+    //           // order: [[1, 'asc']]
+    //       });
 
-          table1.buttons()
-          .container()
-          .appendTo( '#dataTable_status_laporans_wrapper .col-md-6:eq(0)');
+    //       table1.buttons()
+    //       .container()
+    //       .appendTo( '#dataTable_status_laporans_wrapper .col-md-6:eq(0)');
           
          
 
-    });
+    // });
 </script>
