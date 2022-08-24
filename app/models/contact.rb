@@ -3,4 +3,5 @@ class Contact < ApplicationRecord
   belongs_to :work_unit, optional: true
   belongs_to :user, optional: true
   has_many :status_report
+  has_many :data_company , dependent: :destroy
 end

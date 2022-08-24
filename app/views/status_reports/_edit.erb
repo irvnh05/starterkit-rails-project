@@ -1,0 +1,58 @@
+      <%= form_for @status_report, multipart: true do |f| %>
+        <div class="mb-4">
+          <%# <a class="btn btn-primary" id="catatan">+Catatan</a> %>
+          <a class="btn btn-primary" id="catatan" href="#" role="button">+Catatan</a>
+        </div>
+        
+        <div class="card shadow mb-4 " id="form-catatan" >
+          <% if @status_report.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@status_report.errors.count, "error") %> prohibited this site_project from being saved:</h2>
+              <ul>
+              <% @status_report.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+          
+          <div class="card-header py-3">
+            <div class="row justify-content-between">
+              <div class="col align-items-center pt-2">
+                <h6 class="font-weight-bold">Review by Kadiv </h6>
+              </div>
+            </div>
+          </div>
+              
+          <br>
+
+          <div class="card-body ">
+            <table class="table table-bordered">
+              <tbody>
+                <div class="form-row">
+                  <div class="form-group col text-center">
+                     <%= f.text_area(:catatan, size: '172x10', class: '')%>
+                  </div>
+                </div>
+               
+              </tbody>
+            </table>
+          </div>
+        </div> 
+
+         <div class=" py-3 ">
+            <a href="<%= status_laporan_activity_sales_path %>" class="btn btn-info pull-right ml-2">Kembali</a>
+            <button type="submit" class="btn btn-primary px-3 pull-right">Submit</button>
+         </div>
+      <%end%>
+
+
+<script>
+ $(document).ready(function () {
+    $("#form-catatan").hide();
+    $("#catatan").on('click', function(){
+        $("#form-catatan").toggle('slow');
+    })
+});
+
+</script>

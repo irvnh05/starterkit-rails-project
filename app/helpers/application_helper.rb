@@ -25,8 +25,8 @@ module ApplicationHelper
           
         # @lampiran = status_ticket.file_lampiran
         # lampiran @sales_visit_plans.each_with_index do |sales_visit_plan, index| 
-        
-        f["#{status_ticket.nama_entitas_lokasi_pengadaan} | #{status_ticket.category_id} | #{status_ticket.deksripsi_pekerjaan} | #{status_ticket.cluster} | #{@realisasi} | #{status_ticket.id} | #{SalesVisitPlan.with_attached_file_lampiran}"] = "#{status_ticket.nama_entitas_lokasi_pengadaan} | #{status_ticket.category_id} | #{status_ticket.deksripsi_pekerjaan} | #{status_ticket.cluster} | #{@realisasi} | #{status_ticket.id} | #{["#{SalesVisitPlan.with_attached_file_lampiran}"]}"
+        # | #{status_ticket.id}
+        f["#{status_ticket.nama_entitas_lokasi_pengadaan} | #{status_ticket.category_id} | #{status_ticket.deksripsi_pekerjaan} | #{status_ticket.cluster} | #{@realisasi} | #{status_ticket.id} "] = "#{status_ticket.nama_entitas_lokasi_pengadaan} | #{status_ticket.category.name} | #{status_ticket.deksripsi_pekerjaan} | #{status_ticket.cluster} | #{@realisasi}"
         end 
         f.sort_by { |key| key }
         f.each do |k,v|

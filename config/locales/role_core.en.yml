@@ -10,6 +10,8 @@ en:
       status_report: Status Report
       activity_sale: Aktivitas Sales
       project_potential: Data Potensi Proyek 
+      sales_visit_plan: Rencana Kunjungan Sales
+      realization_visit_plan: Realisasi Kunjungan Sales
     attributes:
       user:
         create: Tambah User
@@ -76,6 +78,21 @@ en:
         tab_data_proyek: Tab Data Potensi Proyek
         tab_detail_proyek: Tab Detail Potensi Proyek   
         tab_tambah_data_proyek: Tab Tambah Data Potensi Proyek         
+      sales_visit_plan:
+        create: Tambah Rencana Kunjungan Sales
+        destroy: Hapus Rencana Kunjungan Sales
+        update: Ubah Rencana Kunjungan Sales
+        read: Detail Rencana Kunjungan Sales
+        index: Daftar Rencana Kunjungan Sales
+        review: Review Rencana Kunjungan Sales
+      realization_visit_plan:
+        create: Tambah Realisasi Kunjungan Sales
+        destroy: Hapus Realisasi Kunjungan Sales
+        update: Ubah Realisasi Kunjungan Sales
+        read: Detail Realisasi Kunjungan Sales
+        index: Daftar Realisasi Kunjungan Sales
+        review: Review Realisasi Kunjungan Sales
+
         
         
 

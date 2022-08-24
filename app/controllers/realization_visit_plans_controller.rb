@@ -1,5 +1,5 @@
 class RealizationVisitPlansController < ApplicationController
-  before_action :set_realization_visit_plan, only: %i[ show edit update destroy ]
+  before_action :set_realization_visit_plan, only: %i[ show edit update destroy review ]
 
   # GET /realization_visit_plans or /realization_visit_plans.json
   def index
@@ -39,6 +39,10 @@ class RealizationVisitPlansController < ApplicationController
 
   # GET /realization_visit_plans/1/edit
   def edit
+  end
+
+  # GET /realization_visit_plans/1/review
+  def review
   end
 
   # POST /realization_visit_plans or /realization_visit_plans.json
@@ -90,7 +94,15 @@ class RealizationVisitPlansController < ApplicationController
   # PATCH/PUT /realization_visit_plans/1 or /realization_visit_plans/1.json
   def update
     respond_to do |format|
-      if @realization_visit_plan.update(realization_visit_plan_params)
+      realization_visit_plans = RealizationVisitPlan.find(params[:id]) 
+      # realization_visit_plans.status
+      if realization_visit_plans.status.nil?
+        realization_visit_plans.status = "1"
+        realization_visit_plans.tgl_direview = Time.new
+        realization_visit_plans.save!
+        format.html { redirect_to rekap_activity_sales_path, notice: "Realization visit plan was successfully updated." }
+        format.json { render :show, status: :ok, location: @realization_visit_plan }
+      elsif @realization_visit_plan.update(realization_visit_plan_params)
         format.html { redirect_to activity_sales_path, notice: "Realization visit plan was successfully updated." }
         format.json { render :show, status: :ok, location: @realization_visit_plan }
       else
@@ -99,6 +111,17 @@ class RealizationVisitPlansController < ApplicationController
       end
     end
   end
+
+  # def update_status
+  #   respond_to do |format|
+  #     realization_visit_plans = RealizationVisitPlan.find(params[:id]) 
+  #       realization_visit_plans.status = "1"
+  #       realization_visit_plans.tgl_direview = Time.new
+  #       realization_visit_plans.save!
+  #       format.html { redirect_to rekap_activity_sales_path, notice: "Realization visit plan was successfully updated." }
+  #       format.json { render :show, status: :ok, location: @realization_visit_plan }
+  #   end
+  # end
 
   # DELETE /realization_visit_plans/1 or /realization_visit_plans/1.json
   def destroy
@@ -120,7 +143,22 @@ class RealizationVisitPlansController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def realization_visit_plan_params
-      params.require(:realization_visit_plan).permit(:email_user, :sales_visit_plan_id,:sales_id, :nama_entitas_lokasi_pengadaan, :subjek_deksripsi_pekerjaan, :cluster, :realisasi, :realisasi_tgl_peretemuan, :category_id, file_lampiran: [] )
+      params.require(:realization_visit_plan).permit(
+        :email_user, 
+        :sales_visit_plan_id,
+        :sales_id, 
+        :nama_entitas_lokasi_pengadaan, 
+        :subjek_deksripsi_pekerjaan, 
+        :cluster, 
+        :realisasi, 
+        :realisasi_tgl_peretemuan, 
+        :category_id, 
+        :status,
+        :review_by,
+        :catatan,
+        :tgl_direview,
+        file_lampiran: [] 
+      )
     end
 
     def id_params

@@ -1,0 +1,239 @@
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row justify-content-between">
+        <div class="col align-items-center pt-2">
+          <h6 class="font-weight-bold text-primary">Medical Check Up</h6>
+        </div>
+        <% if current_user.can? { |permissions| permissions.worker.create? } %>
+        <div class="align-items-center">
+          <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal1"> + Mcu</button>
+          <div class="modal wrapper wrapper-content animated fadeInRight" id="myModal1">
+            <div class="modal-dialog">
+                <div class="modal-content"> 
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h2 class="modal-title text-primary">Tambah MCU</h2>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <%= form_for :mcus, url: mcus_create_path, method: :post, html: {class: "form-horizontal", role: "form"} do |f| %>
+                        <div class="form-group" id="data_5">
+                            <input type="hidden" name="worker_id" value="<%= params[:id] %>">
+                            <div class="form-group">
+                              <label>Tanggal Pelaksanaan</label>
+                              <input type="date" name="mcu[tanggal_pelaksanaan]" class="form-control">
+                            </div>
+                            <div class="form-group">
+                              <label>Keterangan MCU</label>
+                              <select class="form-control" name="mcu[keterangan]">
+                               <option disabled selected value="">-- Pilih Keterangan --</option>
+                               <option value="Fit To Work">Fit To Work</option>
+                               <option value="Unfit">Unfit</option>
+                               <option value="Fit With Note">Fit With Note</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label>Upload File MCU</label>
+                              <input class="form-control" accept="image/jpeg, image/jpg, image/png, application/pdf" multiple="multiple" data-direct-upload-url="http://localhost:3000/rails/active_storage/direct_uploads" type="file" name="mcu[file_mcus][]" id="vaccination_vaccination_scan" required/>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary pull-right" type="submit">Submit</button>
+                    <% end %>
+                </div>
+
+                <!-- Modal footer
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div> -->
+
+                </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable_vaksinasi" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th class="text-center" style="width: 1px;">No</th>
+              <th class="text-center" style="width: 10px;">Tanggal Pelaksanaan</th>
+              <th class="text-center" style="width: 5px;">Keterangan MCU</th>      
+              <th class="text-center" style="width: 10px;">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @mcus.each_with_index do |mcu, index| %>
+            <tr>
+              <td class="text-center"><%= index+1 %></td>
+              <td class="text-center"><%= mcu.tanggal_pelaksanaan.strftime('%d %B %Y') %></td>
+              <td class="text-center"><%= mcu.keterangan %></td>
+              <td>  
+                <button type="button" class="fa fa-pencil btn btn-warning btn-circle btn-sm cancel_modal_vaksinasi mb-3" data-toggle="modal" data-id="<%= mcu.id %>" data-target="#myModalEditVaksinasi"></button>
+                <a href="<%= mcu_path(mcu) %>" class="btn btn-danger btn-circle btn-sm mb-3" data-method="DELETE" data-confirm="Are you sure?">
+                  <i class="fa fa-trash"></i>
+                </a>
+                <button type="button" class="fa fa-download btn btn-info btn-circle btn-sm cancel_modal mb-3" data-toggle="modal" data-target="#myModalDownload<%= mcu.id%>"></button>
+                <div class="modal wrapper wrapper-content animated fadeInRight" id="myModalDownload<%= mcu.id%>">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+
+                      <!-- Modal Header -->
+                      <div class="modal-header">
+                          <h4 class="modal-title text-primary">Download File</h4>
+                      </div>
+
+                      <!-- Modal body -->
+                      <div class="modal-body">
+                          <span style="margin-right: 10px">
+                            <% mcu.file_mcus.each do |lampiran| %>
+                              <%= link_to "#{[ "#{lampiran.filename}" ]}", rails_blob_path(lampiran, disposition: 'preview'), :target => "_blank" %>
+                              <br>
+                            <% end %>
+                          </span>
+                      </div>
+
+                      <!-- Modal footer -->
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                      </div>
+
+                      </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="modal wrapper wrapper-content animated fadeInRight" id="myModalEditVaksinasi">
+          <div class="modal-dialog">
+              <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                  <h4 class="modal-title text-primary">Edit MCU</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span> 
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+               <% @mcus.each_with_index do |mcu, index| %>
+                  <%= form_for :mcus, url: mcus_update_path, method: :post, html: {class: "form-horizontal", role: "form"} do |f| %>
+                      <div class="form-group" id="data_5">
+                          <input type="hidden" name="id" id="id_vaksinasi">
+                          <input type="hidden" name="worker_id" value="<%= params[:id] %>">
+                          <div class="form-group">
+                            <label>Tanggal</label>
+                            <input type="date" name="mcu[tanggal_pelaksanaan]" class="form-control tanggal_pelaksanaan">
+                          </div>
+                          <div class="form-group">
+                            <label>Keterangan MCU</label>
+                            <select class="form-control dosis" name="mcu[keterangan]"></select>
+                          </div>
+                          <input type="checkbox" id="uploadFileVaksinasi()" onchange="uploadVaksinasi(1, 'uploadFileVaksinasi')"><span class="checkboxtext"> Upload File</span>
+                          <div class="form-group" id="file1" style="display: none;">
+                            <label>File Mcu</label>
+                            <%#http://192.168.60.175/rails/active_storage/direct_uploads %>
+                            <%# http://localhost:3000/rails/active_storage/direct_uploads %>
+                            <input class="form-control" accept="image/jpeg, image/jpg, image/png, application/pdf" multiple="multiple" data-direct-upload-url="http://localhost:3000/rails/active_storage/direct_uploads" type="file" name="mcu[file_mcus][]" id="fileVaksinasi" disabled required/>
+                            <% mcu.file_mcus.each do |file_mcu| %>
+                              <span style="margin-right: 10px">
+                                <%= link_to "#{[ "#{file_mcu.filename}" ]}", rails_blob_path(file_mcu, disposition: 'preview'), :target => "_blank" %>
+                                <%= link_to '', url_for(controller: :mcus, action: :delete_file_mcu, attachment_id: file_mcu.id), class: 'fa fa-close', onclick:"return confirm('Are you sure you want to delete this item?');" %> <br>
+                              </span>
+                            <% end %>
+                          </div>
+                      </div>
+                      <button class="btn btn-primary pull-right" type="submit">Submit</button>
+                  <% end %>
+                <% end %> 
+              </div>
+
+              <!-- Modal footer -->
+              <%# <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div> %>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+  function uploadVaksinasi(max, identifier) {
+      var checked = $("input[id='" + identifier + "()']:checked").length;
+      console.log(checked)
+      if (checked > 0) {
+          document.getElementById('file1').style.display = 'block';
+          document.getElementById('fileVaksinasi').disabled = false;
+          $('#fileVaksinasi').attr('required','required');
+      } else {
+          document.getElementById('file1').style.display = 'none';
+          document.getElementById('fileVaksinasi').disabled = true;
+          $('#fileVaksinasi').removeAttr('required');
+      }
+      // checkbox.filter(':not(:checked)').prop('disabled', checked >= max);
+  }
+$('.cancel_modal_vaksinasi').click(function() {
+   //alert('called');
+    // we want to copy the 'id' from the button to the modal
+    var id = $(this).data('id');
+    $("#id_vaksinasi").val(id);
+    $(".tanggal_pelaksanaan").val('');
+    $(".dosis").empty();
+    $.getJSON("/helper_json/" +id+ "/editMCU",
+        function ( callback ) {
+        if (callback != "error"){
+            console.log(callback)
+            for (var i = 0; i < callback.length; i++){
+              var obj = callback[i];
+                if (obj == null){
+                  $("#kab-kota").empty();
+                } else{
+                  var tanggal_pelaksanaan = obj['tanggal_pelaksanaan'];
+                  var dosis = obj['dosis'];
+                  $(".tanggal_pelaksanaan").val(tanggal_pelaksanaan);
+                  $(".dosis").val(dosis);
+                  $(".dosis").append(function() {
+                      if ( dosis == "Fit To Work" ) {
+                          return '\
+                          <option disabled value="">--Pilih--</option>\
+                          <option selected value="Fit To Work">Fit To Work</option>\
+                          <option value="Unfit">Unfit</option>\
+                          <option value="Fit With Note">Fit With Note</option>\
+                          ';
+                      } else if ( dosis == "Unfit" ) {
+                          return '\
+                          <option disabled value="">--Pilih--</option>\
+                          <option value="Fit To Work">Fit To Work</option>\
+                          <option selected value="Unfit">Unfit</option>\
+                          <option value="Fit With Note">Fit With Note</option>\
+                          ';
+                      }else if ( dosis == "Fit With Note" ) {
+                          return '\
+                          <option disabled value="">--Pilih--</option>\
+                          <option value="Fit To Work">Fit To Work</option>\
+                          <option value="Unfit">Unfit</option>\
+                          <option selected value="Fit With Note">Fit With Note</option>\
+                          ';
+                      }
+                  });
+                }
+            }
+        }
+    });
+});
+</script>
