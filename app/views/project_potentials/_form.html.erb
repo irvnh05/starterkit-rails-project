@@ -46,7 +46,7 @@
           <div class="form-row">
             <div class="form-group col">
               <label for="intpuCluster">Nilai</label>
-               <%= select_tag :nilai, options_for_select(["IDR(RP)","USD($)"], params[:pilihan]), prompt: "-- Pilih Nilai(IDR) --", class: "form-control" %>
+               <%= select_tag :nilai, options_for_select(["IDR(RP)","USD($)"], params[:pilihan]), prompt: "-- Pilih Nilai(IDR) --", class: "form-control nilai" %>
 <%
 =begin
 %>
@@ -59,6 +59,23 @@
 %>              
             </div>
           </div>
+          
+          <div class="form-row form-rp">
+            <div class="form-group col">
+              <label for="intpuCluster">Nominal (RP)</label>
+              <%= f.number_field :nominal, class: "form-control" %>
+            </div>
+          </div>
+
+
+
+          <div class="form-row form-usd">
+            <div class="form-group col">
+              <label for="intpuCluster">Nominal ($)</label>
+              <%= f.number_field :nominal, class: "form-control" %>
+            </div>
+          </div>
+
 
           <div class="form-row">
             <div class="form-group col">
@@ -115,5 +132,23 @@
 </div>
 
 <script>
- 
+  $(document).ready(function () {
+    $(".form-rp").hide();
+    $(".form-usd").hide();
+});
+
+
+$('.nilai').change(function() {
+  if($('.nilai').val() == '') {
+    $('.form-usd, .form-rp').hide();
+  }
+  if($('.nilai').val() == 'USD($)') {
+    $('.form-rp').hide();
+    $('.form-usd').show();
+  }
+  if($('.nilai').val() == 'IDR(RP)') {
+    $('.form-rp').show();
+    $('.form-usd').hide();
+  }
+});
 </script>
