@@ -47,6 +47,7 @@ class DataCompaniesController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @data_company.errors, status: :unprocessable_entity }
       end
+      # s
     end
   end
 
@@ -80,6 +81,20 @@ class DataCompaniesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def data_company_params
-      params.require(:data_company).permit(:category_id, :cluster, :nama_entitas, :area, :lokasi_kerja, :alamat, :website, :daftar_pekerjaan, :email_user, :keterangan, :create_by , :sales_visit_plan_id)
+      params.require(:data_company).permit(
+        :category_id, 
+        :cluster, 
+        :nama_entitas, 
+        :area, 
+        :lokasi_kerja, 
+        :alamat, 
+        :website, 
+        :daftar_pekerjaan, 
+        :email_user, 
+        :keterangan, 
+        :create_by , 
+        :contact_id,
+        :sales_visit_plan_id
+      )
     end
 end

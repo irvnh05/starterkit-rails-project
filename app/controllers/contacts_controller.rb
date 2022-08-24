@@ -20,6 +20,24 @@ class ContactsController < ApplicationController
     end
   end
 
+  def cetak_pdf
+    @contacts = Contact.find_by(id: params[:id])
+    
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "contacts", 
+        disable_smart_shrinking: true,
+        layout:'pdf_simple.html',
+        template: 'contacts/download',
+        page_size: 'A4',
+        orientation: 'Landscape',
+        encoding:"UTF-8",
+        show_as_html: params.key?('debug')
+      end
+    end
+  end
+
   # GET /contacts/1 or /contacts/1.json
   def show
   end

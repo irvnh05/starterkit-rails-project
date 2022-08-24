@@ -48,10 +48,12 @@
                   <th>Tanggal Aktivitas</th>
                   <th>Nama Entitas</th>
                   <th>Nama Aktivitas</th>
-                  <%# <th>Hasil Kunjungan</th> %>
+                  <th>Hasil Kunjungan</th>
                   <th>Lampiran</th>
                   <th>Tanggal Review</th>
+                  <%# kondisi catatan hanya untuk sales %>
                   <th>Catatan</th>
+                  <%# sstatus laporan untuk kadiv %>
                   <th>Status Laporan</th>
                   <th class="text-center" style="width: 200px;" >Aksi</th>
                 </tr>
@@ -61,7 +63,7 @@
                 <tr>
                   <td class="text-center"><%= index+1 %></td>
                   <td><%=status_laporan.tgl_aktivitas %></td>
-                  <%# <td></td> %>
+                  <td></td>
                   <td><%=status_laporan.realization_visit_plan.try(:nama_entitas_lokasi_pengadaan)%></td>
                   <td><%=status_laporan.realization_visit_plan.try(:subjek_deksripsi_pekerjaan)%></td>
                   <%# <td></td> %>

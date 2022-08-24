@@ -1,7 +1,7 @@
 <div class="container-fluid">
  <%= form_for @project_potential, multipart: true do |f| %>
   <div class="">
-      <table class="table table-bordered" id="sinergi">
+      <table class="table table-bordered text-center" id="sinergi">
         <thead>
             <tr colspan="3">
               <th class="text-center" style="width: 12px;" rowspan="3">No</th>
@@ -11,8 +11,8 @@
               <th colspan="6">Rincian</th>
             </tr>
             <tr>
-              <td>Jumlah Proyek</td>
-              <td>Perkiraan Nilai Proyek</td>
+                <td>Jumlah Proyek</td>
+                <td>Perkiraan Nilai Proyek</td>
                 <td>Jumlah Proyek</td>
                 <td>Perkiraan Nilai Proyek</td>
                 <td>Jumlah Proyek</td>
@@ -28,10 +28,22 @@
             </tr>
         </thead>  
         <tbody>
-            <% @project_potentials.each_with_index do |project_potential, index| %>
+            <% @project_potentials.where("remark": "SINERGI").each_with_index do |project_potential, index| %>
                 <tr>
-                
+                   <td class="text-center"><%= index+1 %></td>
+                   <td><%= project_potential.nama_entitas%></td>
+                   <td></td>
+                   <td></td>
+                   <%# <td><%= project_potential.remark%>
+                   <%# </td> %>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
                 </tr>
+                
             <% end %>
         </tbody>
         <thead>
@@ -40,12 +52,47 @@
             </tr>
         </thead>
         <tbody>
-            <% @project_potentials.each_with_index do |project_potential, index| %>
+            <% @project_potentials.where("remark": "NON SINERGI").or(@project_potentials.where("remark": "EXTERNAL")).each_with_index do |project_potential, index| %>
                 <tr>
-                
+                 <td class="text-center"><%= index+1 %></td>
+                 <td><%= project_potential.nama_entitas%></td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <%# <td><%= project_potential.remark%>
+                 <%# </td> %> 
                 </tr>
             <% end %>
         </tbody>
+        <thead>
+            <tr>
+              <td colspan="2">TOTAL NON SINERGI & EKSTERNAL</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+             <tr>
+              <td colspan="2">TOTAL (SINERGI, NON SINERGI & EKSTERNAL)</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+        </thead>       
       </table>
 
       

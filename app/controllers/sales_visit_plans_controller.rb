@@ -1,5 +1,5 @@
 class SalesVisitPlansController < ApplicationController
-  before_action :set_sales_visit_plan, only: %i[ show edit update destroy ]
+  before_action :set_sales_visit_plan, only: %i[ show edit update destroy review]
 
   def realisasi
     @realization_visit_plan = RealizationVisitPlan.new
@@ -23,6 +23,10 @@ class SalesVisitPlansController < ApplicationController
 
   # GET /sales_visit_plans/1/edit
   def edit
+  end
+
+  # GET /sales_visit_plans/1/review
+  def review
   end
 
   # POST /sales_visit_plans or /sales_visit_plans.json
@@ -65,7 +69,7 @@ class SalesVisitPlansController < ApplicationController
       if @sales_visit_plan.save
 
          if @data_company.blank?
-          data_company = DataCompany.new
+          data_company = SalesVisitPlan.new
           data_company.sales_visit_plan_id = @sales_visit_plan.id
           data_company.create_by = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") 
           data_company.nama_entitas = @sales_visit_plan.nama_entitas_lokasi_pengadaan
@@ -89,7 +93,14 @@ class SalesVisitPlansController < ApplicationController
   # PATCH/PUT /sales_visit_plans/1 or /sales_visit_plans/1.json
   def update
     respond_to do |format|
-      if @sales_visit_plan.update(sales_visit_plan_params)
+      sales_visit_plan = SalesVisitPlan.find(params[:id]) 
+      if sales_visit_plan.status.nil?
+        sales_visit_plan.status = "1"
+        sales_visit_plan.tgl_direview = Time.new
+        sales_visit_plan.save!
+        format.html { redirect_to rekap_activity_sales_path, notice: "Sales visit plan was successfully updated." }
+        format.json { render :show, status: :ok, location: @sales_visit_plan }
+      elsif  @sales_visit_plan.update(sales_visit_plan_params)
         format.html { redirect_to activity_sales_path, notice: "Sales visit plan was successfully updated." }
         format.json { render :show, status: :ok, location: @sales_visit_plan }
       else
@@ -138,6 +149,10 @@ class SalesVisitPlansController < ApplicationController
         :minggu_kunjungan,
         :category_id,
         :data_company_id,
+        :status,
+        :review_by,
+        :catatan,
+        :tgl_direview,
         file_lampiran: [],
         )
     end

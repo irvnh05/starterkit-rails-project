@@ -1,0 +1,142 @@
+<style type="text/css">
+  body {
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    font-size: 11px;
+    color: black;
+  }
+
+  .ibox-title {
+    font-size: 10px;
+    font-style: italic;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  .in-table tr td,
+  .in-table tr th {
+    border-collapse: collapse;
+    border: 1px solid black;
+    padding: 3px;
+  }
+
+  .in-table tr th {
+    background-color: #c6d9f0;
+  }
+
+  .in-table table {
+    border: 0px;
+    margin-top: 5px;
+  }
+
+  .bottom-table tr td {
+    border-collapse: collapse;
+    border: 1px solid black;
+    padding-left: 3px;
+  }
+
+  /*table, tr, td, th, tbody, thead, tfoot {*/
+  /*  page-break-inside: avoid !important;*/
+  /*}*/
+  table { page-break-inside:auto }
+  tr    { page-break-inside:avoid; page-break-after:auto }
+  .logo{
+   width: 100px;
+  }
+
+  /* .border-1{
+    border-style:groove;
+	  border-width: 1px;
+    
+  } */
+  .test{
+    margin-left:5px;
+  }
+  div.alwaysbreak {
+     page-break-before: always; 
+  }
+
+.bottom{
+      position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+}
+.footer {
+  height: 50px; /* the footer's total height */
+}
+.footer-content {
+  padding-top: 200px;
+}
+</style>
+<div>
+    <div class="border-1" style="padding: 2px " >
+      <table class="bottom-table" >
+        <thead class="mb-5">
+            <tr>
+            <td colspan="3"  style="border: none;">
+                <h3 style="text-align: right; font-style: italic;font-size: 16px; " >
+                <div class="col">
+                    <%= image_tag wicked_pdf_asset_base64('pgn.png'), :height=>40%> 
+                </div>
+                </h3>
+            </td>
+            </tr>
+        </thead> 
+
+        <tbody >
+            <tr>
+                <td>test</td>
+                <td>test</td>
+                <td>test</td>   
+            </tr>
+            <tr>
+                <td>test</td>
+                <td>test</td>
+                <td>test</td>   
+            </tr>
+            <tr>
+                <td>test</td>
+                <td>test</td>
+                <td>test</td>   
+            </tr>
+                        <tr>
+                <td>test</td>
+                <td>test</td>
+                <td>test</td>   
+            </tr>
+                                    <tr>
+                <td>test</td>
+                <td>test</td>
+                <td>test</td>   
+            </tr>
+            <tr>
+                <td>test</td>
+                <td>test</td>
+                <td>test</td>   
+            </tr>
+                        <tr>
+                <td>test</td>
+                <td>test</td>
+                <td>test</td>   
+            </tr>
+                        
+        </tbody>
+        <%# <tfoot >
+        <tr style="border: none;">
+            <td colspan="10" style="border: none; text-align: center;  position: fixed; margin-top: 300px;">test</td>
+        </tr>
+        </tfoot> %>
+      </table>
+      
+    </div>
+    <footer class="footer">
+     <div class="footer-content"  style="text-align: center;">Sticky Footer</div>
+    </footer>
+</div>

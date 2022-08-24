@@ -1,6 +1,7 @@
 class SalesVisitPlan < ApplicationRecord
   belongs_to :category
-  has_many :data_company, dependent: :nullify 
+  # has_many :data_company, dependent: :nullify 
+  belongs_to :data_company
   # , optional:true
   has_many :realization_visit_plan , dependent: :destroy
   has_many_attached :file_lampiran

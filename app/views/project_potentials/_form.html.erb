@@ -84,14 +84,16 @@
           <div class="form-row">
             <div class="form-group col">
               <label for="intpuCluster">Remark</label>
-              <%= f.text_field :remark, class: "form-control" %>
+              <%= select_tag :remark, options_for_select(["SINERGI","NON SINERGI","EXTERNAL"], params[:pilihan_remark]), prompt: "-- Pilih Remark --", class: "form-control", name: "project_potential[remark]"%>
+              <%# <%= f.text_field :remark, class: "form-control" %> 
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group col">
               <label for="intpuCluster">Konfirmasi (%)</label>
-              <%= f.number_field :konfirmasi, class: "form-control" %>
+              <%= select_tag :konfirmasi, options_for_select(["100%","75%","50%"], params[:pilihan_konfirmasi]), prompt: "-- Pilih Konfirmasi --", class: "form-control" %>
+              <%# <%= f.number_field :konfirmasi, class: "form-control" %> 
             </div>
           </div>
 

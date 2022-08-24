@@ -34,6 +34,7 @@
                   <th class="text-center" style="width: 100px;">Aksi</th>
                 </tr>
             </thead>
+            
             <tbody>
             <% @contacts.each_with_index do |contact, index| %>
                 <tr>
@@ -83,9 +84,11 @@
             // buttons: ['excel', 'pdf', 'print' ]
             buttons: [
               {
+                  
                   extend: 'collection',
                   className: "btn btn-primary",
                   text: '-- Download --',
+                  
                   buttons: [
                       { 
                           className: "my-1",
@@ -98,13 +101,16 @@
                           className: "my-1",
                           extend: 'pdf',
                           
-                      }
+                          
+                      },
+                      
                       
                       // {
                       //     collectionTitle: 'Visibility control',
                       //     extend: 'colvis'
                       // }
                   ]
+                  
               }
             ],
             columnDefs:[
@@ -115,9 +121,28 @@
         
         });
     
-        table.buttons()
-        .container()
-        .appendTo( '#dataTable_contacts_wrapper .col-md-6:eq(0)');
+    
+
+        $("#dataTable_contacts_wrapper .col-md-6:eq(0)").append($(`\   <div class="">
+                <div class="dropdown d-inline mr-2">
+                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  -- Download --
+                 </button>
+                 <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+                   <div class="m-2">
+                      <%= link_to 'PDF', url_for(controller: :contacts, action: :cetak_pdf, format: "pdf"), class: 'dropdown-item btn btn-danger', target: '_blank' %>
+                     <%# <button class="dropdown-item btn btn-danger" href="#">PDF</button> %>
+                   </div>
+                   <div class="m-2">
+                     <button class="dropdown-item btn btn-success" href="#">Excel</button>
+                   </div>
+                 </div>
+                </div>
+              </div>  `));
+
+        // table.buttons()
+        // .container()
+        // .appendTo( '#dataTable_contacts_wrapper .col-md-6:eq(0)');
           
         $('.filter').on('change', function(e){
           var status = $(this).val();

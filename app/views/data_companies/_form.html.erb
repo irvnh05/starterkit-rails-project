@@ -33,7 +33,7 @@
               <label for="intpuCluster">Nama Entitas*</label>
               <%# <%= f.text_field :nama_entitas, class: "form-control", :required => true  %> 
               <%= f.text_field :nama_entitas, list: "nama_entitas" , class: "form-control select-company"%>
-              <%= f.text_field :contact_id, id: "contact_id" , class: "form-control select-company" %>
+              <%= f.hidden_field :contact_id, id: "contact_id" , class: "form-control select-company" %>
               <datalist id="nama_entitas" >
                 <%= f.collection_select :id, Contact.all, :nama_entitas, :id, {prompt: "-- Pilih Entitas --"}, class: 'form-control', id: 'company-id', :required => true, :onchange => "select_contact()" %> 
               </datalist>

@@ -31,6 +31,8 @@ RoleCore.permission_set_class.draw do
         permission :tab_detail_proyek
         permission :tab_tambah_data_proyek
       end
+
+
     # end
   #
   # group :status_report, model_name: 'status_report' do
@@ -50,6 +52,7 @@ RoleCore.permission_set_class.draw do
       permission :update
       permission :read
       permission :download
+      permission :review
     end
   end
   # For CanCanCan integration, you can pass `model_name` for `group` or `permission`. For example:

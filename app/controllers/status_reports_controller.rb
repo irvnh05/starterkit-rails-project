@@ -75,10 +75,10 @@ class StatusReportsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "activity_sales", 
+        render pdf: "contacts", 
         disable_smart_shrinking: true,
         layout:'pdf.html',
-        template: 'activity_sales/status_laporan',
+        template: 'contacts/download',
         page_size: 'A4',
         orientation: 'Landscape',
         encoding:"UTF-8",

@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   resources :users
   resources :data_companies
   resources :categories
-  resources :contacts
+  # resources :contacts
   resources :work_units
 
   # resources :realization_visit_plans 
@@ -33,6 +33,12 @@ Rails.application.routes.draw do
     collection do
     end
   end
+  resources :contacts do
+    collection do
+      get 'cetak_pdf', to: "contacts#cetak_pdf"
+    end
+  end
+  
 
   resources :activity_sales, :path => "aktivitas" ,only: [:index, :new, :report, :download]  do
     member do 
@@ -40,12 +46,18 @@ Rails.application.routes.draw do
     end
     collection do
 
-      resources :realization_visit_plans, :path => "realisasi"
+      resources :realization_visit_plans, :path => "realisasi" do
+        member do 
+          get "review", to: "realization_visit_plans#review"
+          patch 'update_status'
+        end
+      end
 
       resources :sales_visit_plans, :path => "rencana" do 
         member do 
           get "delete_file_lampiran/:attachment_id", to: 'sales_visit_plans#delete_file_lampiran'  
-     
+          get "review", to: "sales_visit_plans#review"
+          
         end
       end
 
