@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_22_075227) do
+ActiveRecord::Schema.define(version: 2022_08_24_062904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,8 @@ ActiveRecord::Schema.define(version: 2022_08_22_075227) do
     t.string "informasi_tambahan"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "realization_visit_plan_id"
+    t.index ["realization_visit_plan_id"], name: "index_project_potentials_on_realization_visit_plan_id"
   end
 
   create_table "realization_visit_plans", force: :cascade do |t|
@@ -121,7 +123,9 @@ ActiveRecord::Schema.define(version: 2022_08_22_075227) do
     t.string "catatan"
     t.string "status"
     t.string "tgl_direview"
+    t.bigint "project_potential_id"
     t.index ["category_id"], name: "index_realization_visit_plans_on_category_id"
+    t.index ["project_potential_id"], name: "index_realization_visit_plans_on_project_potential_id"
     t.index ["sales_visit_plan_id"], name: "index_realization_visit_plans_on_sales_visit_plan_id"
   end
 
@@ -213,7 +217,9 @@ ActiveRecord::Schema.define(version: 2022_08_22_075227) do
   add_foreign_key "data_companies", "categories"
   add_foreign_key "data_companies", "contacts"
   add_foreign_key "data_companies", "sales_visit_plans"
+  add_foreign_key "project_potentials", "realization_visit_plans"
   add_foreign_key "realization_visit_plans", "categories"
+  add_foreign_key "realization_visit_plans", "project_potentials"
   add_foreign_key "realization_visit_plans", "sales_visit_plans"
   add_foreign_key "role_assignments", "roles"
   add_foreign_key "role_assignments", "users"

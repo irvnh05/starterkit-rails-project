@@ -69,7 +69,7 @@ class SalesVisitPlansController < ApplicationController
       if @sales_visit_plan.save
 
          if @data_company.blank?
-          data_company = SalesVisitPlan.new
+          data_company = DataCompany.new
           data_company.sales_visit_plan_id = @sales_visit_plan.id
           data_company.create_by = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") 
           data_company.nama_entitas = @sales_visit_plan.nama_entitas_lokasi_pengadaan

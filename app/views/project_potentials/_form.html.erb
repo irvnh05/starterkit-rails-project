@@ -18,7 +18,17 @@
           <div class="form-row">
             <div class="form-group col">
               <label>Nama Entitas</label>
-              <%= f.text_field :nama_entitas, class: "form-control" %>
+              <%# <%= f.text_field :nama_entitas, class: "form-control" %>
+                <%# <select data-placeholder="Pilih Nama Entitas" class="form-control selectEntitas id_100" id="entitas"  onclick="select_entitas()">
+                  <option value="1">--Pilih--</option>
+                    <%= raw(getRealisasiPlan)%>
+                <%# </select> %> 
+                <%= f.text_field :nama_entitas, list: "nama_entitas" , class: "form-control select-realization"%>
+                <input type="hidden" name="project_potential[realization_visit_plan_id]" class="form-control select-realization" id="realization_id">
+                <%# <%= f.text_field :realization_visit_plan_id, id: "realization_id" , class: "form-control select-realization" , name: "project_potential[realization_visit_plan_id]"%> 
+                <datalist id="nama_entitas" >
+                  <%= f.collection_select :id, RealizationVisitPlan.all, :nama_entitas_lokasi_pengadaan, :id, {prompt: "-- Pilih Entitas --"}, class: 'form-control', id: 'realization-id', :required => true, :onchange => "select_realization()" %> 
+                </datalist>
               </div>
           </div>
           
@@ -46,20 +56,27 @@
           <div class="form-row">
             <div class="form-group col">
               <label for="intpuCluster">Nilai</label>
-               <%= select_tag :nilai, options_for_select(["IDR(RP)","USD($)"], params[:pilihan]), prompt: "-- Pilih Nilai(IDR) --", class: "form-control nilai" %>
+               <%= select_tag :nilai, options_for_select(["IDR(RP)","USD($)"], params[:pilihan]), prompt: "-- Pilih Nilai(IDR) --", class: "form-control nilai" , name: "project_potential[nilai]"%>
 <%
 =begin
 %>
-                <%= f.text_field :nilai, list: "nama_entitas" , class: "form-control select-company"%>
+                <%= f.text_field :nilai, list: "nama_entitas" , class: "form-control select-realization"%>
               <datalist id="nama_entitas" >
-                <%= select_tag :nilai, options_for_select(["IDR(RP)","USD($)"], params[:pilihan]), id: 'company-id', prompt: "-- Pilih Cluster --", class: "form-control" %>
+                <%= select_tag :nilai, options_for_select(["IDR(RP)","USD($)"], params[:pilihan]), id: 'realization-id', prompt: "-- Pilih Cluster --", class: "form-control" %>
               </datalist>
 <%
 =end
 %>              
             </div>
           </div>
-          
+           <div class="form-row ">
+            <div class="form-group col">
+              <label for="intpuCluster">Nominal</label>
+              <%= f.number_field :nominal, class: "form-control" %>
+            </div>
+          </div>
+<%
+=begin%>         
           <div class="form-row form-rp">
             <div class="form-group col">
               <label for="intpuCluster">Nominal (RP)</label>
@@ -75,7 +92,8 @@
               <%= f.number_field :nominal, class: "form-control" %>
             </div>
           </div>
-
+<%
+=end%>
 
           <div class="form-row">
             <div class="form-group col">
@@ -101,7 +119,7 @@
           <div class="form-row">
             <div class="form-group col">
               <label for="intpuCluster">Remark</label>
-              <%= select_tag :remark, options_for_select(["SINERGI","NON SINERGI","EXTERNAL"], params[:pilihan_remark]), prompt: "-- Pilih Remark --", class: "form-control", name: "project_potential[remark]"%>
+              <%= select_tag :remark, options_for_select(["SINERGI","NON SINERGI"], params[:pilihan_remark]), prompt: "-- Pilih Remark --", class: "form-control", name: "project_potential[remark]"%>
               <%# <%= f.text_field :remark, class: "form-control" %> 
             </div>
           </div>
@@ -109,7 +127,7 @@
           <div class="form-row">
             <div class="form-group col">
               <label for="intpuCluster">Konfirmasi (%)</label>
-              <%= select_tag :konfirmasi, options_for_select(["100%","75%","50%"], params[:pilihan_konfirmasi]), prompt: "-- Pilih Konfirmasi --", class: "form-control" %>
+              <%= select_tag :konfirmasi, options_for_select(["100%","75%","50%"], params[:pilihan_konfirmasi]), prompt: "-- Pilih Konfirmasi --", class: "form-control", name: "project_potential[konfirmasi]" %>
               <%# <%= f.number_field :konfirmasi, class: "form-control" %> 
             </div>
           </div>
@@ -132,23 +150,62 @@
 </div>
 
 <script>
-  $(document).ready(function () {
-    $(".form-rp").hide();
-    $(".form-usd").hide();
-});
+//   $(document).ready(function () {
+//     $(".form-rp").hide();
+//     $(".form-usd").hide();
+// });
 
 
-$('.nilai').change(function() {
-  if($('.nilai').val() == '') {
-    $('.form-usd, .form-rp').hide();
-  }
-  if($('.nilai').val() == 'USD($)') {
-    $('.form-rp').hide();
-    $('.form-usd').show();
-  }
-  if($('.nilai').val() == 'IDR(RP)') {
-    $('.form-rp').show();
-    $('.form-usd').hide();
-  }
-});
+// $('.nilai').change(function() {
+//   if($('.nilai').val() == '') {
+//     $('.form-usd, .form-rp').hide();
+//   }
+//   if($('.nilai').val() == 'USD($)') {
+//     $('.form-rp').hide();
+//     $('.form-usd').show();
+//   }
+//   if($('.nilai').val() == 'IDR(RP)') {
+//     $('.form-rp').show();
+//     $('.form-usd').hide();
+//   }
+// });
+
+    select_realization();
+    function select_realization() { 
+      $('.select-realization').change(function(){
+            if ($(this).val() !== '') {
+                const value = $(this).val();
+               
+        //  console.log(value)
+              $.getJSON("/helper_json/" +value+ "/getDataRealisasi",
+               function ( callback ) {
+                if (callback != "error"){
+                    $('#realization_id').val(callback).change();
+                  callback.map(myFunction); //https://www.w3schools.com/js/js_array_iteration.asp
+                }
+              });
+            }
+      });
+    }
+    // function myFunction(value){
+    //   // console.log(value)
+    //   $.getJSON("/helper_json/" +value+ "/getDataCompanyCluster",
+      
+    //            function ( callback ) {
+    //             if (callback != "error"){
+    //               // console.log(callback)
+    //                id = $('.cluster').val(callback).change();
+    //             }
+    //   });
+    //        $.getJSON("/helper_json/" +value+ "/getDataCompanyCategory",
+      
+    //            function ( callback ) {
+    //             if (callback != "error"){
+    //               // console.log(callback)
+    //                id = $('.category').val(callback).change();
+    //             }
+    //   });
+    // }
+
+    
 </script>

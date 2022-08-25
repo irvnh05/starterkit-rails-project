@@ -10,6 +10,28 @@ class ProjectPotentialsController < ApplicationController
     @konfirmasi = @project_potentials.select(:konfirmasi).map(&:konfirmasi).uniq
     @perusahaan = @project_potentials.select(:nama_entitas).map(&:nama_entitas).uniq
     @status = @project_potentials.select(:remark).map(&:remark).uniq
+    
+    #
+    # @cek_non_sinergi= @project_potentials.where("remark": "NON SINERGI").uniq(&:nama_entitas).count
+
+    # total all
+    @total_jumlah_proyek  =  ProjectPotential.distinct(:nama_entitas).count
+    #total non
+    
+    # Person.group(:age).having('count(*) > 1').order('age desc').count
+    # @total_jumlah_proyek_non  =  @project_potentials.where("remark": "NON SINERGI").uniq(&:nama_entitas)
+
+    @cek_non_sinergi = @project_potentials.where("remark": "NON SINERGI").group(:nama_entitas).count
+    # @cek_non_sinergi_nilai = @project_potentials.where("remark": "NON SINERGI").group(:nama_entitas).pluck(:nilai)
+    # if cek = @project_potentials.where("remark": "NON SINERGI")
+
+    # else
+
+    # end
+    # (:conditions  =>  " umur > 26 DAN job.salary > 60000 ")
+    # (:nama_entitas)
+    # @total_nilai_proyek =
+
   end
 
   # GET /project_potentials/1 or /project_potentials/1.json
@@ -72,6 +94,20 @@ class ProjectPotentialsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_potential_params
-      params.require(:project_potential).permit(:nama_entitas, :cluster, :lokasi, :judul_tender, :nilai, :nominal, :lini_bisnis, :jadwal_perkiraan_tender, :durasi_proyek, :remark, :konfirmasi, :informasi_tambahan)
+      params.require(:project_potential).permit(
+        :nama_entitas, 
+        :cluster, 
+        :lokasi, 
+        :judul_tender, 
+        :nilai, 
+        :nominal, 
+        :lini_bisnis, 
+        :jadwal_perkiraan_tender, 
+        :durasi_proyek, 
+        :remark, 
+        :konfirmasi, 
+        :realization_visit_plan_id, 
+        :informasi_tambahan
+      )
     end
 end

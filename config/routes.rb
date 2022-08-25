@@ -85,6 +85,8 @@ Rails.application.routes.draw do
       get "/getDataContactCluster", to: "helper_json#getDataContactCluster"
       get "/getDataContactCategory", to: "helper_json#getDataContactCategory" 
       get "/getDataContactLokasiKerja", to: "helper_json#getDataContactLokasiKerja" 
+      # dataRealisasi
+      get "/getDataRealisasi", to: "helper_json#getDataRealisasi"
     end
   end
   # get 'status_laporan/:id/download', to: "activity_sales#download"

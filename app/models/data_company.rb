@@ -3,7 +3,7 @@ class DataCompany < ApplicationRecord
   # belongs_to :sales_visit_plan,  optional:true
   has_many :status_report
   has_many :sales_visit_plan, dependent: :nullify 
-  belongs_to :contact
+  belongs_to :contact, optional: true
 
   
 end
