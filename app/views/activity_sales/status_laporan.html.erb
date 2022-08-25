@@ -25,8 +25,8 @@
       <div class="table-responsive">
         <div id="tableExport_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
           <table id="dataTable_status_laporans" class="table table-bordered" >  
-              <div class="card-body nopadding">
-                <div class="dropdown d-inline mr-2">
+              <div class="card-body nopadding row">
+                <div class="dropdown d-inline mr-2 col">
                  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   -- Download --
                  </button>
@@ -39,6 +39,13 @@
                      <button class="dropdown-item btn btn-success" href="#">Excel</button>
                    </div>
                  </div>
+                </div>
+                <div class="">
+                  <% if current_user.can? { |permissions| permissions.sales_visit_plan.create? } %>
+                  <div class="align-items-center">
+                    <a href="<%= new_sales_visit_plan_path %>" class="btn btn-primary btn-sm" >+ Tambah Data</a>
+                  </div>
+                  <% end %>  
                 </div>
               </div>  
             <br>  
@@ -63,7 +70,7 @@
                 <tr>
                   <td class="text-center"><%= index+1 %></td>
                   <td><%=status_laporan.tgl_aktivitas %></td>
-                  <td><%=status_laporan.realization_visit_plan.try(:nama_entitas_lokasi_pengadaan)%></td>
+                  <td></td>
                   <td></td>
                   <td><%=status_laporan.realization_visit_plan.try(:subjek_deksripsi_pekerjaan)%></td>
                   <%# <td></td> %>

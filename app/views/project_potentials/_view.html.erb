@@ -36,12 +36,12 @@
                    <td></td>
                    <%# <td><%= project_potential.remark%>
                    <%# </td> %>
-                   <td></td>
-                   <td></td>
-                   <td></td>
-                   <td></td>
-                   <td></td>
-                   <td></td>
+                   <td>6</td>
+                   <td>5</td>
+                   <td>4</td>
+                   <td>3</td>
+                   <td>2</td>
+                   <td>1</td>
                 </tr>
                 
             <% end %>
@@ -52,12 +52,17 @@
             </tr>
         </thead>
         <tbody>
-            <% @project_potentials.where("remark": "NON SINERGI").or(@project_potentials.where("remark": "EXTERNAL")).each_with_index do |project_potential, index| %>
+            <% @cek_non_sinergi.each_with_index do |project_potential, index| %>
+            <%# <% @project_potentials.where("remark": "NON SINERGI").or(@project_potentials.where("remark": "EXTERNAL")).each_with_index do |project_potential, index| %> %>
                 <tr>
                  <td class="text-center"><%= index+1 %></td>
-                 <td><%= project_potential.nama_entitas%></td>
-                 <td></td>
-                 <td></td>
+                 <td>
+                  <%= project_potential[0] %>
+                 </td>
+                 <td>
+                 <%= project_potential[1]%>
+                 </td>
+                 <td> <%= @cek_non_sinergi.inspect%></td>
                  <td></td>
                  <td></td>
                  <td></td>
@@ -72,7 +77,7 @@
         <thead>
             <tr>
               <td colspan="2">TOTAL NON SINERGI & EKSTERNAL</td>
-              <td></td>
+              <td>  <%= @total_jumlah_proyek  %></td>
               <td></td>
               <td></td>
               <td></td>
@@ -81,7 +86,7 @@
               <td></td>
               <td></td>
             </tr>
-             <tr>
+             <%# <tr>
               <td colspan="2">TOTAL (SINERGI, NON SINERGI & EKSTERNAL)</td>
               <td></td>
               <td></td>
@@ -91,7 +96,7 @@
               <td></td>
               <td></td>
               <td></td>
-            </tr>
+            </tr> %>
         </thead>       
       </table>
 

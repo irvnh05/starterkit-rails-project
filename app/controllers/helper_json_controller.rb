@@ -37,6 +37,15 @@ class HelperJsonController < ApplicationController
       }
     end
 
+    def getDataRealisasi
+        id = params[:id]
+        render json: RealizationVisitPlan.select('*')
+          .where('nama_entitas_lokasi_pengadaan = ?', id)
+          .map{ |vendor|
+              vendor.id
+      }
+    end
+
     def getDataContact
         # id = params[:id]
         # render json: DataCompany.select('*')

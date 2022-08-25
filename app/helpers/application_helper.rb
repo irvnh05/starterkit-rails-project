@@ -39,6 +39,41 @@ module ApplicationHelper
       return option  
     end
 
+    # def getRealisasiPlan()
+    #   @status_ticket = RealizationVisitPlan.select(
+    #     # 'id',
+    #     'id,
+    #     nama_entitas_lokasi_pengadaan,
+    #     subjek_deksripsi_pekerjaan,
+    #     cluster,
+    #     realisasi,
+    #     realisasi_tgl_peretemuan,
+    #     category_id,
+    #     sales_visit_plan_id,
+    #     jenis_pekerjaan'
+    #   ).order(:nama_entitas_lokasi_pengadaan => :asc)
+    #   # @sales_visit_plans =  SalesVisitPlan.find_by(email_user: current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") )
+
+      
+    #   # record.your_attachment.joins(:blob).where('active_storage_blobs.metadata LIKE ?', '%"your_attribute":"your_value"%')
+
+    #   option = '<option value=""></value>'
+    #   f = {}
+    #   @status_ticket.each do |status_ticket|
+    #   f["#{status_ticket.nama_entitas_lokasi_pengadaan} "] = "#{status_ticket.nama_entitas_lokasi_pengadaan} "
+    #   end 
+    #   f.sort_by { |key| key }
+    #   f.each do |k,v|
+     
+    #     selected = "selected"
+          
+    #     option = option + '<option value="'+k+'" '+selected.to_s+'>'+v+'</option>'
+    # end 
+
+    # return option  
+    #  end
+
+
     # def getDataContact()
     #   @status_ticket = DataContact.select('id','nama_entitas_lokasi_pengadaan,category_id,deksripsi_pekerjaan,cluster,minggu1,minggu2,minggu3,minggu4,jenis_pekerjaan').order(:nama_entitas_lokasi_pengadaan => :asc).with_attached_file_lampiran
     #   # @sales_visit_plans =  SalesVisitPlan.find_by(email_user: current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") )

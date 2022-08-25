@@ -48,7 +48,8 @@
           <div class="form-row">
             <div class="form-group col">
               <label for="intpuCluster">Jenis Pekerjaan</label>
-              <%= f.text_field :jenis_pekerjaan, class: "form-control" %>
+              <%= select_tag :jenis_pekerjaan, options_for_select(["Get", "Keep/Grow", "Win Back", "Partnership"], params[:pilih_jenis_pekerjaan]), prompt: "-- Pilih --", class: "form-control",:required => true, name: "sales_visit_plan[jenis_pekerjaan]" %>
+              <%# <%= f.text_field :jenis_pekerjaan, class: "form-control" %> 
             </div>
           </div>
 
