@@ -37,7 +37,8 @@
           </tr>
           <tr>
             <td width="30%">File Lampiran</td>
-              <td><% if @sales_visit_plan.file_lampiran.attached? %>
+              <td>
+              <% if @sales_visit_plan.file_lampiran.attached? %>
                 <% @sales_visit_plan.file_lampiran.each do |lampiran| %>
                  <span style="margin-right: 10px">
                   <%= link_to "#{[ "#{lampiran.filename}" ]}", rails_blob_path(lampiran, disposition: 'preview'), :target => "_blank" %>

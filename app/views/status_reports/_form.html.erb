@@ -1,6 +1,17 @@
 <div class="container-fluid">
  <%= form_for @status_report, multipart: true do |f| %>
   <div class="card shadow mb-4">
+              <% if @status_report.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@status_report.errors.count, "error") %> prohibited this site_project from being saved:</h2>
+              <ul>
+              <% @status_report.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
     <div class="card-header py-3">
       <div class="row justify-content-between">
         <div class="col align-items-center pt-2">
@@ -63,7 +74,10 @@
           </tr>
           <tr>
             <th width="30%">5.Lokasi Kunjungan</th>
-            <td colspan="3"><%=@status_report.realization_visit_plan.sales_visit_plan.try(:emaiil_pic)%></td>
+            <td colspan="3">
+            <%# <%=@status_report.realization_visit_plan.sales_visit_plan.try(:emaiil_pic)%>
+             <%= f.text_field :lokasi_kunjungan, class: 'form-control border border-secondary' %>
+            </td>
           </tr>
           <tr>
             <th width="30%">6.Jenis Kegiatan</th>
@@ -96,11 +110,15 @@
           </tr>
           <tr>
             <th width="30%">9.Hasil Kunjungan</th>
-            <td colspan="3">Test</td>
+            <td colspan="3"> 
+              <%= f.text_field :hasil_kunjungan, class: 'form-control border border-secondary' %>
+            </td>
           </tr>
           <tr>
             <th width="30%">10.Tindak Lanjut</th>
-            <td colspan="3">Test</td>
+            <td colspan="3"> 
+              <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary' %>
+            </td>
           </tr>
           <tr>
             <th width="30%">11.Rencana Kunjungan</th>
@@ -135,13 +153,14 @@
         </tbody>
       </table>
     </div>
-    <div class="card-footer py-3 ">
+<%
+=end%>    
+    <div class=" py-3 ">
       <a href="<%= status_laporan_activity_sales_path %>" class="btn btn-info pull-right ml-2">Kembali</a>
       <button type="submit" class="btn btn-primary px-3 pull-right">Submit</button>
     </div>
-  </div>
-<%
-=end%>
+  <%# </div> %>
+
     <%# <%= render "show_lampiran" %> 
  <% end %>
 </div> 
