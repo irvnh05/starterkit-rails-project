@@ -58,6 +58,7 @@ class StatusReportsController < ApplicationController
         format.json { render json: status_reports_path.errors, status: :unprocessable_entity }
       end
     end
+    s
   end
 
   # DELETE /status_reports/1 or /status_reports/1.json
@@ -95,6 +96,11 @@ class StatusReportsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def status_report_params
-      params.require(:status_report).permit(:catatan)
+      params.require(:status_report).permit(
+        :catatan,
+        :hasil_kunjungan,
+        :tindak_lanjut,
+        :lokasi_kunjungan
+      )
     end
 end
