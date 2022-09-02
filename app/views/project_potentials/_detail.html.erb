@@ -6,26 +6,26 @@
              <%= form_tag(:action => :index) do %>
             <div class="row">
               <%= select_tag "project_potential", options_for_select(@perusahaan),{class: "form-control select col-md-2 filter_perusahaan" ,prompt: "-- Nama Perusahaan --"} %>
-              <%= select_tag "project_potential", options_for_select(@status),{class: "form-control select col-md-2 ml-2 filter_status" ,prompt: "-- Status --"} %>
+              <%= select_tag "project_potential", options_for_select(@status),{class: "form-control select col-md-2 ml-2 filter_status" ,prompt: "-- Remark --"} %>
               <%= select_tag "project_potential", options_for_select(@konfirmasi),{class: "form-control select col-md-2 ml-2 filter_konfirmasi" ,prompt: "-- Konfirmasi --"} %>
-              <%= select_tag "project_potential", options_for_select(["IDR(RP)","USD($)"]),{class: "form-control select col-md-2 ml-2 filter_nilai" ,prompt: "-- Nilai --"} %>
+              <%= select_tag "project_potential", options_for_select(["(0-25)","(25-50)","(50-100)","(>100)"]),{class: "form-control select col-md-2 ml-2 filter_nilai" ,prompt: "-- Nilai --"} %>
             </div>
             <% end %>
             <br>  
             <thead>
                 <tr>
                   <th class="text-center" style="width: 12px;">No</th>
-                  <th>Nama entitas</th>
-                  <th>Cluster</th>
+                  <th>Nama Entitas</th>
+                  <th>Klaster</th>
                   <th>Lokasi</th>
-                  <th>Judul tender</th>
+                  <th>Judul Tender</th>
                   <th>Nilai</th>
-                  <th>Lini bisnis</th>
+                  <th>Lini Bisnis</th>
                   <th>Jadwal</th>
                   <th>Durasi</th>
                   <th>Remarks</th>
                   <th>Konfirmasi</th>
-                  <th>Informasi tambahan</th>
+                  <th>Informasi Tambahan</th>
                   <th class="text-center" style="width: 100px;">Aksi</th>
                 </tr>
             </thead>

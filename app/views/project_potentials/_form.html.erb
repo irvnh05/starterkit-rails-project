@@ -98,7 +98,8 @@
           <div class="form-row">
             <div class="form-group col">
               <label for="intpuCluster">Lini Bisnis</label>
-              <%= f.text_field :lini_bisnis, class: "form-control" %>
+              <%= select_tag :lini_bisnis, options_for_select(["EPC","O&M","Supply Chain","Lainnya"], params[:pilihan_lini_bisnis]), prompt: "-- Pilih Lini Bisnis --", class: "form-control", name: "project_potential[lini_bisnis]"%>
+              <%# <%= f.text_field :lini_bisnis, class: "form-control" %> 
             </div>
           </div>
 
