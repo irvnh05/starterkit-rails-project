@@ -31,6 +31,7 @@
                   <th>Emaiil PIC</th>
                   <th>Kontak PIC</th>
                   <th>Keterangan</th>
+                  <th>Lampiran</th>
                   <th class="text-center" style="width: 100px;">Aksi</th>
                 </tr>
             </thead>
@@ -49,6 +50,7 @@
                   <td><%= contact.emaiil_pic %></td>
                   <td>0<%= contact.kontak_pic.to_i %></td>
                   <td><%= contact.keterangan %></td>
+                  <td></td>
                   <td class="text-center">
                     <% if current_user.can? { |permissions| permissions.contact.read? } %>
                     <a href="<%= contact_path(contact) %>" class="btn btn-info btn-circle btn-sm">

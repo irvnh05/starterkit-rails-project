@@ -77,11 +77,35 @@
               <%if @sales_visit_plan.new_record?%>
               <%= select_tag :pilihan, options_for_select(["Minggu 1", "Minggu 2", "Minggu 3", "Minggu 4"], params[:pilihan]), prompt: "-- Pilih --", class: "form-control",:required => true %>
               <%else%>
+                  <%# <%= @cek_minggu.inspect%>
                   <select class="form-control" id="pekerja" value="<%=params[:pilihan]%>" onclick="select_pekerja()">
-                   <% if @sales_visit_plan.minggu1.blank? || @sales_visit_plans.minggu2.blank? || @sales_visit_plans.minggu3.blank? || @sales_visit_plans.minggu4.blank? %>
-                        <%# <%= raw(getSalesPlanId(@sales_visit_plan.id))%> %>
-                   <% else %>
-                      <%# <%= raw(getSalesPlanId(@sales_visit_plan.id))%> %>
+                   <% if  @sales_visit_plan.minggu1.present? || @sales_visit_plans.minggu2.present? || @sales_visit_plans.minggu3.present? || @sales_visit_plans.minggu4.present? %>
+                      <%if @cek_minggu.to_s.gsub('"','').gsub(']','').gsub('[','') == "Minggu 1"%>
+                        <option value="<%=@cek_minggu.to_s.gsub('"','').gsub(']','').gsub('[','')%>" selected><%=@cek_minggu.to_s.gsub('"','').gsub(']','').gsub('[','')%></option>
+                        <option value="Minggu 2">Minggu 2</option>
+                        <option value="Minggu 3">Minggu 3</option>
+                        <option value="Minggu 4">Minggu 4</option>
+                      <%elsif @cek_minggu.to_s.gsub('"','').gsub(']','').gsub('[','') == "Minggu 2"%>
+                        <option value="Minggu 1">Minggu 1</option>
+                        <option value="<%=@cek_minggu.to_s.gsub('"','').gsub(']','').gsub('[','')%>" selected><%=@cek_minggu.to_s.gsub('"','').gsub(']','').gsub('[','')%></option>
+                        <option value="Minggu 3">Minggu 3</option>
+                        <option value="Minggu 4">Minggu 4</option>
+                      <%elsif @cek_minggu.to_s.gsub('"','').gsub(']','').gsub('[','') == "Minggu 3"%>
+                        <option value="Minggu 1">Minggu 1</option>
+                        <option value="Minggu 2">Minggu 2</option>
+                        <option value="<%=@cek_minggu.to_s.gsub('"','').gsub(']','').gsub('[','')%>" selected><%=@cek_minggu.to_s.gsub('"','').gsub(']','').gsub('[','')%></option>
+                        <option value="Minggu 4">Minggu 4</option>
+                      <%else%>
+                        <option value="Minggu 1">Minggu 1</option>
+                        <option value="Minggu 2">Minggu 2</option>
+                        <option value="Minggu 3">Minggu 3</option>
+                        <option value="<%=@cek_minggu.to_s.gsub('"','').gsub(']','').gsub('[','')%>" selected><%=@cek_minggu.to_s.gsub('"','').gsub(']','').gsub('[','')%></option>
+                      <%end%>
+                    <% else %>
+                      <option value="Minggu 1">Minggu 1</option>
+                      <option value="Minggu 2">Minggu 2</option>
+                      <option value="Minggu 3">Minggu 3</option>
+                      <option value="Minggu 4">Minggu 4</option>
                    <% end %>
                   </select>
               <%end%>  

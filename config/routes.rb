@@ -11,7 +11,6 @@ Rails.application.routes.draw do
 
   post 'realization_visit_plans/create'
   post 'realization_visit_plans/update'
-  post 'sales_visit_plans/review_rencana', to: "sales_visit_plans#review_update"
   post 'project_potentials/create', to: 'project_potentials#create'  
   # post 'sales_visit_plans/create'
 
@@ -60,7 +59,7 @@ Rails.application.routes.draw do
         member do 
           get "delete_file_lampiran/:attachment_id", to: 'sales_visit_plans#delete_file_lampiran'  
           get "review", to: "sales_visit_plans#review"
-          
+          post 'review_rencana', to: "sales_visit_plans#review_update_rekap"
         end
       end
 

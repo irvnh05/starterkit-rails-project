@@ -72,11 +72,11 @@
                     <td width="10%%">  
                      <%# <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary'   %>
                  
-                     <div class="bootstrap-tagsinput"><input type="text" placeholder="" size="1"></div>
+                   
                     </td>
-                    <td >   <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary' %></td>
-                    <td >   <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary' %></td>
-                    <td >   <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary' %></td>
+                    <td ></td>
+                    <td ></td>
+                    <td ></td>
                   </tr>
                 </tbody>
               </table>
@@ -86,7 +86,7 @@
             <th width="30%">5.Lokasi Kunjungan</th>
             <td colspan="3">
             <%# <%=@status_report.realization_visit_plan.sales_visit_plan.try(:emaiil_pic)%>
-             <%= f.text_field :lokasi_kunjungan, class: 'form-control border border-secondary' %>
+          
             </td>
           </tr>
           <tr>
@@ -109,10 +109,10 @@
                     <th >Kontak</th>
                   </tr>
                   <tr>
-                    <td width="10%">   <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary' %></td>
-                    <td >   <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary' %></td>
-                    <td >   <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary' %></td>
-                    <td >   <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary' %></td>
+                    <td width="10%"></td>
+                    <td ></td>
+                    <td ></td>
+                    <td ></td>
                   </tr>
                 </tbody>
               </table>
@@ -121,13 +121,13 @@
           <tr>
             <th width="30%">9.Hasil Kunjungan</th>
             <td colspan="3"> 
-              <%= f.text_field :hasil_kunjungan, class: 'form-control border border-secondary' %>
+           
             </td>
           </tr>
           <tr>
             <th width="30%">10.Tindak Lanjut</th>
             <td colspan="3"> 
-              <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary' %>
+          
             </td>
           </tr>
           <tr>
@@ -165,10 +165,6 @@
     </div>
 <%
 =end%>    
-    <div class=" py-3 ">
-      <a href="<%= status_laporan_activity_sales_path %>" class="btn btn-info pull-right ml-2">Kembali</a>
-      <button type="submit" class="btn btn-primary px-3 pull-right">Submit</button>
-    </div>
   <%# </div> %>
 
     <%# <%= render "show_lampiran" %> 

@@ -1,5 +1,5 @@
 class SalesVisitPlansController < ApplicationController
-  before_action :set_sales_visit_plan, only: %i[ show edit update destroy review]
+  before_action :set_sales_visit_plan, only: %i[ show edit update destroy review review_update_rekap]
 
   def realisasi
     @realization_visit_plan = RealizationVisitPlan.new
@@ -25,10 +25,36 @@ class SalesVisitPlansController < ApplicationController
 
   # GET /sales_visit_plans/1/edit
   def edit
+    @sales_visit_plans = SalesVisitPlan.find_by("id": params[:id]) 
+
+    @cek =
+    if  @sales_visit_plans.minggu1.eql? "Minggu 1"
+      @sales_visit_plans.minggu1 = "Minggu 1"
+    elsif  @sales_visit_plans.minggu2.eql?  "Minggu 2"
+      @sales_visit_plans.minggu2 = "Minggu 2"
+    elsif  @sales_visit_plans.minggu3.eql?  "Minggu 3"
+      @sales_visit_plans.minggu3 = "Minggu 3"
+    else
+      @sales_visit_plans.minggu4 = "Minggu 4"
+    end
+    @cek_minggu = [@cek]
   end
 
   # GET /sales_visit_plans/1/review
   def review
+    @sales_visit_plans = SalesVisitPlan.find_by("id": params[:id]) 
+
+    @cek =
+    if  @sales_visit_plans.minggu1.eql? "Minggu 1"
+      @sales_visit_plans.minggu1 = "Minggu 1"
+    elsif  @sales_visit_plans.minggu2.eql?  "Minggu 2"
+      @sales_visit_plans.minggu2 = "Minggu 2"
+    elsif  @sales_visit_plans.minggu3.eql?  "Minggu 3"
+      @sales_visit_plans.minggu3 = "Minggu 3"
+    else
+      @sales_visit_plans.minggu4 = "Minggu 4"
+    end
+    @cek_minggu = [@cek]
   end
 
   # POST /sales_visit_plans or /sales_visit_plans.json
@@ -73,7 +99,7 @@ class SalesVisitPlansController < ApplicationController
 
          if @data_company.blank?
           data_company = DataCompany.new
-          data_company.sales_visit_plan_id = @sales_visit_plan.id
+          # data_company.sales_visit_plan_id = @sales_visit_plan.id
           data_company.create_by = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") 
           data_company.nama_entitas = @sales_visit_plan.nama_entitas_lokasi_pengadaan
           data_company.save!
@@ -83,7 +109,7 @@ class SalesVisitPlansController < ApplicationController
 
          if @data_company.blank?
           contact = Contact.new
-          contact.sales_visit_plan_id = @sales_visit_plan.id
+          # contact.sales_visit_plan_id = @sales_visit_plan.id
           contact.create_by = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") 
           contact.nama_entitas = @sales_visit_plan.nama_entitas_lokasi_pengadaan
           contact.save!
@@ -110,20 +136,10 @@ class SalesVisitPlansController < ApplicationController
   # PATCH/PUT /sales_visit_plans/1 or /sales_visit_plans/1.json
   def update
     # @update = SalesVisitPlan.find_by(id: params[:id])
-    @catatan =  params[:sales_visit_plan][:catatan]
+    # @catatan =  params[:sales_visit_plan][:catatan]
     respond_to do |format|
-      sales_visit_plan = SalesVisitPlan.find(params[:id]) 
-      if  sales_visit_plan.tgl_direview.nil? 
-        sales_visit_plan.status = "1"
-        sales_visit_plan.tgl_direview = Time.new
-        sales_visit_plan.catatan = @catatan
-        sales_visit_plan.save!
-        @sales_visit_plan.update(sales_visit_plan_params) 
-        format.html { redirect_to rekap_activity_sales_path, notice: "Sales visit plan was successfully updated." }
-        format.json { render :show, status: :ok, location: @sales_visit_plan }
-      elsif  
-        sales_visit_plan.status == 0 || sales_visit_plan.status == 1
-        @sales_visit_plan.update(sales_visit_plan_params) 
+      # sales_visit_plan = SalesVisitPlan.find(params[:id]) 
+      if  @sales_visit_plan.update(sales_visit_plan_params) 
         format.html { redirect_to activity_sales_path, notice: "Sales visit plan was successfully updated." }
         format.json { render :show, status: :ok, location: @sales_visit_plan }
       else
@@ -134,17 +150,16 @@ class SalesVisitPlansController < ApplicationController
     end
   end
 
-  def review_update
+  def review_update_rekap
     # @update = SalesVisitPlan.find_by(id: params[:id])
-    @catatan =  params[:sales_visit_plan][:catatan]
+
     respond_to do |format|
+      # @catatan =  params[:sales_visit_plan][:catatan]
       sales_visit_plan = SalesVisitPlan.find(params[:id]) 
-      if  sales_visit_plan.tgl_direview.nil? 
+      if  @sales_visit_plan.update(params_rekap) 
         sales_visit_plan.status = "1"
         sales_visit_plan.tgl_direview = Time.new
-        sales_visit_plan.catatan = @catatan
         sales_visit_plan.save!
-        @sales_visit_plan.update(sales_visit_plan_params) 
         format.html { redirect_to rekap_activity_sales_path, notice: "Sales visit plan was successfully updated." }
         format.json { render :show, status: :ok, location: @sales_visit_plan }
       else
@@ -200,5 +215,14 @@ class SalesVisitPlansController < ApplicationController
         :tgl_direview,
         file_lampiran: [],
         )
+    end
+
+    def params_rekap
+      params.require(:sales_visit_plan).permit(
+        # :status,
+        # :review_by,
+        :catatan,
+        # :tgl_direview,
+      )
     end
 end

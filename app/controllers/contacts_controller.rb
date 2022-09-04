@@ -109,7 +109,8 @@ class ContactsController < ApplicationController
         :keterangan,
         :work_unit_id,
         # :user_id
-        :email_user
+        :email_user,
+        file_lampiran:[]
         )
     end
 end

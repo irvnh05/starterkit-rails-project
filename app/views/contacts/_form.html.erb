@@ -94,6 +94,20 @@
           </div>
 
           <div class="form-group">
+            <label>Lampiran</label>
+            <%= f.file_field :file_lampiran, class: "form-control", direct_upload: true, accept: 'image/jpeg, image/jpg, image/png, application/pdf', multiple: true %>
+            <div style="margin-top: 10px;">
+              <% @contact.file_lampiran.each do |lampiran| %>
+                <span style="margin-right: 10px">
+                  <%= link_to "#{[ "#{lampiran.filename}" ]}", rails_blob_path(lampiran, disposition: 'preview'), :target => "_blank" %>
+                  <%= link_to '', url_for(controller: :activity_sales, action: :delete_lampiran, attachment_id: lampiran.id), class: 'fa-trash-alt', method: "DELETE", data: { confirm: 'Are you sure?' } %>
+                  <br>
+                </span>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="form-group">
            <button type="submit" class="btn btn-primary px-3 pull-right">Submit</button>
             <a href="<%= contacts_path %>" class="btn btn-light pull-left">Cancel</a>
           </div>

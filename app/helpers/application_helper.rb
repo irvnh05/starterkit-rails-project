@@ -39,6 +39,8 @@ module ApplicationHelper
       return option  
     end
 
+
+
   #   public def getSalesPlanId(parameter)
   #     @status_ticket = SalesVisitPlan.select('id','minggu1','minggu2','minggu3','minggu4').where('id': parameter )
   #     # @sales_visit_plans =  SalesVisitPlan.find_by(email_user: current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") )

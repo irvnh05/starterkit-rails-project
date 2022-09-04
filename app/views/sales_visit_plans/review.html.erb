@@ -7,7 +7,8 @@
       <%# <a class="btn btn-primary" id="catatan">+Catatan</a> %>
       <a class="btn btn-primary" id="catatan" href="#" role="button">+Catatan</a>
     </div>
-  <%= form_for @sales_visit_plan, multipart: true do |f| %>
+  <%= form_for :sales_visit_plan, url: review_rencana_sales_visit_plan_path, method: :post, html: {class: "form-horizontal", role: "form"} do |f| %>
+  <%# <%= form_for @sales_visit_plan, multipart: true do |f| %>
     <div class="card shadow mb-4 " id="form-catatan" >
           <% if @sales_visit_plan.errors.any? %>
             <div id="error_explanation">

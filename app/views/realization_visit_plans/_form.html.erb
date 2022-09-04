@@ -138,8 +138,7 @@
             <label>Upload Materis</label>
             <%= f.file_field :file_lampiran, class: "form-control multi-pt", direct_upload: true, accept: 'image/jpeg, image/jpg, image/png, application/pdf', multiple: true%>
             <div style="margin-top: 10px;" value="<%= params[:id] %>" class="pilih">
-              <% if 
-              @sales_visit_plan = SalesVisitPlan.find_by(id: params[:id])
+              <% if @sales_visit_plan = SalesVisitPlan.find_by(id: params[:id])
               @sales_visit_plan.file_lampiran.include? %>
                 <% @realization_visit_plan.file_lampiran.each do |lampiran| %>
                 <span style="margin-right: 10px">
