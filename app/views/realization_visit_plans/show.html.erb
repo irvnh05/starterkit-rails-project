@@ -35,6 +35,20 @@
             <td width="30%">Nama entitas lokasi pengadaan</td>
             <td><%= @realization_visit_plan.nama_entitas_lokasi_pengadaan%></td>
           </tr>
+<tr>
+            <td width="30%">File Lampiran</td>
+              <td>
+              <% if @realization_visit_plan.file_lampiran.attached? %>
+                <% @realization_visit_plan.file_lampiran.each do |lampiran| %>
+                 <span style="margin-right: 10px">
+                  <%= link_to "#{[ "#{lampiran.filename}" ]}", rails_blob_path(lampiran, disposition: 'preview'), :target => "_blank" %>
+                  <%= link_to '', url_for(controller: :realization_visit_plans, action: :delete_file_lampiran, attachment_id: lampiran.id), class: 'fa fa-close', method: "DELETE", data: { confirm: 'Are you sure?' } %>
+                  <br>
+                </span>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
 
         </tbody>
       </table>

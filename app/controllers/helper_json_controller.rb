@@ -18,6 +18,25 @@ class HelperJsonController < ApplicationController
         }
     end
 
+    def getDataContact
+        # id = params[:id]
+        # render json: DataCompany.select('*')
+        #                 .where('nama_entitas = ?', id)
+        #                 .map{ |vendor|
+        #                     { 
+        #                         :id => vendor.id,
+        #                         :cluster => vendor.cluster, 
+        #                         :category_id => vendor.category_id, 
+        #                     }
+        #                 }
+        id = params[:id]
+        render json: Contact.select('*')
+          .where('nama_entitas = ?', id)
+          .map{ |vendor|
+              vendor.id
+      }
+    end
+
     def getDataCompany
         # id = params[:id]
         # render json: DataCompany.select('*')
@@ -46,24 +65,6 @@ class HelperJsonController < ApplicationController
       }
     end
 
-    def getDataContact
-        # id = params[:id]
-        # render json: DataCompany.select('*')
-        #                 .where('nama_entitas = ?', id)
-        #                 .map{ |vendor|
-        #                     { 
-        #                         :id => vendor.id,
-        #                         :cluster => vendor.cluster, 
-        #                         :category_id => vendor.category_id, 
-        #                     }
-        #                 }
-        id = params[:id]
-        render json: Contact.select('*')
-          .where('nama_entitas = ?', id)
-          .map{ |vendor|
-              vendor.id
-      }
-    end
 
 
     def getDataContactCategory

@@ -135,15 +135,16 @@
           <%# <input type="hidden" id="sales_visit_plan_id" class="id-sales"> %>
           
           <div class="form-group">
-            <label>Upload Materi</label>
+            <label>Upload Materis</label>
             <%= f.file_field :file_lampiran, class: "form-control multi-pt", direct_upload: true, accept: 'image/jpeg, image/jpg, image/png, application/pdf', multiple: true%>
             <div style="margin-top: 10px;" value="<%= params[:id] %>" class="pilih">
               <% if 
               @sales_visit_plan = SalesVisitPlan.find_by(id: params[:id])
               @sales_visit_plan.file_lampiran.include? %>
-                <% @sales_visit_plan.file_lampiran.each do |lampiran| %>
+                <% @realization_visit_plan.file_lampiran.each do |lampiran| %>
                 <span style="margin-right: 10px">
-                  <%= link_to "#{["#{lampiran.filename}"]}", rails_blob_path(lampiran, disposition: 'preview'), :target => "_blank" %>
+                    <%= link_to "#{[ "#{lampiran.filename}" ]}", rails_blob_path(lampiran, disposition: 'preview'), :target => "_blank" %>
+                  <%= link_to '', url_for(controller: :activity_sales, action: :delete_lampiran, attachment_id: lampiran.id), class: 'fa-trash-alt', method: "DELETE", data: { confirm: 'Are you sure?' } %>
                   <br>
                 </span>
                 <% end %>

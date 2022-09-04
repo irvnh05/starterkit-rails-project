@@ -3,6 +3,8 @@ class ActivitySalesController < ApplicationController
   # GET /activity_sales or /activity_sales.json
   def index
     @sales_visit_plans = SalesVisitPlan.all
+    @sales_visit_plan = SalesVisitPlan.find_by("id": params[:id]) 
+    
     @realization_visit_plans = RealizationVisitPlan.all
     @category = Category.select(:name).map(&:name).uniq
     @cluster_realisasi = RealizationVisitPlan.select(:cluster).map(&:cluster).uniq
@@ -47,7 +49,11 @@ class ActivitySalesController < ApplicationController
     end
   end
 
-
+  def delete_lampiran
+    @attachment = ActiveStorage::Attachment.find(params[:attachment_id])
+    @attachment.purge # or use purge_later
+    redirect_back(fallback_location: request.referer)
+  end
   
   def show
 

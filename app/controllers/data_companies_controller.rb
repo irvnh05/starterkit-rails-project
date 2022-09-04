@@ -37,10 +37,21 @@ class DataCompaniesController < ApplicationController
 
   # POST /data_companies or /data_companies.json
   def create
+    @contact = params[:data_company][:contact_id]
     @data_company = DataCompany.new(data_company_params)
     @data_company.email_user = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") 
     respond_to do |format|
       if @data_company.save
+        if @contact.blank?
+          contact = Contact.new
+          contact.data_company_id = @data_company.id
+          contact.create_by = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") 
+          contact.nama_entitas = @data_company.nama_entitas
+          contact.category_id = @data_company.category_id
+          contact.cluster = @data_company.cluster
+          contact.lokasi_kerja = @data_company.lokasi_kerja
+          contact.save!
+         end
         format.html { redirect_to data_companies_path, notice: "Data company was successfully created." }
         format.json { render :show, status: :created, location: @data_company }
       else
@@ -53,8 +64,21 @@ class DataCompaniesController < ApplicationController
 
   # PATCH/PUT /data_companies/1 or /data_companies/1.json
   def update
+    @contact = params[:data_company][:contact_id]
     respond_to do |format|
       if @data_company.update(data_company_params)
+
+        # @reward_punishment.kategori = @kategori
+        if @contact.blank?
+          contact = Contact.find_by("sales_visit_plan_id":@data_company.sales_visit_plan_id )
+          contact.data_company_id = @data_company.id
+          contact.create_by = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") 
+          contact.nama_entitas = @data_company.nama_entitas
+          contact.category_id = @data_company.category_id
+          contact.cluster = @data_company.cluster
+          contact.lokasi_kerja = @data_company.lokasi_kerja
+          contact.save!
+         end
         format.html { redirect_to @data_company, notice: "Data company was successfully updated." }
         format.json { render :show, status: :ok, location: @data_company }
       else

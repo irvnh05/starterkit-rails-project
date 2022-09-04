@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   post 'realization_visit_plans/create'
   post 'realization_visit_plans/update'
+  post 'sales_visit_plans/review_rencana', to: "sales_visit_plans#review_update"
   post 'project_potentials/create', to: 'project_potentials#create'  
   # post 'sales_visit_plans/create'
 
@@ -43,11 +44,13 @@ Rails.application.routes.draw do
   resources :activity_sales, :path => "aktivitas" ,only: [:index, :new, :report, :download]  do
     member do 
       get "realisasi", to: "sales_visit_plans#realisasi"
+      get "delete_lampiran/:attachment_id", to: 'activity_sales#delete_lampiran'  
     end
     collection do
 
       resources :realization_visit_plans, :path => "realisasi" do
         member do 
+          get "delete_file_lampiran/:attachment_id", to: 'realization_visit_plans#delete_file_lampiran'  
           get "review", to: "realization_visit_plans#review"
           patch 'update_status'
         end
