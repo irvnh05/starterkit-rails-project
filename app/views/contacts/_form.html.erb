@@ -85,16 +85,8 @@
             </div>
           </div>
 
-
-          <div class="form-row">
-            <div class="form-group col">
-              <label for="intpuCluster">Keterangan</label>
-              <%= f.text_field :keterangan, class: "form-control" %>
-            </div>
-          </div>
-
           <div class="form-group">
-            <label>Lampiran</label>
+            <label>Unggah Foto</label>
             <%= f.file_field :file_lampiran, class: "form-control", direct_upload: true, accept: 'image/jpeg, image/jpg, image/png, application/pdf', multiple: true %>
             <div style="margin-top: 10px;">
               <% @contact.file_lampiran.each do |lampiran| %>
@@ -106,6 +98,14 @@
               <% end %>
             </div>
           </div>
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="intpuCluster">Keterangan</label>
+              <%= f.text_field :keterangan, class: "form-control" %>
+            </div>
+          </div>
+
 
           <div class="form-group">
            <button type="submit" class="btn btn-primary px-3 pull-right">Submit</button>

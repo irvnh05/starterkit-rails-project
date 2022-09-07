@@ -34,8 +34,8 @@
                   <th>Jabatan PIC</th>
                   <th>Email PIC</th>
                   <th>Kontak PIC</th>
+                  <th>Unggah Foto</th>
                   <th>Keterangan</th>
-                  <th>Lampiran</th>
                   <th class="text-center" style="width: 100px;">Aksi</th>
                 </tr>
             </thead>
@@ -45,6 +45,7 @@
                 <tr>
                   <td class="text-center"><%= index+1 %></td>
                   <td><%= contact.category.try(:name) %></td>
+<<<<<<< HEAD
                   <td><%= contact.try(:cluster) %></td>
                   <td><%= contact.try(:nama_entitas) %></td>
                   <td><%= contact.try(:satuan_kerja) %></td>
@@ -90,6 +91,18 @@
                       <% end %>
                       <% end %>
                   </td>
+=======
+                  <td><%= contact.cluster %></td>
+                  <td><%= contact.nama_entitas %></td>
+                  <td><%= contact.satuan_kerja %></td>
+                  <td><%= contact.lokasi_kerja %></td>
+                  <td><%= contact.nama_pic %></td>
+                  <td><%= contact.jabatan_pic %></td>
+                  <td><%= contact.emaiil_pic %></td>
+                  <td>0<%= contact.kontak_pic.to_i %></td>
+                  <td></td>
+                  <td><%= contact.keterangan %></td>
+>>>>>>> 3527f7685d7ab09a2b5ecb37b2f8c3a5c02420cb
                   <td class="text-center">
                     <% if current_user.can? { |permissions| permissions.contact.read? } %>
                     <a href="<%= contact_path(contact) %>" class="btn btn-info btn-circle btn-sm">
