@@ -18,17 +18,8 @@ class RealizationVisitPlansController < ApplicationController
   def new
     # @sales_visit_plan = SalesVisitPlan.with_attached_file_lampiran
     @sales_visit_plans =  SalesVisitPlan.find_by(email_user: current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") )
-    # @realisasi = 
     
-    # if @sales_visit_plans.minggu1.present? 
-    #     "Minggu1"
-    #   elsif @sales_visit_plans.minggu2.present? 
-    #     "Minggu2"
-    #   elsif @sales_visit_plans.minggu3.present? 
-    #     "Minggu3"
-    #   else
-    #     "Minggu4"
-    # end
+    
     
     if @sales_visit_plans.present?
       @realization_visit_plan = RealizationVisitPlan.new
@@ -39,6 +30,8 @@ class RealizationVisitPlansController < ApplicationController
 
   # GET /realization_visit_plans/1/edit
   def edit
+    @realization_visit_plans = RealizationVisitPlan.find_by("id": params[:id]) 
+
   end
 
   # GET /realization_visit_plans/1/review
@@ -98,7 +91,8 @@ class RealizationVisitPlansController < ApplicationController
       # realization_visit_plans.status
       if realization_visit_plans.status.nil?
         realization_visit_plans.status = "1"
-        realization_visit_plans.tgl_direview = Time.new
+        # realization_visit_plans.tgl_direview = Time.new
+        # realization_visit_plans.tgl_direview = Time.new
         realization_visit_plans.save!
         format.html { redirect_to rekap_activity_sales_path, notice: "Realization visit plan was successfully updated." }
         format.json { render :show, status: :ok, location: @realization_visit_plan }
@@ -156,6 +150,10 @@ class RealizationVisitPlansController < ApplicationController
         :status,
         :review_by,
         :catatan,
+        :minggu1,
+        :minggu2,
+        :minggu3,
+        :minggu4,
         :tgl_direview,
         file_lampiran: [] 
       )

@@ -2,6 +2,13 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.6'
+#tag-input
+gem 'bootstrap-tagsinput-rails'
+#excel render
+gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
+gem 'axlsx_rails', '>= 0.5.1'
+gem 'rubyzip', '>= 1.2.1'
+
 gem 'psych', '< 4'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.4'

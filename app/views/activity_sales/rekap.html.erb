@@ -111,7 +111,7 @@
                     <a class="btn btn-icon icon-left btn-success"><i class="fas "></i> Sudah Direview</a>
                   <%end%>
                   </td>
-                  <td style="display:none;"><%= sales_visit_plan.estimasi_tgl_peretemuan.strftime("%m") %></td>
+                  <td style="display:none;"><%= sales_visit_plan.estimasi_tgl_peretemuan.try(:strftime, "%m" )%></td>
                   <td>
                     <a href="<%= sales_visit_plan_path(sales_visit_plan) %>" class="btn btn-info btn-circle btn-sm">
                       <i class="fas fa-eye"></i>
@@ -212,7 +212,7 @@
                   <td><%if realization_visit_plan.realisasi == "Minggu 2"%> Minggu 2<%end%></td>
                   <td><%if realization_visit_plan.realisasi == "Minggu 3"%> Minggu 3<%end%></td>
                   <td><%if realization_visit_plan.realisasi == "Minggu 4"%> Minggu 4<%end%></td>
-                  <td><%= realization_visit_plan.realisasi_tgl_peretemuan.strftime("%d/%m/%y") %></td>
+                  <td><%= realization_visit_plan.realisasi_tgl_peretemuan.try(:strftime, "%d/%m/%y" )%></td>
                   <td>
                  
                     <!-- Button trigger modal -->
@@ -271,7 +271,7 @@
                     </a>
                     <%end%>
                   </td>
-                  <td style="display:none;"><%= realization_visit_plan.realisasi_tgl_peretemuan.strftime("%m") %></td>
+                  <td style="display:none;"><%= realization_visit_plan.realisasi_tgl_peretemuan.try(:strftime,"%m") %></td>
 <%
 =begin
 %>                 

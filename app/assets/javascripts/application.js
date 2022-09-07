@@ -21,4 +21,5 @@
 //= require toastr
 //= require activestorage
 //= require checkbox
+//= require bootstrap-tagsinput
 //= require_tree .

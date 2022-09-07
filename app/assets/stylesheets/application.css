@@ -19,6 +19,7 @@
  *= require datatables/dataTables.bootstrap4.min
  *= require select2
  *= require toastr
+ *= require bootstrap-tagsinput
  * require_tree .
  * require_self
  */

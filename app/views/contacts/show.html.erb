@@ -48,6 +48,20 @@
             <td>0<%= @contact.kontak_pic.to_i%></td>
           </tr>
           <tr>
+            <td width="30%">File Lampiran</td>
+            <td>
+              <% if @contact.file_lampiran.attached? %>
+                <% @contact.file_lampiran.each do |lampiran| %>
+                 <span style="margin-right: 10px">
+                  <%= link_to "#{[ "#{lampiran.filename}" ]}", rails_blob_path(lampiran, disposition: 'preview'), :target => "_blank" %>
+                  <%= link_to '', url_for(controller: :contacts, action: :delete_file_lampiran, attachment_id: lampiran.id), class: 'fa fa-close', method: "DELETE", data: { confirm: 'Are you sure?' } %>
+                  <br>
+                </span>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
             <td width="30%">Keterangan</td>
             <td><%= @contact.keterangan%></td>
           </tr>

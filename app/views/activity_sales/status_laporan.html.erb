@@ -69,10 +69,10 @@
             <% @status_laporan.each_with_index do |status_laporan, index| %>
                 <tr>
                   <td class="text-center"><%= index+1 %></td>
-                  <td><%=status_laporan.tgl_aktivitas %></td>
-                  <td></td>
-                  <td></td>
+                  <td><%=status_laporan.realization_visit_plan.try(:realisasi_tgl_peretemuan) %></td>
+                  <td><%=status_laporan.realization_visit_plan.try(:nama_entitas_lokasi_pengadaan)%></td>
                   <td><%=status_laporan.realization_visit_plan.try(:subjek_deksripsi_pekerjaan)%></td>
+                  <td><%=status_laporan.try(:hasil_kunjungan)%></td>
                   <%# <td></td> %>
                   <%# <td><%= status_laporan.nama %>
                   <%# </td> %>
@@ -112,8 +112,8 @@
                    <% end %>
                   <% end %>
                   </td>
-                  <td><%=status_laporan.tgl_direview%></td>
-                  <td><%=status_laporan.catatan%></td>
+                  <td><%=status_laporan.try(:tgl_direview)%></td>
+                  <td><%=status_laporan.try(:catatan)%></td>
                   <td>
                   <%if status_laporan.status_laporan.to_i == 0%>
                     <%# <span>Belum Direview</span> %>

@@ -21,7 +21,10 @@ class ContactsController < ApplicationController
   end
 
   def cetak_pdf
+    # pagination = params[:cek]
     @contacts = Contact.find_by(id: params[:id])
+    @contact = Contact.all.order("contacts.created_at asc")
+    # .limit(pagination)
     
     respond_to do |format|
       format.html
@@ -86,6 +89,12 @@ class ContactsController < ApplicationController
       format.html { redirect_to contacts_url, notice: "Contact was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def delete_file_lampiran
+    @attachment = ActiveStorage::Attachment.find(params[:attachment_id])
+    @attachment.purge # or use purge_later
+    redirect_back(fallback_location: request.referer)
   end
 
   private

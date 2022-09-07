@@ -36,6 +36,13 @@ class StatusReportsController < ApplicationController
 
   # GET /status_reports/1/edit
   def edit
+    status_reports = StatusReport.find(params[:id]) 
+    @nama = status_reports.nama_personil.to_s.squish.split(',')
+    @jabatan =  status_reports.jabatan_personil.squish.split(',')
+    @kontak = status_reports.kontak_personil.to_s.split(',')
+    @personil_yang_dikunjungi = [@nama,@jabatan,@kontak].transpose
+
+  
   end
 
   # POST /status_reports or /status_reports.json
@@ -46,9 +53,20 @@ class StatusReportsController < ApplicationController
   # PATCH/PUT /status_reports/1 or /status_reports/1.json
   def update
     status_reports = StatusReport.find(params[:id]) 
+    nama_personil = []
+    nama_personil = params[:status_report][:nama_personil]
+    jabatan_personil = []
+    jabatan_personil = params[:status_report][:jabatan_personil]
+    kontak_personil = []
+    kontak_personil = params[:status_report][:kontak_personil]
+
     respond_to do |format|
       if @status_report.update(status_report_params)
+       
         status_reports.status_laporan = "1"
+        status_reports.nama_personil = nama_personil
+        status_reports.jabatan_personil = jabatan_personil
+        status_reports.kontak_personil = kontak_personil
         status_reports.tgl_direview = Time.new
         status_reports.save!
         format.html { redirect_to status_reports_path, notice: "Status Report was successfully updated." }
@@ -58,7 +76,7 @@ class StatusReportsController < ApplicationController
         format.json { render json: status_reports_path.errors, status: :unprocessable_entity }
       end
     end
-    s
+    
   end
 
   # DELETE /status_reports/1 or /status_reports/1.json
@@ -100,7 +118,10 @@ class StatusReportsController < ApplicationController
         :catatan,
         :hasil_kunjungan,
         :tindak_lanjut,
-        :lokasi_kunjungan
+        :lokasi_kunjungan,
+        :nama_personil,
+        :jabatan_personil,
+        :kontak_personil
       )
     end
 end

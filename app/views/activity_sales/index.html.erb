@@ -70,7 +70,7 @@
                   <td><%= sales_visit_plan.try(:minggu2) %></td>
                   <td><%= sales_visit_plan.try(:minggu3) %></td>
                   <td><%= sales_visit_plan.try(:minggu4) %></td>
-                  <td><%= sales_visit_plan.try(:estimasi_tgl_peretemuan) %></td>
+                  <td><%= sales_visit_plan.estimasi_tgl_peretemuan.try(:strftime, "%d/%m/%y") %></td>
                   <td>
                 
 
@@ -109,7 +109,7 @@
                    <% end %>
                   <% end %>
                   </td>
-                  <td style="display:none;"><%= sales_visit_plan.estimasi_tgl_peretemuan.strftime("%m") %></td>
+                  <td style="display:none;"><%= sales_visit_plan.estimasi_tgl_peretemuan.try(:strftime, "%m")%></td>
                   <td class="text-center">
                     <% if current_user.can? { |permissions| permissions.sales_visit_plan.read? } %>
                     <a href="<%= sales_visit_plan_path(sales_visit_plan) %>" class="btn btn-info btn-circle btn-sm">
@@ -193,7 +193,7 @@
                   <td><%if realization_visit_plan.realisasi == "Minggu 2"%> Minggu 2<%end%></td>
                   <td><%if realization_visit_plan.realisasi == "Minggu 3"%> Minggu 3<%end%></td>
                   <td><%if realization_visit_plan.realisasi == "Minggu 4"%> Minggu 4<%end%></td>
-                  <td><%= realization_visit_plan.realisasi_tgl_peretemuan.strftime("%d/%m/%y") %></td>
+                  <td><%= realization_visit_plan.realisasi_tgl_peretemuan.try(:strftime, "%d/%m/%y") %></td>
                   <td>
                       <!-- Modal -->
                     <% if realization_visit_plan.file_lampiran.attached? %>
@@ -230,7 +230,7 @@
                     <% end %>
                     <% end %>
                   </td>
-                  <td style="display:none;"><%= realization_visit_plan.realisasi_tgl_peretemuan.strftime("%m") %></td>
+                  <td style="display:none;"><%= realization_visit_plan.realisasi_tgl_peretemuan.try(:strftime, "%m")%></td>
                   <td class="text-center">
                     <% if current_user.can? { |permissions| permissions.realization_visit_plan.read? } %>
                     <a href="<%= realization_visit_plan_path(realization_visit_plan) %>" class="btn btn-info btn-circle btn-sm">

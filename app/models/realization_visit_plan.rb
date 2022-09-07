@@ -5,5 +5,6 @@ class RealizationVisitPlan < ApplicationRecord
   has_many :status_report, dependent: :destroy
   has_many :project_potential , dependent: :destroy
   # belongs_to :realization_visit_plan
+  has_many_attached :file_lampiran
 end
 

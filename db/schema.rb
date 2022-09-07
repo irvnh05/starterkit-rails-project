@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_29_022557) do
+ActiveRecord::Schema.define(version: 2022_09_07_033035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -184,6 +184,9 @@ ActiveRecord::Schema.define(version: 2022_08_29_022557) do
     t.date "tgl_direview"
     t.string "tindak_lanjut"
     t.string "lokasi_kunjungan"
+    t.string "nama_personil"
+    t.string "jabatan_personil"
+    t.string "kontak_personil"
     t.index ["realization_visit_plan_id"], name: "index_status_reports_on_realization_visit_plan_id"
   end
 

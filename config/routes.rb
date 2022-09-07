@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   end
   resources :contacts do
     collection do
+      get "delete_file_lampiran/:attachment_id", to: 'contacts#delete_file_lampiran'  
       get 'cetak_pdf', to: "contacts#cetak_pdf"
     end
   end

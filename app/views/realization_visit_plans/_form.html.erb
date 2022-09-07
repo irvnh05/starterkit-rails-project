@@ -20,10 +20,28 @@
           <div class="form-row">
             <div class="form-group col">
               <label for="intpuCluster">Nama Entitas/Lokasi Pengadaan</label>
+                <% if @realization_visit_plan.new_record?%>
+                  <select data-placeholder="Pilih Nama Entitas" class="form-control selectProject id_100" id="sales_plan"  data-live-search="true" onclick="select_project()">
+                    <%= raw(getSalesPlan)%>
+                  </select>
+                <% else %>
+                <%# <%= @realization_visit_plan.nama_entitas_lokasi_pengadaan.inspect%>
+                  <select data-placeholder="Pilih Nama Entitas" class="form-control selectProject " id="sales_plan"  data-live-search="true" onclick="select_project()">
+                     <%if @realization_visit_plan.nama_entitas_lokasi_pengadaan.present?%>
+                       <%= raw(getSalesPlanById(@realization_visit_plan.nama_entitas_lokasi_pengadaan))%>
+                    <% else %>
+                      <%= raw(getSalesPlan)%>
+                    <% end %>
+                  </select>
+                <% end %>
+<%
+=begin%>                
               <select data-placeholder="Pilih Nama Entitas" class="form-control selectProject id_100" id="sales_plan"  onclick="select_project()">
                <option value="1">--Pilih--</option>
                 <%= raw(getSalesPlan)%>
               </select>
+<%
+=end%>       
             </div>
           </div>
 
@@ -115,13 +133,41 @@
              <div class="form-row">
              <div class="form-group col">
               <label for="intpuCluster">Realisasi</label>
-              <%= select_tag :realisasi, options_for_select(["Minggu 1", "Minggu 2", "Minggu 3", "Minggu 4"], params[:pilihan]), :prompt=>"--Pilih--", class: "form-control",:required => true, id: 'pilih' %>
-                <%# <select name="realization_visit_plan[realisasi]" id="pilih" class="form-control m-b" required>
-                  <option value="Minggu 1 ">Minggu 1</option>
-                  <option value="Minggu 2 ">Minggu 2</option>
-                  <option value="Minggu 3 ">Minggu 3</option>
-                  <option value="Minggu 4 ">Minggu 4</option>
-                </select> %>
+              <%if @realization_visit_plan.new_record?%>
+              <%= select_tag :pilihan, options_for_select(["Minggu 1", "Minggu 2", "Minggu 3", "Minggu 4"], params[:pilihan]), prompt: "-- Pilih --", class: "form-control",:required => true %>
+              <%else%>
+                  <%# <%= @cek_minggu.inspect%>
+                  <select class="form-control" id="pilihan" value="<%=params[:pilihan]%>" onclick="select_pekerja()">
+                   <% if  @realization_visit_plans.realisasi.present?  %>
+                      <%if @realization_visit_plans.realisasi.eql? "Minggu 1"%>
+                        <option value="<%=@realization_visit_plans.realisasi%>" selected><%=@realization_visit_plans.realisasi%></option>
+                        <option value="Minggu 2">Minggu 2</option>
+                        <option value="Minggu 3">Minggu 3</option>
+                        <option value="Minggu 4">Minggu 4</option>
+                      <%elsif @realization_visit_plans.realisasi.eql? "Minggu 2"%>
+                        <option value="Minggu 1">Minggu 1</option>
+                        <option value="<%=@realization_visit_plans.realisasi%>" selected><%=@realization_visit_plans.realisasi%></option>
+                        <option value="Minggu 3">Minggu 3</option>
+                        <option value="Minggu 4">Minggu 4</option>
+                      <%elsif @realization_visit_plans.realisasi.eql? "Minggu 3"%>
+                        <option value="Minggu 1">Minggu 1</option>
+                        <option value="Minggu 2">Minggu 2</option>
+                        <option value="<%=@realization_visit_plans.realisasi%>" selected><%=@realization_visit_plans.realisasi%></option>
+                        <option value="Minggu 4">Minggu 4</option>
+                      <%else%>
+                        <option value="Minggu 1">Minggu 1</option>
+                        <option value="Minggu 2">Minggu 2</option>
+                        <option value="Minggu 3">Minggu 3</option>
+                        <option value="<%=@realization_visit_plans.realisasi%>" selected><%=@realization_visit_plans.realisasi%></option>
+                      <%end%>
+                    <% else %>
+                      <option value="Minggu 1">Minggu 1</option>
+                      <option value="Minggu 2">Minggu 2</option>
+                      <option value="Minggu 3">Minggu 3</option>
+                      <option value="Minggu 4">Minggu 4</option>
+                   <% end %>
+                  </select>
+              <%end%>  
              </div>
            </div>
 
@@ -134,8 +180,9 @@
 
           <%# <input type="hidden" id="sales_visit_plan_id" class="id-sales"> %>
           
+   
           <div class="form-group">
-            <label>Upload Materis</label>
+            <label>Upload Materi</label>
             <%= f.file_field :file_lampiran, class: "form-control multi-pt", direct_upload: true, accept: 'image/jpeg, image/jpg, image/png, application/pdf', multiple: true%>
             <div style="margin-top: 10px;" value="<%= params[:id] %>" class="pilih">
               <% if @sales_visit_plan = SalesVisitPlan.find_by(id: params[:id])
@@ -150,6 +197,7 @@
               <% end %>
             </div>
           </div>
+       
 
            <%# <%= f.hidden_field :sales_id,class: 'form-control', :readonly => true %>
            
@@ -199,18 +247,20 @@
                 $('#realization_visit_plan_subjek_deksripsi_pekerjaan').val(array[2]);
                 $('#category').val(array[1]);
                 // $('#realization_visit_plan_realisasi').val(array[4]);
-                $('#pilih').val(array[4]);
+                $('#pilihan').val(array[4]);
                 $('#realization_visit_plan_nama_entitas').val(array[0]);
                 $('#realization_visit_plan_sales_visit_plan_id').val(array[5]);
                 $('#realization_visit_plan_cluster').val(array[3]);
                 // $('#realization_visit_plan_lampiran').val(array[5]);
                 // $('#worker_lokasi').val(array[2]);
-                console.log(array[4])
+                // console.log(array[4])
                 
             }
         });
-    $('.id_100').val(1).change();
-      
-        
+    $('.id_100').val(1).change();  
     }
+
+
+
+  
 </script>

@@ -1,7 +1,7 @@
 <style>
 .bootstrap-tagsinput {
   white-space: nowrap;
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 </style>
 <div class="container-fluid">
@@ -39,12 +39,18 @@
           </tr>
             <td>
               <th colspan="1">Telephone/Fax</th>
-              <td colspan="1"> <%=@status_report.realization_visit_plan.sales_visit_plan.data_company.contact.try(:kontak_pic)%> </td>
+              <td colspan="1"> <%= 
+             @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? "" :  @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.try(:kontak_pic)
+
+              %> </td>
             </td>
           <tr>
             <td>
               <th colspan="1">Email</th>
-              <td colspan="1"><%=@status_report.realization_visit_plan.sales_visit_plan.data_company.contact.try(:emaiil_pic)%></td>
+              <td colspan="1">
+              <%=
+              @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? "" :
+              @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.try(:emaiil_pic)%></td>
             </td>
           </tr>
           <tr>
@@ -63,20 +69,43 @@
                <table class="table table-bordered">
                 <tbody>
                  <tr>
-                    <th width="10%%">No</th>
+                  <%if@status_report.nama_personil.present?%>
+                    <%# <th width="10%">No</th> %>
                     <th >Nama</th>
                     <th >Jabatan</th>
                     <th >Kontak</th>
+                  <%else%>
+                    <th >Nama</th>
+                    <th >Jabatan</th>
+                    <th >Kontak</th>
+                  <%end%>
                   </tr>
                   <tr>
-                    <td width="10%%">  
-                     <%# <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary'   %>
-                 
-                     <div class="bootstrap-tagsinput"><input type="text" placeholder="" size="1"></div>
-                    </td>
-                    <td >   <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary' %></td>
-                    <td >   <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary' %></td>
-                    <td >   <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary' %></td>
+                    <%if @status_report.nama_personil.present?%>
+
+                      <td > <%= f.text_field :nama_personil, 'data-role'=>'tagsinput'  %></td>
+                      <td > <%= f.text_field :jabatan_personil, 'data-role'=>'tagsinput' %></td>
+                      <td > <%= f.text_field :kontak_personil, 'data-role'=>'tagsinput' %></td>
+<%
+=begin
+%>                    
+                     <%@personil_yang_dikunjungi.each_with_index do |personil_yang_dikunjungi,index|%>
+                      <tr>
+                        <td><%= index+1%></td>
+                        <td><%= personil_yang_dikunjungi[0]%></td>
+                        <td><%= personil_yang_dikunjungi[1]%></td>
+                        <td><%= personil_yang_dikunjungi[2]%></td>
+                      </tr>
+                     <%end%>
+<%
+=end
+%>
+                    <%else%>        
+                      <td > <%= f.text_field :nama_personil, 'data-role'=>'tagsinput'  %></td>
+                      <td > <%= f.text_field :jabatan_personil, 'data-role'=>'tagsinput' %></td>
+                      <td > <%= f.text_field :kontak_personil, 'data-role'=>'tagsinput' %></td>
+                    <%end%>
+
                   </tr>
                 </tbody>
               </table>
@@ -98,21 +127,43 @@
             <td colspan="3"><%=@status_report.realization_visit_plan.sales_visit_plan.try(:deksripsi_pekerjaan)%></td>
           </tr>
           <tr>
+          <%= @cek.inspect%>
             <th width="30%">8.Personil yang Dikunjungi</th>
             <td colspan="2">
                <table class="table table-bordered">
                 <tbody>
                  <tr>
-                    <th width="10%">No</th>
+                  <%if@status_report.realization_visit_plan.sales_visit_plan.data_company.contact.present?%>
+                    <%# <th width="10%">No</th> %>
                     <th >Nama</th>
                     <th >Jabatan</th>
                     <th >Kontak</th>
+                  <%else%>
+                    <th >Nama</th>
+                    <th >Jabatan</th>
+                    <th >Kontak</th>
+                  <%end%>
                   </tr>
                   <tr>
-                    <td width="10%">   <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary' %></td>
-                    <td >   <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary' %></td>
-                    <td >   <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary' %></td>
-                    <td >   <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary' %></td>
+   <%# <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary'   %>
+                    <%if @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.present?%>
+                       <td width="10%%">1</td>
+                       <td > 1</td>
+                       <td > <%= f.text_field :hasil_kunjungan, 'data-role'=>'tagsinput' %></td>
+                       <td > <%= f.text_field :hasil_kunjungan, 'data-role'=>'tagsinput' %></td>
+                    <%else%>        
+                      <td > 2</td>
+                      <td > 
+                        <%# <%= f.text_field :nama_entitas_lokasi_pengadaan, list: "nama_entitas" , class: "form-control select-company"%> %>
+                        <%# <input type="number" name="sales_visit_plan[data_company_id]" class="form-control select-company" id="company_id"> %>
+                        <%# <%= f.text_field :contact_id, id: "contact_id" , class: "form-control select-company-contact" %>
+                        <%= f.hidden_field :data_company_id, id: "company_id" , class: "form-control select-company" %>
+                        <datalist id="nama_entitas" >
+                          <%= f.collection_select :id, DataCompany.all, :nama_entitas, :id, {prompt: "-- Pilih Entitas --"}, class: 'form-control', id: 'company-id', :required => true, :onchange => "select_company()" %> 
+                        </datalist>
+                      </td>
+                      <td > <%= f.text_field :hasil_kunjungan, 'data-role'=>'tagsinput' %></td>
+                    <%end%>
                   </tr>
                 </tbody>
               </table>
@@ -127,7 +178,7 @@
           <tr>
             <th width="30%">10.Tindak Lanjut</th>
             <td colspan="3"> 
-              <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary' %>
+                <%= f.text_field :tindak_lanjut, class: 'form-control border border-secondary ' %>
             </td>
           </tr>
           <tr>
@@ -167,7 +218,7 @@
 =end%>    
     <div class=" py-3 ">
       <a href="<%= status_laporan_activity_sales_path %>" class="btn btn-info pull-right ml-2">Kembali</a>
-      <button type="submit" class="btn btn-primary px-3 pull-right">Submit</button>
+      <button type="submit" class="btn btn-primary px-3 pull-right" value="form"> Submit</button>
     </div>
   <%# </div> %>
 
@@ -176,9 +227,19 @@
 </div> 
 
 <script>
-$(document).ready(function() {
-	$('.tags').tagsinput({
-    	allowDuplicates: true
-    });
-});
+$(document).ready( function() {
+  $('.bootstrap-tagsinput').addClass( 'col-8' );
+} );
+//stop enter
+// $(document).on("keypress", 'form', function (e) {
+//     var code = e.keyCode || e.which;
+//     console.log(code);
+//     if (code == 13) {
+//         console.log('Inside');
+//         e.preventDefault();
+//         return false;
+//     }
+// });
+// var $input = $("input").tagsinput('input');
+// $input.addClass('custom-class');
 </script>

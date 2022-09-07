@@ -78,65 +78,70 @@
 <div>
     <div class="border-1" style="padding: 2px " >
       <table class="bottom-table" >
-        <thead class="mb-5">
-            <tr>
+        <thead class="mb-5"style="border: none;">
+            <tr style="border: none;">
             <td colspan="3"  style="border: none;">
-                <h3 style="text-align: right; font-style: italic;font-size: 16px; " >
+                
+                <h6 style="text-align: right; font-style: italic;font-size: 16px; " >
+                 
                 <div class="col">
                     <%= image_tag wicked_pdf_asset_base64('pgn.png'), :height=>40%> 
                 </div>
-                </h3>
+                </h6>
             </td>
             </tr>
         </thead> 
+      </table>
 
-        <tbody >
-            <tr>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>   
-            </tr>
-            <tr>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>   
-            </tr>
-            <tr>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>   
-            </tr>
-                        <tr>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>   
-            </tr>
-                                    <tr>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>   
-            </tr>
-            <tr>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>   
-            </tr>
-                        <tr>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>   
-            </tr>
-                        
-        </tbody>
+      <table class="bottom-table" >
+            <thead>
+                <tr>
+                  <th class="text-center" style="width: 12px;">No</th>
+                  <th>Kategori</th>
+                  <th>Klaster</th>
+                  <th>Nama Entitas</th>
+                  <th>Satuan Kerja</th>
+                  <th>Lokasi Kerja</th>
+                  <th>Nama PIC</th>
+                  <th>Jabatan PIC</th>
+                  <th>Email PIC</th>
+                  <th>Kontak PIC</th>
+                  <th>Keterangan</th>
+                </tr>
+            </thead>
+
+                    <tbody>
+            <% @contact.each_with_index do |contact, index| %>
+                <tr>
+                  <td class="text-center"><%= index+1 %></td>
+                  <td><%= contact.category.try(:name) %></td>
+                  <td><%= contact.try(:cluster) %></td>
+                  <td><%= contact.try(:nama_entitas) %></td>
+                  <td><%= contact.try(:satuan_kerja) %></td>
+                  <td><%= contact.try(:lokasi_kerja) %></td>
+                  <td><%= contact.try(:nama_pic) %></td>
+                  <td><%= contact.try(:jabatan_pic) %></td>
+                  <td><%= contact.try(:emaiil_pic) %></td>
+                  <td>0<%= contact.try(:kontak_pic).to_i %></td>
+                  <td><%= contact.try(:keterangan) %></td>
+                 
+                </tr>
+                <% end %>
+            </tbody>
         <%# <tfoot >
         <tr style="border: none;">
             <td colspan="10" style="border: none; text-align: center;  position: fixed; margin-top: 300px;">test</td>
         </tr>
         </tfoot> %>
       </table>
-      
+      <tfoot style="vertical-align:bottom" class="footer">
+        <tr style="height:100px">
+          <td> 
+               <p class="pt-3"  style="text-align: center;"><%=Time.now.strftime("Printed on %m/%d/%Y at %I:%M%p"   ) %></p>
+           <%# <div class="footer-content"  style="text-align: center;">Sticky Footer</div> %>
+          </td>
+        </tr>
+      </tfoot>
     </div>
-    <footer class="footer">
-     <div class="footer-content"  style="text-align: center;">Sticky Footer</div>
-    </footer>
+
 </div>
