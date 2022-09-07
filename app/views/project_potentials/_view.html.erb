@@ -1,11 +1,17 @@
 <div class="container-fluid">
  <%= form_for @project_potential, multipart: true do |f| %>
   <div class="">
-      <table class="table table-bordered text-center" id="sinergi">
+      <table class="table table-bordered text-center mb-2" id="sinergi">
+       <%= form_tag(:action => :index) do %>
+        <div class="row  p-3">
+          <%= select_tag "project_potential", options_for_select(@perusahaan),{class: "form-control select col-md-2 filter_perusahaan" ,prompt: "-- Nama Entitas --"} %>
+        </div>
+       <% end %>
         <thead>
             <tr colspan="3">
               <th class="text-center" style="width: 12px;" rowspan="3">No</th>
               <th rowspan="3">Nama Entitas</th>
+              <th rowspan="3">Remark</th>
               <th rowspan="3">Total Jumlah Proyek</th>
               <th rowspan="3">Jumlah Total Nilai</th>
               <th colspan="6">Rincian</th>
@@ -23,10 +29,13 @@
                 <td colspan="2">75%</td>
                 <td colspan="2">50%</td>
             </tr>
-            <tr>
+            <%# <tr>
               <td colspan="10">SINERGI</td>
-            </tr>
-        </thead>  
+            </tr> %>
+        </thead> 
+<%
+=begin
+%>         
         <tbody>
             <% @project_potentials.where("remark": "SINERGI").each_with_index do |project_potential, index| %>
                 <tr>
@@ -46,59 +55,76 @@
                 
             <% end %>
         </tbody>
-        <thead>
-            <tr>
-              <td colspan="10">NON SINERGI</td>
-            </tr>
-        </thead>
-        <tbody>
-            <% @cek_non_sinergi.each_with_index do |project_potential, index| %>
-            <%# <% @project_potentials.where("remark": "NON SINERGI").or(@project_potentials.where("remark": "EXTERNAL")).each_with_index do |project_potential, index| %> %>
+
+          <thead>
+              <tr>
+                <td colspan="10">NON SINERGI</td>
+              </tr>
+          </thead>
+            <tbody>
+                <% @cek_non_sinergi.each_with_index do |project_potential, index| %>
+                <%# <% @project_potentials.where("remark": "NON SINERGI").or(@project_potentials.where("remark": "EXTERNAL")).each_with_index do |project_potential, index| %> %>
+                    <tr>
+                    <td class="text-center"><%= index+1 %></td>
+                    <td>
+                      <%= project_potential[0] %>
+                    </td>
+                    <td>
+                    <%= project_potential[1]%>
+                    </td>
+                    <td> <%= @cek_non_sinergi.inspect%></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <%# <td><%= project_potential.remark%>
+                    <%# </td> %> 
+                    </tr>
+                <% end %>
+            </tbody>
+          <thead>
+              <tr>
+                <td colspan="2">TOTAL NON SINERGI & EKSTERNAL</td>
+                <td>  <%= @total_jumlah_proyek  %></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+<%
+=end
+%>              
+<thead>
+              <tr>
+                <td></td>
+                <td colspan="2">TOTAL (SINERGI)</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
                 <tr>
-                 <td class="text-center"><%= index+1 %></td>
-                 <td>
-                  <%= project_potential[0] %>
-                 </td>
-                 <td>
-                 <%= project_potential[1]%>
-                 </td>
-                 <td> <%= @cek_non_sinergi.inspect%></td>
-                 <td></td>
-                 <td></td>
-                 <td></td>
-                 <td></td>
-                 <td></td>
-                 <td></td>
-                 <%# <td><%= project_potential.remark%>
-                 <%# </td> %> 
-                </tr>
-            <% end %>
-        </tbody>
-        <thead>
-            <tr>
-              <td colspan="2">TOTAL NON SINERGI & EKSTERNAL</td>
-              <td>  <%= @total_jumlah_proyek  %></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-             <%# <tr>
-              <td colspan="2">TOTAL (SINERGI, NON SINERGI & EKSTERNAL)</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr> %>
-        </thead>       
-      </table>
+                <td></td>
+                <td colspan="2">TOTAL (NON SINERGI)</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+          </thead>       
+
+</table>
 
       
   </div>

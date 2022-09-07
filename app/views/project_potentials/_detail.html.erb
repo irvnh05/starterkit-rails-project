@@ -8,7 +8,10 @@
               <%= select_tag "project_potential", options_for_select(@perusahaan),{class: "form-control select col-md-2 filter_perusahaan" ,prompt: "-- Nama Perusahaan --"} %>
               <%= select_tag "project_potential", options_for_select(@status),{class: "form-control select col-md-2 ml-2 filter_status" ,prompt: "-- Remark --"} %>
               <%= select_tag "project_potential", options_for_select(@konfirmasi),{class: "form-control select col-md-2 ml-2 filter_konfirmasi" ,prompt: "-- Konfirmasi --"} %>
-              <%= select_tag "project_potential", options_for_select(["(0-25)","(25-50)","(50-100)","(>100)"]),{class: "form-control select col-md-2 ml-2 filter_nilai" ,prompt: "-- Nilai --"} %>
+              <%= select_tag "project_potential", options_for_select(
+                ["Rp 0 - Rp 25.000.000","Rp 25.000.000 - Rp 50.000.000","Rp 50.000.000 - Rp 100.000.000","> Rp 100.000.000"
+                ]
+                ),{class: "form-control select col-md-2 ml-2 filter_nilai" ,prompt: "-- Nilai --"} %>
             </div>
             <% end %>
             <br>  

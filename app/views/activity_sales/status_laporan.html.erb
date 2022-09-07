@@ -41,11 +41,15 @@
                  </div>
                 </div>
                 <div class="">
+<%
+=begin%>               
                   <% if current_user.can? { |permissions| permissions.sales_visit_plan.create? } %>
                   <div class="align-items-center">
                     <a href="<%= new_sales_visit_plan_path %>" class="btn btn-primary btn-sm" >+ Tambah Data</a>
                   </div>
                   <% end %>  
+<%
+=end%>               
                 </div>
               </div>  
             <br>  
