@@ -17,22 +17,40 @@
               <th colspan="6">Rincian</th>
             </tr>
             <tr>
-                <td>Jumlah Proyek</td>
-                <td>Perkiraan Nilai Proyek</td>
-                <td>Jumlah Proyek</td>
-                <td>Perkiraan Nilai Proyek</td>
-                <td>Jumlah Proyek</td>
-                <td>Perkiraan Nilai Proyek</td>
+                <th>Jumlah Proyek</th>
+                <th>Perkiraan Nilai Proyek</th>
+                <th>Jumlah Proyek</th>
+                <th>Perkiraan Nilai Proyek</th>
+                <th>Jumlah Proyek</th>
+                <th>Perkiraan Nilai Proyek</th>
             </tr>
             <tr>
-                <td colspan="2">100%</td>
-                <td colspan="2">75%</td>
-                <td colspan="2">50%</td>
+                <th colspan="2">100%</th>
+                <th colspan="2">75%</th>
+                <th colspan="2">50%</th>
             </tr>
-            <%# <tr>
-              <td colspan="10">SINERGI</td>
-            </tr> %>
         </thead> 
+            <tbody>
+              <% @project_by_name.each_with_index do |potensi_proyek,index| %>
+                <tr>
+                 <td><%=index+1%> </td>
+                 <td><%=potensi_proyek[1].map(&:nama_entitas).uniq.to_s.gsub('"','').gsub('[','').gsub(']','') %></td>
+                 <td><%=potensi_proyek[1].map(&:remark).uniq.to_s.gsub('"','').gsub('[','').gsub(']','') %></td>
+                 <td><%=potensi_proyek[1].map(&:remark).count%></td>
+                 <td><%=potensi_proyek[1].map(&:nominal).compact.sum%></td>
+
+                 <% @validasi_konfirmasi_potensi =potensi_proyek[1].group_by { |value| value.konfirmasi} %>
+                  <td><%=@validasi_konfirmasi_potensi["100%"].to_a.map {|value| value.nama_entitas}.count%></td>
+                  <td><%=@validasi_konfirmasi_potensi["100%"].to_a.map {|value| value.nominal}.compact.sum%></td>
+
+                  <td><%=@validasi_konfirmasi_potensi["75%"].to_a.map {|value| value.nama_entitas}.count%></td>
+                  <td><%=@validasi_konfirmasi_potensi["75%"].to_a.map {|value| value.nominal}.compact.sum%></td>
+
+                  <td><%=@validasi_konfirmasi_potensi["50%"].to_a.map {|value| value.nama_entitas}.count%></td>
+                  <td><%=@validasi_konfirmasi_potensi["50%"].to_a.map {|value| value.nominal}.compact.sum%></td>
+                 </tr>
+              <%end%>
+            </tbody>
 <%
 =begin
 %>         
@@ -99,29 +117,33 @@
 <%
 =end
 %>              
-<thead>
+          <thead>
+            <% @project_by_remark.each do |project_potential| %>
               <tr>
-                <td></td>
-                <td colspan="2">TOTAL (SINERGI)</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-                <tr>
-                <td></td>
-                <td colspan="2">TOTAL (NON SINERGI)</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
+                <td colspan="3">TOTAL (<%= project_potential[0]%>)</td>
+                <td><%= project_potential[1].map(&:nama_entitas).count%></td>
+                <td><%= project_potential[1].map(&:nominal).compact.sum%></td>
+                <% @validasi_konfirmasi =project_potential[1].group_by { |value| value.konfirmasi} %>
+                   <td> 
+                    <%= @validasi_konfirmasi["100%"].to_a.map {|value| value.nama_entitas}.count%>
+                   </td>
+                   <td>
+                    <%= @validasi_konfirmasi["100%"].to_a.map {|value| value.nominal}.compact.sum%>
+                   </td>                  
+                   <td>
+                    <%= @validasi_konfirmasi["75%"].to_a.map {|value| value.nama_entitas}.count%>
+                   </td>
+                   <td>
+                    <%= @validasi_konfirmasi["75%"].to_a.map {|value| value.nominal}.compact.sum%>
+                   </td>
+                   <td> 
+                    <%= @validasi_konfirmasi["50%"].to_a.map {|value| value.nama_entitas}.count%>
+                   </td>
+                   <td>
+                    <%= @validasi_konfirmasi["50%"].to_a.map {|value| value.nominal}.compact.sum%>
+                   </td>
+              </tr>   
+            <% end %>
           </thead>       
 
 </table>
