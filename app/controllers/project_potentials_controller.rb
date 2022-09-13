@@ -6,6 +6,17 @@ class ProjectPotentialsController < ApplicationController
     @project_potentials = ProjectPotential.all
     @project_potential = ProjectPotential.new
 
+    @project_by_name = @project_potentials.group_by { |nama_entitas| nama_entitas.nama_entitas}
+    @project_by_remark = @project_potentials.group_by { |nama_entitas| nama_entitas.remark}
+   
+    # @total = @project_by_remark.transform_values { |values| values.count }
+    
+    # @total_potensi_proyek = @project_by_remark
+
+    #  @konfirmasi =  @total_potensi_proyek.map {|value| value[1].group_by { |value| value.konfirmasi}.transform_values { |values| values.count }.map{|total| total[1]} }
+    #  .transform_values 
+    #  [1].group_by { |value| value.konfirmasi}.map{|cek| cek[1].map { |cek_nilai|  cek_nilai.konfirmasi} }
+
     # filter
     @konfirmasi = @project_potentials.select(:konfirmasi).map(&:konfirmasi).uniq
     @perusahaan = @project_potentials.select(:nama_entitas).map(&:nama_entitas).uniq
@@ -15,7 +26,7 @@ class ProjectPotentialsController < ApplicationController
     # @cek_non_sinergi= @project_potentials.where("remark": "NON SINERGI").uniq(&:nama_entitas).count
 
     # total all
-    @total_jumlah_proyek  =  ProjectPotential.distinct(:nama_entitas).count
+    # @total_jumlah_proyek  =  ProjectPotential.distinct(:nama_entitas).count
     #total non
     
     # Person.group(:age).having('count(*) > 1').order('age desc').count

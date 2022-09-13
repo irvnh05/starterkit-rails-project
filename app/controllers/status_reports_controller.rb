@@ -42,7 +42,9 @@ class StatusReportsController < ApplicationController
     @kontak = status_reports.kontak_personil.to_s.split(',')
     @personil_yang_dikunjungi = [@nama,@jabatan,@kontak].transpose
 
-  
+    # contact = Contact.find_by(status_reports.realization_visit_plan.sales_visit_plan.data_company.contact_id) 
+    # nama_pic = contact.nama_pic
+
   end
 
   # POST /status_reports or /status_reports.json
