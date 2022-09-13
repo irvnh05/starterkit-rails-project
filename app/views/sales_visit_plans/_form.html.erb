@@ -21,7 +21,7 @@
 	color: initial;
 	background-color: #6eb4ff00;
 	font-size: large;
-	justify-content: center;
+	/* justify-content: left; */
 	margin-right: 3px;
 	cursor: pointer;
 	&:hover{
@@ -164,7 +164,12 @@
 
           <div class="form-group">
             <label>Lampiran</label>
-            <%= f.file_field :file_lampiran, class: "form-control", direct_upload: true, accept: 'image/jpeg, image/jpg, image/png, application/pdf', multiple: true , :id => "file"%>
+            <%= f.file_field :file_lampiran, class: "form-control", direct_upload: true, accept: 'image/jpeg, image/jpg, image/png, application/pdf', multiple: true , :id => "file"%>          
+            <p id="files-area text-left">
+              <span id="filesList">
+                <span id="files-names"></span>
+              </span>
+            </p>
             <div style="margin-top: 10px;">
               <% @sales_visit_plan.file_lampiran.each do |lampiran| %>
                 <span style="margin-right: 10px">
@@ -195,7 +200,7 @@ $("#file").on('change', function(e){
 	for(var i = 0; i < this.files.length; i++){
 		let fileBloc = $('<span/>', {class: 'file-block'}),
 			 fileName = $('<span/>', {class: 'name', text: this.files.item(i).name});
-		fileBloc.append('<span class="file-delete"><span>+</span></span>')
+		fileBloc.append('<span class="file-delete"><span>x</span></span>')
 			.append(fileName);
 		$("#filesList > #files-names").append(fileBloc);
 	};
