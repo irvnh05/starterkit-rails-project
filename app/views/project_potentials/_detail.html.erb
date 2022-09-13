@@ -6,7 +6,7 @@
              <%= form_tag(:action => :index) do %>
             <div class="row">
               <%= select_tag "project_potential", options_for_select(@perusahaan),{class: "form-control select col-md-2 filter_perusahaan" ,prompt: "-- Nama Perusahaan --"} %>
-              <%= select_tag "project_potential", options_for_select(@status),{class: "form-control select col-md-2 ml-2 filter_status" ,prompt: "-- Remark --"} %>
+              <%= select_tag "project_potential", options_for_select(@status),{class: "form-control select col-md-2 ml-2 filter_remark" ,prompt: "-- Remark --"} %>
               <%= select_tag "project_potential", options_for_select(@konfirmasi),{class: "form-control select col-md-2 ml-2 filter_konfirmasi" ,prompt: "-- Konfirmasi --"} %>
               <%= select_tag "project_potential", options_for_select(
                 ["Rp 0 - Rp 25.000.000","Rp 25.000.000 - Rp 50.000.000","Rp 50.000.000 - Rp 100.000.000","> Rp 100.000.000"
@@ -76,7 +76,43 @@
 
 <script>
   $(document).ready(function() {
-      dataTable = $("#dataTable_data_companies").DataTable();
-  });
-  
+    var dataTable = $("#dataTable_data_companies").DataTable();
+
+    $('.filter_perusahaan').on('change', function(e){
+      var perusahaan = $(this).val();
+      $('.filter_perusahaan').val(perusahaan)
+      // console.log(perusahaan)
+      //dataTable.column(5).search('\\s' + status + '\\s', true, false, true).draw();
+      dataTable.column(1).search(perusahaan ? '^' + perusahaan + '$' : '', true, false).draw();
+      // (perusahaan).draw();
+      
+    });
+
+    $('.filter_remark').on('change', function(e){
+      var remark = $(this).val();
+      $('.filter_remark').val(remark)
+      // console.log(remark)
+      //dataTable.column(5).search('\\s' + status + '\\s', true, false, true).draw();
+      dataTable.column(9).search(remark ? '^' + remark + '$' : '', true, false).draw();
+      // (remark).draw();
+    });
+
+    $('.filter_konfirmasi').on('change', function(e){
+      var konfirmasi = $(this).val();
+      $('.filter_konfirmasi').val(konfirmasi)
+      // console.log(konfirmasi)
+      //dataTable.column(5).search('\\s' + status + '\\s', true, false, true).draw();
+      dataTable.column(10).search(konfirmasi ? '^' + konfirmasi + '$' : '', true, false).draw();
+      // (konfirmasi).draw();
+    });
+
+    // $('.filter_remark').on('change', function(e){
+    //   var perusahaan = $(this).val();
+    //   $('.filter_remark').val(remark)
+    //   // console.log(remark)
+    //   //dataTable.column(5).search('\\s' + status + '\\s', true, false, true).draw();
+    //   dataTable.column(1).search(remark).draw();
+    // });
+
+  });   
 </script>

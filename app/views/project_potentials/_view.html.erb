@@ -5,6 +5,7 @@
        <%= form_tag(:action => :index) do %>
         <div class="row  p-3">
           <%= select_tag "project_potential", options_for_select(@perusahaan),{class: "form-control select col-md-2 filter_perusahaan" ,prompt: "-- Nama Entitas --"} %>
+          <%= select_tag "project_potential", options_for_select(@status),{class: "form-control select col-md-2 ml-2 filter_remark" ,prompt: "-- Remark --"} %>
         </div>
        <% end %>
         <thead>
@@ -120,26 +121,26 @@
           <thead>
             <% @project_by_remark.each do |project_potential| %>
               <tr>
-                <td colspan="3">TOTAL (<%= project_potential[0]%>)</td>
-                <td><%= project_potential[1].map(&:nama_entitas).count%></td>
-                <td><%= project_potential[1].map(&:nominal).compact.sum%></td>
+                <td colspan="3"  >TOTAL (<%= project_potential[0]%>)</td>
+                <td ><%= project_potential[1].map(&:nama_entitas).count%></td>
+                <td ><%= project_potential[1].map(&:nominal).compact.sum%></td>
                 <% @validasi_konfirmasi =project_potential[1].group_by { |value| value.konfirmasi} %>
-                   <td> 
+                   <td > 
                     <%= @validasi_konfirmasi["100%"].to_a.map {|value| value.nama_entitas}.count%>
                    </td>
-                   <td>
+                   <td >
                     <%= @validasi_konfirmasi["100%"].to_a.map {|value| value.nominal}.compact.sum%>
                    </td>                  
-                   <td>
+                   <td >
                     <%= @validasi_konfirmasi["75%"].to_a.map {|value| value.nama_entitas}.count%>
                    </td>
-                   <td>
+                   <td >
                     <%= @validasi_konfirmasi["75%"].to_a.map {|value| value.nominal}.compact.sum%>
                    </td>
-                   <td> 
+                   <td > 
                     <%= @validasi_konfirmasi["50%"].to_a.map {|value| value.nama_entitas}.count%>
                    </td>
-                   <td>
+                   <td >
                     <%= @validasi_konfirmasi["50%"].to_a.map {|value| value.nominal}.compact.sum%>
                    </td>
               </tr>   
@@ -163,4 +164,27 @@
 //     })
 // });
 
+  $(document).ready(function() {
+    var dataTable = $("#sinergi").DataTable();
+
+    $('.filter_perusahaan').on('change', function(e){
+      var perusahaan = $(this).val();
+      $('.filter_perusahaan').val(perusahaan)
+      console.log(perusahaan)
+      //dataTable.column(5).search('\\s' + status + '\\s', true, false, true).draw();
+      dataTable.column(1).search(perusahaan ? '^' + perusahaan + '$' : '', true, false).draw();
+      // (perusahaan).draw();
+      
+    });
+
+    $('.filter_remark').on('change', function(e){
+      var remark = $(this).val();
+      $('.filter_remark').val(remark)
+      // console.log(remark)
+      //dataTable.column(5).search('\\s' + status + '\\s', true, false, true).draw();
+      dataTable.column(2).search(remark ? '^' + remark + '$' : '', true, false).draw();
+      // (remark).draw();
+    });
+
+  });   
 </script>

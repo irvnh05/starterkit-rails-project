@@ -16,7 +16,7 @@
           <% end %>
           <%# <input type="hidden" name="sales_id" value="<%= params[:id] %>
           <%# "> %> 
-          <%= f.hidden_field :sales_visit_plan_id, class: 'form-control' %>
+          <%= f.text_field :sales_visit_plan_id, class: 'form-control id-sales' %>
           <div class="form-row">
             <div class="form-group col">
               <label for="intpuCluster">Nama Entitas/Lokasi Pengadaan</label>
@@ -254,11 +254,48 @@
                 // $('#realization_visit_plan_lampiran').val(array[5]);
                 // $('#worker_lokasi').val(array[2]);
                 // console.log(array[4])
-                
+          var id = $("#realization_visit_plan_sales_visit_plan_id").val();
+          // console.log(id)
+          $.getJSON("/helper_json/" +id+ "/getDataUploadSales",
+              function ( callback ) {
+              $(".sales").empty();
+              $(".sales").append('\
+                <option disabled selected value="">--Pilih--</option>\
+              ');
+              if (callback != "error"){
+                  console.log(callback)
+                  callback.map(myFunction); //https://www.w3schools.com/js/js_array_iteration.asp
+              }
+          });
+
+
+        //$('#upload').append(`\
+        // <tr>\
+        //   <td>\
+        //     <div class="input-group">\
+        //       <label>Upload Materi</label>\
+              
+        //     </div>\
+        //   </td>\
+        // </tr>\
+        // `);
+
             }
         });
     $('.id_100').val(1).change();  
+    
+  function myFunction(value){
+if (!value) {
+        console.log("var IS null or undefined");
+} else {
+        console.log("var is NOT null or undefined");
+}
+  }
+
+
     }
+
+window.location.search = jQuery.query.set("rows", 10);
 
 
 

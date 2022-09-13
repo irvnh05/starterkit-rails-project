@@ -94,4 +94,13 @@ class HelperJsonController < ApplicationController
         }
     end
 
+    def getDataUploadSales
+        id = params[:id]
+        render json: SalesVisitPlan.select('*')
+          .where('id = ?', id)
+          .map{ |vendor|
+              vendor.file_lampiran
+        }
+    end
+
 end
