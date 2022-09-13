@@ -8,6 +8,8 @@ class SalesVisitPlansController < ApplicationController
 
   # GET /sales_visit_plans or /sales_visit_plans.json
   def index
+    @sales_visit_plan = SalesVisitPlan.find_by(id: params[:id])
+
     @sales_visit_plans = SalesVisitPlan.all
     @realization_visit_plans = RealizationVisitPlan.all
   end
