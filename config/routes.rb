@@ -90,6 +90,8 @@ Rails.application.routes.draw do
       get "/getDataContactLokasiKerja", to: "helper_json#getDataContactLokasiKerja" 
       # dataRealisasi
       get "/getDataRealisasi", to: "helper_json#getDataRealisasi"
+      # dataUploadSales
+      get "/getDataUploadSales", to: "helper_json#getDataUploadSales"
     end
   end
   # get 'status_laporan/:id/download', to: "activity_sales#download"
