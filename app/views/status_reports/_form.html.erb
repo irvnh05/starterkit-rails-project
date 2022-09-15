@@ -151,7 +151,13 @@
                   <%end%>
                   </tr>
                   <tr>
-                    <%if @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.present?%>
+                    <%if 
+                    @status_report.realization_visit_plan.nil? ? "" :
+                    @status_report.realization_visit_plan.sales_visit_plan.nil? ? "" :
+                    @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? "" :
+                    @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.nil? ? "" :
+                    @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.present?
+                    %>
                        <td width="10%%">1</td>
                        <td > 1</td>
                        <td > <%= f.text_field :hasil_kunjungan, 'data-role'=>'tagsinput' %></td>
