@@ -31,11 +31,21 @@
         <tbody>
           <tr>
             <th width="30%">1.Nama Entitas</th>
-            <td colspan="3"><%=@status_report.realization_visit_plan.try(:nama_entitas_lokasi_pengadaan)%></td>
+            <td colspan="3"><%=
+            @status_report.realization_visit_plan.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.nil? ? "" :
+            @status_report.realization_visit_plan.try(:nama_entitas_lokasi_pengadaan)%></td>
           </tr>
           <tr>
             <th width="30%">2.Alamat</th>
-            <td colspan="3"><%=@status_report.realization_visit_plan.sales_visit_plan.data_company.try(:alamat)%></td>
+            <td colspan="3"><%=
+            @status_report.realization_visit_plan.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.data_company.try(:alamat)%></td>
           </tr>
             <td>
               <th colspan="1">Telephone/Fax</th>
@@ -50,18 +60,33 @@
           <tr>
             <td>
               <th colspan="1">Email</th>
-              <td colspan="1"><%=@status_report.realization_visit_plan.sales_visit_plan.data_company.contact.try(:emaiil_pic)%></td>
+              <td colspan="1"><%=
+              @status_report.realization_visit_plan.nil? ? "" :
+              @status_report.realization_visit_plan.sales_visit_plan.nil? ? "" :
+              @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? "" :
+              @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.nil? ? "" :
+              @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.try(:emaiil_pic)%></td>
             </td>
           </tr>
           <tr>
             <td>
               <th colspan="1">Website</th>
-              <td colspan="1"><%=@status_report.realization_visit_plan.sales_visit_plan.data_company.try(:website)%></td>
+              <td colspan="1"><%=
+              @status_report.realization_visit_plan.nil? ? "" :
+              @status_report.realization_visit_plan.sales_visit_plan.nil? ? "" :
+              @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? "" :
+              @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.nil? ? "" :
+              @status_report.realization_visit_plan.sales_visit_plan.data_company.try(:website)%></td>
             </td>
           </tr>
           <tr>
             <th width="30%">3.Hari/Tanggal</th>
-            <td colspan="3"><%=@status_report.realization_visit_plan.try(:realisasi_tgl_peretemuan)%></td>
+            <td colspan="3"><%=
+            @status_report.realization_visit_plan.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.nil? ? "" :
+            @status_report.realization_visit_plan.try(:realisasi_tgl_peretemuan)%></td>
           </tr>
           <tr>
             <th width="30%">4.Personil PGAS</th>
@@ -97,11 +122,21 @@
           </tr>
           <tr>
             <th width="30%">6.Jenis Kegiatan</th>
-            <td colspan="3"><%=@status_report.realization_visit_plan.sales_visit_plan.try(:jenis_pekerjaan)%></td>
+            <td colspan="3"><%=
+            @status_report.realization_visit_plan.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.try(:jenis_pekerjaan)%></td>
           </tr>
           <tr>
             <th width="30%">7.Deksripsi Pekerjaan</th>
-            <td colspan="3"><%=@status_report.realization_visit_plan.sales_visit_plan.try(:deksripsi_pekerjaan)%></td>
+            <td colspan="3"><%=
+            @status_report.realization_visit_plan.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.try(:deksripsi_pekerjaan)%></td>
           </tr>
           <tr>
             <th width="30%">8.Personil yang Dikunjungi</th>
@@ -138,7 +173,12 @@
           </tr>
           <tr>
             <th width="30%">11.Rencana Kunjungan</th>
-            <td colspan="3"><%=@status_report.realization_visit_plan.sales_visit_plan.try(:estimasi_tgl_peretemuan)%></td>
+            <td colspan="3"><%=
+            @status_report.realization_visit_plan.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.nil? ? "" :
+            @status_report.realization_visit_plan.sales_visit_plan.try(:estimasi_tgl_peretemuan)%></td>
           </tr>
         </tbody>
       </table>
