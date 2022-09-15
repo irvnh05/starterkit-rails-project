@@ -1,5 +1,6 @@
 class StatusReport < ApplicationRecord
-  belongs_to :realization_visit_plan 
+  belongs_to :realization_visit_plan , optional: true
+  # belongs_to :sales_visit_plan, optional: true 
   
   # belongs_to :data_company
   # belongs_to :contact

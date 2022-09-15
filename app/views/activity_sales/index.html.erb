@@ -200,22 +200,22 @@
                       <!-- Modal -->
                     <% if realization_visit_plan.file_lampiran.attached? %>
                     <!-- Button trigger modal -->
-                      <a data-toggle="modal" data-target="#exampleModal" class="fas fa-eye"></a>
-                    <% realization_visit_plan.file_lampiran.each do |lampiran| %>
-                      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <a data-toggle="modal" data-target="#exampleModalRealisasi" class="fas fa-eye"></a>
+                    <% realization_visit_plan.file_lampiran.each do |lampiran_realisasi| %>
+                      <div class="modal fade" id="exampleModalRealisasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel"><%=lampiran.filename%></h5>
+                              <h5 class="modal-title" id="exampleModalLabel"><%=lampiran_realisasi.filename%>1</h5>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
                             <div class="modal-body">
                               <span style="margin-right: 10px">
-                              <%# <%= link_to "", rails_blob_path(lampiran, disposition: 'preview'), :target => "_bnk"  %> 
-                              <%# <%= image_tag(lampiran) %> 
-                              <%= image_tag(lampiran, size: "350x250", class:"img-fluid rounded mx-auto d-block")%>
+                              <%# <%= link_to "", rails_blob_path(lampiran_realisasi, disposition: 'preview'), :target => "_bnk"  %> 
+                              <%# <%= image_tag(lampiran_realisasi) %> 
+                              <%= image_tag(lampiran_realisasi, size: "350x250", class:"img-fluid rounded mx-auto d-block")%>
                                 <br>
                               </span>
                             
@@ -224,7 +224,7 @@
                               <%# <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> %>
                               <%# <button type="button" class="btn btn-primary">Download</button> %>
                               
-                              <%= link_to 'Download', rails_blob_path(lampiran, disposition: "attachment"), :class => "btn btn-primary" %>
+                              <%= link_to 'Download', rails_blob_path(lampiran_realisasi, disposition: "attachment"), :class => "btn btn-primary" %>
                             </div>
                           </div>
                         </div>

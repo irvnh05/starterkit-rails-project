@@ -1,5 +1,5 @@
 class StatusReportsController < ApplicationController
-  before_action :set_status_report, only: [:show, :edit, :update, :destroy, :download]
+  before_action :set_status_report, only: [:show, :edit, :update, :destroy, :download,:review]
 
   # GET /status_reports or /status_reports.json
   # def index
@@ -36,10 +36,10 @@ class StatusReportsController < ApplicationController
 
   # GET /status_reports/1/edit
   def edit
-    status_reports = StatusReport.find(params[:id]) 
-    @nama = status_reports.nama_personil.to_s.squish.split(',')
-    @jabatan =  status_reports.jabatan_personil.to_s.squish.split(',')
-    @kontak = status_reports.kontak_personil.to_s.split(',')
+    @status_reports = StatusReport.find(params[:id]) 
+    @nama = @status_reports.nama_personil.to_s.squish.split(',')
+    @jabatan =  @status_reports.jabatan_personil.to_s.squish.split(',')
+    @kontak = @status_reports.kontak_personil.to_s.split(',')
     @personil_yang_dikunjungi = [@nama,@jabatan,@kontak].transpose
 
     # contact = Contact.find_by(status_reports.realization_visit_plan.sales_visit_plan.data_company.contact_id) 
@@ -62,15 +62,25 @@ class StatusReportsController < ApplicationController
     kontak_personil = []
     kontak_personil = params[:status_report][:kontak_personil]
 
+    kontak_pic = params[:status_report][:kontak_pic]
+    # website = params[:status_report][:website]
+
     respond_to do |format|
       if @status_report.update(status_report_params)
-       
-        status_reports.status_laporan = "1"
+        # status_reports.status_laporan = "1"
         status_reports.nama_personil = nama_personil
         status_reports.jabatan_personil = jabatan_personil
         status_reports.kontak_personil = kontak_personil
-        status_reports.tgl_direview = Time.new
+        # status_reports.tgl_direview = Time.new
         status_reports.save!
+        data_company = status_reports.realization_visit_plan.sales_visit_plan.data_company
+        data_company.website = params[:status_report][:website]
+        data_company.alamat = params[:status_report][:alamat]
+        data_company.save!
+        contact = status_reports.realization_visit_plan.sales_visit_plan.contact
+        contact.kontak_pic = params[:status_report][:kontak_pic]
+        contact.emaiil_pic = params[:status_report][:emaiil_pic]
+        contact.save!
         format.html { redirect_to status_reports_path, notice: "Status Report was successfully updated." }
         format.json { render :show, status: :ok, location: status_reports_path }
       else
@@ -79,6 +89,25 @@ class StatusReportsController < ApplicationController
       end
     end
     
+  end
+
+  def review
+    status_reports = StatusReport.find(params[:id]) 
+    # catatan = params[:catatan]
+
+    respond_to do |format|
+      if @status_report.update(status_review_params)
+        status_reports.status_laporan = "1"
+        # status_reports.catatan = params[:catatan]
+        status_reports.tgl_direview = Time.new
+        status_reports.save!
+        format.html { redirect_to status_reports_path, notice: "Review was successfully updated." }
+        format.json { render :show, status: :ok, location: status_reports_path }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: status_reports_path.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # DELETE /status_reports/1 or /status_reports/1.json
@@ -117,13 +146,21 @@ class StatusReportsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def status_report_params
       params.require(:status_report).permit(
-        :catatan,
+        # :catatan,
         :hasil_kunjungan,
         :tindak_lanjut,
         :lokasi_kunjungan,
         :nama_personil,
         :jabatan_personil,
-        :kontak_personil
+        :kontak_personil,
+        # :website
+      )
+    end
+
+    
+    def status_review_params
+      params.require(:status_reports).permit(
+        :catatan
       )
     end
 end

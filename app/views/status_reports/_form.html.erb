@@ -35,28 +35,57 @@
           </tr>
           <tr>
             <th width="30%">2.Alamat</th>
-            <td colspan="3"><%=@status_report.realization_visit_plan.sales_visit_plan.data_company.try(:alamat)%></td>
+            <td colspan="3">   
+              <%if   @status_report.realization_visit_plan.sales_visit_plan.data_company.try(:alamat).nil? %>
+                  <input class="form-control" type="text" name="status_report[alamat]">
+                <%# <%= f.text_field :hasil_kunjungan, class: 'form-control border border-secondary' %> 
+              <%else%>
+                   <input class="form-control" type="text" name="status_report[alamat]" value="<%=@status_report.realization_visit_plan.sales_visit_plan.data_company.try(:alamat)%>">
+                <%# <%= f.text_field :hasil_kunjungan, class: 'form-control border border-secondary' %> 
+              <%end%>
+            </td>
           </tr>
             <td>
               <th colspan="1">Telephone/Fax</th>
-              <td colspan="1"> <%= 
-             @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? "" :  @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.try(:kontak_pic)
-
-              %> </td>
+              <td colspan="1"> 
+                <%if   @status_report.realization_visit_plan.sales_visit_plan.contact.try(:kontak_pic).nil? %>
+                <input class="form-control" type="text" name="status_report[kontak_pic]" id="#">
+                  <%# <%= f.text_field :hasil_kunjungan, class: 'form-control border border-secondary' %> 
+                <%else%>
+                  <input class="form-control" type="text" name="status_report[alamat]" value="<%=@status_report.realization_visit_plan.sales_visit_plan.contact.try(:kontak_pic)%>">
+                 
+                <%end%>
+               <%# @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? "" :  @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.try(:kontak_pic) %>
+              </td>
             </td>
           <tr>
             <td>
               <th colspan="1">Email</th>
               <td colspan="1">
-              <%=
+                <%if   @status_report.realization_visit_plan.sales_visit_plan.contact.try(:emaiil_pic).nil? %>
+                <input class="form-control" type="text" name="status_report[emaiil_pic]" id="#">
+                  <%# <%= f.text_field :hasil_kunjungan, class: 'form-control border border-secondary' %>  
+                <%else%>
+                  <input class="form-control" type="text" name="status_report[alamat]" value="<%=@status_report.realization_visit_plan.sales_visit_plan.contact.try(:emaiil_pic)%>">
+                <%end%>
+              <%# <%=
               @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? "" :
-              @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.try(:emaiil_pic)%></td>
+              @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.try(:emaiil_pic)%> 
+              </td>
             </td>
           </tr>
           <tr>
             <td>
               <th colspan="1">Website</th>
-              <td colspan="1"><%=@status_report.realization_visit_plan.sales_visit_plan.data_company.try(:website)%></td>
+              <td colspan="1">
+                <%if   @status_report.realization_visit_plan.sales_visit_plan.data_company.try(:website).nil? %>
+                  <%# <%= f.text_field :website, class: 'form-control border border-secondary' %> 
+                  <input class="form-control" type="text" name="status_report[website]" id="#">
+                <%else%>
+                  <input class="form-control" type="text" name="status_report[alamat]" value="<%=@status_report.realization_visit_plan.sales_visit_plan.data_company.try(:website)%>">
+                <%end%>
+              <%# <%=@status_report.realization_visit_plan.sales_visit_plan.data_company.try(:website)%> 
+              </td>
             </td>
           </tr>
           <tr>
@@ -124,10 +153,10 @@
           </tr>
           <tr>
             <th width="30%">7.Deksripsi Pekerjaan</th>
-            <td colspan="3"><%=@status_report.realization_visit_plan.sales_visit_plan.try(:deksripsi_pekerjaan)%></td>
+            <td colspan="3"><%=@status_report.realization_visit_plan.try(:subjek_deksripsi_pekerjaan)%></td>
           </tr>
           <tr>
-          <%= @cek.inspect%>
+          <%# <%= @cek.inspect%>
             <th width="30%">8.Personil yang Dikunjungi</th>
             <td colspan="2">
                <table class="table table-bordered">
@@ -152,14 +181,13 @@
                   </tr>
                   <tr>
                     <%if 
-                    @status_report.realization_visit_plan.nil? ? "" :
-                    @status_report.realization_visit_plan.sales_visit_plan.nil? ? "" :
-                    @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? "" :
-                    @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.nil? ? "" :
+                    @status_report.realization_visit_plan.nil? ? " " :
+                    @status_report.realization_visit_plan.sales_visit_plan.nil? ? " " :
+                    @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? " " :
+                    @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.nil? ? " " :
                     @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.present?
                     %>
-                       <td width="10%%">1</td>
-                       <td > 1</td>
+                       <td > <%= f.text_field :hasil_kunjungan, 'data-role'=>'tagsinput' %> </td>
                        <td > <%= f.text_field :hasil_kunjungan, 'data-role'=>'tagsinput' %></td>
                        <td > <%= f.text_field :hasil_kunjungan, 'data-role'=>'tagsinput' %></td>
                     <%else%>        
@@ -199,7 +227,9 @@
           </tr>
           <tr>
             <th width="30%">11.Rencana Kunjungan</th>
-            <td colspan="3"><%=@status_report.realization_visit_plan.sales_visit_plan.try(:estimasi_tgl_peretemuan)%></td>
+            <td colspan="3">
+             <%=@status_report.realization_visit_plan.sales_visit_plan.try(:estimasi_tgl_peretemuan)%>
+            </td>
           </tr>
         </tbody>
       </table>
