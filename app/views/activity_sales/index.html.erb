@@ -25,7 +25,7 @@
             <%= form_tag(:action => :index) do %>
             <div class="row">
               <%= select_tag "sales_visit_plan", options_for_select(@category),{class: "form-control select col-md-2 ml-2 filter_category_plan" ,prompt: "-- Pilih Kategori --"} %>
-              <%= select_tag "sales_visit_plan", options_for_select(@cluster_plan),{class: "form-control select col-md-2 ml-2 filter_cluster_plan" ,prompt: "-- Pilih Cluster --"} %>
+              <%= select_tag "sales_visit_plan", options_for_select(@cluster_plan),{class: "form-control select col-md-2 ml-2 filter_cluster_plan" ,prompt: "-- Pilih Klaster --"} %>
               <%= select_month(Date.today, {:prompt => "-- Pilih Bulan --"},{class: "form-control select col-md-2 ml-2 filter_month_plan"}) %>
             </div>
             <% end %>
@@ -37,7 +37,7 @@
                   <th>Kategori</th>
                   <th>Jenis Pekerjaan</th>
                   <th>Deskripsi Pekerjaan</th>
-                  <th>Cluster</th>
+                  <th>Klaster</th>
                   <th>Minggu 1</th>
                   <th>Minggu 2</th>
                   <th>Minggu 3</th>
@@ -159,7 +159,7 @@
             <div class="row">
               <%= select_tag "realisasi_visit_plan", options_for_select(@category),{class: "form-control select col-md-2 ml-2 filter_category_realisasi" ,prompt: "-- Pilih Kategori --"} %>
               <%# <%= select_tag 'date_month', options_for_select((1..12).collect{ |i| "%02d" % i }) ,{class: "form-control select col-md-2 ml-2 filter2" ,prompt: "-- Pilih Kategori --"}%>
-              <%= select_tag "realisasi_visit_plan", options_for_select(@cluster_realisasi),{class: "form-control select col-md-2 ml-2 filter_cluster_realisasi" ,prompt: "-- Pilih Cluster --"} %>
+              <%= select_tag "realisasi_visit_plan", options_for_select(@cluster_realisasi),{class: "form-control select col-md-2 ml-2 filter_cluster_realisasi" ,prompt: "-- Pilih Klaster --"} %>
               <%= select_month(Date.today, {:prompt => "-- Pilih Bulan --"},{class: "form-control select col-md-2 ml-2 filter_month_realisasi"}) %> 
             </div>
             <% end %>
@@ -171,7 +171,7 @@
                   <th>Kategori</th>
                   <th>Jenis Pekerjaan</th>
                   <th>Deskripsi Pekerjaan</th>
-                  <th>Cluster</th>
+                  <th>Klaster</th>
                   <th>Minggu 1</th>
                   <th>Minggu 2</th>
                   <th>Minggu 3</th>
