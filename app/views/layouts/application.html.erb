@@ -11,8 +11,9 @@
     <!-- <link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" /> -->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
     <link rel="stylesheet" href="/assets/bundles/dropzonejs/dropzone.css">
-  <link rel='shortcut icon' type='image/x-icon' href='/assets/img/logo1.png' />
+    <link rel='shortcut icon' type='image/x-icon' href='/assets/img/logo1.png' />
 </head>
 
   <% if user_signed_in? %>
@@ -792,3 +793,32 @@
   <% end %>
 
 </html>
+ <script>
+
+    if("<%= notice %>" != "") {
+        setTimeout(function () {
+          toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                showMethod: 'slideDown',
+                timeOut: 3000
+          };
+          toastr.success('<%= notice %>', 'Informasi').css("width","400px");
+
+        }, 500);
+    } else
+
+    if("<%= alert %>" != "") {
+        setTimeout(function () {
+          toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                showMethod: 'slideDown',
+                timeOut: 3000
+          };
+          toastr.error('<%= alert %>', 'Informasi').css("width","400px");
+
+        }, 500);
+    }
+
+  </script>

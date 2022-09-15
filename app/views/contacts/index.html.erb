@@ -53,7 +53,6 @@
                   <td><%= contact.try(:jabatan_pic) %></td>
                   <td><%= contact.try(:emaiil_pic) %></td>
                   <td>0<%= contact.try(:kontak_pic).to_i %></td>
-                  <td><%= contact.try(:keterangan) %></td>
                   <td>
                     <!-- Modal -->
                       <% if contact.file_lampiran.attached? %>
@@ -90,6 +89,7 @@
                       <% end %>
                       <% end %>
                   </td>
+                  <td><%= contact.try(:keterangan) %></td>
                   <td class="text-center">
                     <% if current_user.can? { |permissions| permissions.contact.read? } %>
                     <a href="<%= contact_path(contact) %>" class="btn btn-info btn-circle btn-sm">

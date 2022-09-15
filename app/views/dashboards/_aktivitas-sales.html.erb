@@ -8,7 +8,9 @@
                   <h4 class="mx-auto w-100">Rencana Kunjungan Sales</h4>
                 </div>
                 <div class="card-body">
-                  <div id="chart4" class="chartsh"></div>
+                  <div>
+                    <%= pie_chart SalesVisitPlan.includes(:category).references(:categories).group('categories.name').count %>
+                  </div>
                 </div>
               </div>
             </div>
@@ -20,7 +22,9 @@
                 <div class="card-body">
                   <div class="summary">
                     <div class="summary-chart active" data-tab-group="summary-tab" id="summary-chart">
-                      <div id="chart3" class="chartsh"></div>
+                     <div>
+                       <%= pie_chart RealizationVisitPlan.includes(:category).references(:categories).group('categories.name').count %>
+                     </div>
                     </div>
                     <div data-tab-group="summary-tab" id="summary-text">
                     </div>
@@ -36,7 +40,9 @@
                   <h4 class="mx-auto w-100">Rencana Kunjungan Sales</h4>
                 </div>
                 <div class="card-body">
-                  <div id="chart4" class="chartsh"></div>
+                  <div>
+                    <%= pie_chart SalesVisitPlan.group(:jenis_pekerjaan).count %>
+                  </div>
                 </div>
               </div>
             </div>
@@ -48,7 +54,9 @@
                 <div class="card-body">
                   <div class="summary">
                     <div class="summary-chart active" data-tab-group="summary-tab" id="summary-chart">
-                      <div id="chart3" class="chartsh"></div>
+                     <div>
+                       <%= pie_chart RealizationVisitPlan.group(:jenis_pekerjaan).count %>
+                     </div>
                     </div>
                     <div data-tab-group="summary-tab" id="summary-text">
                     </div>
@@ -87,11 +95,79 @@
                       </div>
                     </ul>
                     <div>
+                      <div>
                       
+
+                    
+                        <%# <%= line_chart @realization_visit_plan.map { |realisasi| %>
+                        <%# <%= line_chart  [
+                                { 
+                                    name: "Minggu 1",
+                                    data: RealizationVisitPlan.where(realisasi: "Minggu 1").group(:realisasi).group_by_month(:realisasi_tgl_peretemuan, format: "%b").count,
+                                    stack: "stack 1"           
+                                },
+                                {
+                                    name: "Minggu 2",
+                                    data: RealizationVisitPlan.where(realisasi: "Minggu 2").group(:realisasi).group_by_month(:realisasi_tgl_peretemuan, format: "%b").count,
+                                    stack: "stack 1"                
+                                },
+                                {
+                                    name: "Minggu 3",
+                                    data: RealizationVisitPlan.where(realisasi: "Minggu 3").group(:realisasi).group_by_month(:realisasi_tgl_peretemuan, format: "%b").count,
+                                    stack: "stack 1"                
+                                },
+                                {
+                                    name: "Minggu 4",
+                                    data: RealizationVisitPlan.where(realisasi: "Minggu 4").group(:realisasi).group_by_month(:realisasi_tgl_peretemuan, format: "%b").count,
+                                    stack: "stack 2"
+                                }
+                        ], stacked: true
+
+        
+                        %>  
+                        <%= line_chart @realization_visit_plan.map { |realisasi|
+                          if realisasi.realisasi === "Minggu 3"
+                            {
+                              name: realisasi.nama_entitas_lokasi_pengadaan, 
+                              data: RealizationVisitPlan.where(realisasi: "Minggu 3").group(:subjek_deksripsi_pekerjaan).group_by_month(:realisasi_tgl_peretemuan, format: "%b").group(:realisasi).count
+                            }
+                          elsif realisasi.realisasi === "Minggu 2"
+                            {
+                              name: realisasi.nama_entitas_lokasi_pengadaan, 
+                              data: RealizationVisitPlan.where(realisasi: "Minggu 2").group(:subjek_deksripsi_pekerjaan).group_by_month(:realisasi_tgl_peretemuan, format: "%b").group(:realisasi).count
+                            }
+                          elsif realisasi.realisasi === "Minggu 1"
+                            {
+                              name: realisasi.nama_entitas_lokasi_pengadaan, 
+                              data: RealizationVisitPlan.where(realisasi: "Minggu 2").group(:subjek_deksripsi_pekerjaan).group_by_month(:realisasi_tgl_peretemuan, format: "%b").group(:realisasi).count
+                            }
+                          elsif realisasi.realisasi === "Minggu 4"
+                            {
+                              name: realisasi.nama_entitas_lokasi_pengadaan, 
+                              data: RealizationVisitPlan.where(realisasi: "Minggu 4").group(:subjek_deksripsi_pekerjaan).group_by_month(:realisasi_tgl_peretemuan, format: "%b").group(:realisasi).count
+                            }
+                          end
+                        } , :id => "stats",library: { xAxis: {allowDecimals: false } }%>
+                        <%# ,  xtitle: "Time", ytitle: "Population" %>
+
+
+<%# 
+
+                                            <%# <%= bar_chart @realization_visit_plan.map { |realisasi|
+                            {
+                              name: realisasi.nama_entitas_lokasi_pengadaan, 
+                              data: 
+                            }
+                        } %> 
+
+                 
+
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
         </section>
+
 

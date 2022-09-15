@@ -22,4 +22,6 @@
 //= require activestorage
 //= require checkbox
 //= require bootstrap-tagsinput
+//= require chartkick
+//= require Chart.bundle
 //= require_tree .

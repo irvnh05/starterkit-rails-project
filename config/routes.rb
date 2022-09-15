@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
 
-
-
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
 
   root 'home#index'
+  resources :home, only: [] do
+    collection do
+      get 'sales_plan_by_category'
+    end
+  end
   get 'master/index', to: "master#index"
 
   post 'realization_visit_plans/create'
