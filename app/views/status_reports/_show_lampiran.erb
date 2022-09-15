@@ -26,6 +26,9 @@
                   <% @status_report.realization_visit_plan.sales_visit_plan.file_lampiran.each do |lampiran| %>
                     <%= image_tag(lampiran, size: "350x250", class:"img-fluid rounded mx-auto d-block")%>
                   <%end%>
+                   <% @status_report.realization_visit_plan.file_lampiran.each do |lampiran| %>
+                    <%= image_tag(lampiran, size: "350x250", class:"img-fluid rounded mx-auto d-block")%>
+                  <%end%>
                 </div>
               </tbody>
             </table>

@@ -62,7 +62,15 @@ class StatusReportsController < ApplicationController
     kontak_personil = []
     kontak_personil = params[:status_report][:kontak_personil]
 
-    kontak_pic = params[:status_report][:kontak_pic]
+
+    nama_yang_dikunjungi = []
+    nama_yang_dikunjungi = params[:status_report][:nama_yang_dikunjungi]
+    jabatan_yang_dikunjungi = []
+    jabatan_yang_dikunjungi = params[:status_report][:jabatan_yang_dikunjungi]
+    kontak_yang_dikunjungi = []
+    kontak_yang_dikunjungi = params[:status_report][:kontak_yang_dikunjungi]
+
+    # kontak_pic = params[:status_report][:kontak_pic]
     # website = params[:status_report][:website]
 
     respond_to do |format|
@@ -71,6 +79,11 @@ class StatusReportsController < ApplicationController
         status_reports.nama_personil = nama_personil
         status_reports.jabatan_personil = jabatan_personil
         status_reports.kontak_personil = kontak_personil
+
+        status_reports.nama_yang_dikunjungi = nama_yang_dikunjungi
+        status_reports.jabatan_yang_dikunjungi = jabatan_yang_dikunjungi
+        status_reports.kontak_yang_dikunjungi = kontak_yang_dikunjungi
+
         # status_reports.tgl_direview = Time.new
         status_reports.save!
         data_company = status_reports.realization_visit_plan.sales_visit_plan.data_company
@@ -153,6 +166,9 @@ class StatusReportsController < ApplicationController
         :nama_personil,
         :jabatan_personil,
         :kontak_personil,
+        :nama_yang_dikunjungi,
+        :jabatan_yang_dikunjungi,
+        :kontak_yang_dikunjungi 
         # :website
       )
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_08_064651) do
+ActiveRecord::Schema.define(version: 2022_09_15_190033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,14 +87,6 @@ ActiveRecord::Schema.define(version: 2022_09_08_064651) do
     t.index ["category_id"], name: "index_data_companies_on_category_id"
     t.index ["contact_id"], name: "index_data_companies_on_contact_id"
     t.index ["sales_visit_plan_id"], name: "index_data_companies_on_sales_visit_plan_id"
-  end
-
-  create_table "data_projects", force: :cascade do |t|
-    t.string "project_code"
-    t.string "project_name"
-    t.string "location"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "project_potentials", force: :cascade do |t|
@@ -195,6 +187,11 @@ ActiveRecord::Schema.define(version: 2022_09_08_064651) do
     t.string "nama_personil"
     t.string "jabatan_personil"
     t.string "kontak_personil"
+    t.string "nama_yang_dikunjungi"
+    t.string "jabatan_yang_dikunjungi"
+    t.string "kontak_yang_dikunjungi"
+    t.bigint "contact_id"
+    t.index ["contact_id"], name: "index_status_reports_on_contact_id"
     t.index ["realization_visit_plan_id"], name: "index_status_reports_on_realization_visit_plan_id"
   end
 
@@ -244,5 +241,6 @@ ActiveRecord::Schema.define(version: 2022_09_08_064651) do
   add_foreign_key "sales_visit_plans", "categories"
   add_foreign_key "sales_visit_plans", "contacts"
   add_foreign_key "sales_visit_plans", "data_companies"
+  add_foreign_key "status_reports", "contacts"
   add_foreign_key "status_reports", "realization_visit_plans"
 end

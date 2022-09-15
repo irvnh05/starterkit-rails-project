@@ -163,10 +163,6 @@
                 <tbody>
                  <tr>
                   <%if 
-                  @status_report.realization_visit_plan.nil? ? "" :
-                  @status_report.realization_visit_plan.sales_visit_plan.nil? ? "" :
-                  @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? "" :
-                  @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.nil? ? "" :
                   @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.present?
                   %>
                     <%# <th width="10%">No</th> %>
@@ -181,10 +177,6 @@
                   </tr>
                   <tr>
                     <%if 
-                    @status_report.realization_visit_plan.nil? ? " " :
-                    @status_report.realization_visit_plan.sales_visit_plan.nil? ? " " :
-                    @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? " " :
-                    @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.nil? ? " " :
                     @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.present?
                     %>
                        <td > <%= f.text_field :hasil_kunjungan, 'data-role'=>'tagsinput' %> </td>
@@ -192,18 +184,18 @@
                        <td > <%= f.text_field :hasil_kunjungan, 'data-role'=>'tagsinput' %></td>
                     <%else%>        
                       <td id="nama">                     
-                        <%= f.text_field :hasil_kunjungan, multiple: true , 'data-role'=>'tagsinput' %>
+                        <%= f.text_field :nama_yang_dikunjungi , 'data-role'=>'tagsinput' %>
                          <datalist id="list">
                            <%= f.collection_select :id, Contact.all, :nama_pic, :id, {prompt: "-- Pilih Entitas --"}, class: 'form-control', id: 'company-id', :required => true, :onchange => "select_company()" %> 
                          </datalist>
                       </td>
                       <td id="jabatan"> 
-                         <%= f.text_field :hasil_kunjungan, 'data-role'=>'tagsinput'  %>
+                         <%= f.text_field :jabatan_yang_dikunjungi, 'data-role'=>'tagsinput'  %>
                          <datalist id="list-jabatan">
                            <%= f.collection_select :id, Contact.all, :jabatan_pic, :id, {prompt: "-- Pilih Entitas --"}, class: 'form-control', id: 'company-id', :required => true, :onchange => "select_company()" %> 
                          </datalist>
                       </td>
-                      <td  id="kontak"> <%= f.text_field :hasil_kunjungan, 'data-role'=>'tagsinput'  %></td>
+                      <td  id="kontak"> <%= f.text_field :kontak_yang_dikunjungi, 'data-role'=>'tagsinput'  %></td>
                          <datalist id="list-kontak">
                            <%= f.collection_select :id, Contact.all, :kontak_pic, :id, {prompt: "-- Pilih Entitas --"}, class: 'form-control', id: 'company-id', :required => true, :onchange => "select_company()" %> 
                          </datalist>                     
