@@ -38,7 +38,7 @@ class StatusReportsController < ApplicationController
   def edit
     status_reports = StatusReport.find(params[:id]) 
     @nama = status_reports.nama_personil.to_s.squish.split(',')
-    @jabatan =  status_reports.jabatan_personil.squish.split(',')
+    @jabatan =  status_reports.jabatan_personil.to_s.squish.split(',')
     @kontak = status_reports.kontak_personil.to_s.split(',')
     @personil_yang_dikunjungi = [@nama,@jabatan,@kontak].transpose
 
