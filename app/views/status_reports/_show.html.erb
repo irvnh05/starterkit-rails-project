@@ -39,7 +39,13 @@
           </tr>
             <td>
               <th colspan="1">Telephone/Fax</th>
-              <td colspan="1"> <%=@status_report.realization_visit_plan.sales_visit_plan.data_company.contact.try(:kontak_pic)%> </td>
+              <td colspan="1"> <%=
+              @status_report.realization_visit_plan.nil? ? "" :
+              @status_report.realization_visit_plan.sales_visit_plan.nil? ? "" :
+              @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? "" :
+              @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.nil? ? "" :
+              @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.try(:kontak_pic)
+              %> </td>
             </td>
           <tr>
             <td>
