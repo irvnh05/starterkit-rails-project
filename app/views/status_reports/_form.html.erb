@@ -133,7 +133,13 @@
                <table class="table table-bordered">
                 <tbody>
                  <tr>
-                  <%if@status_report.realization_visit_plan.sales_visit_plan.data_company.contact.present?%>
+                  <%if 
+                  @status_report.realization_visit_plan.nil? ? "" :
+                  @status_report.realization_visit_plan.sales_visit_plan.nil? ? "" :
+                  @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? "" :
+                  @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.nil? ? "" :
+                  @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.present?
+                  %>
                     <%# <th width="10%">No</th> %>
                     <th >Nama</th>
                     <th >Jabatan</th>
