@@ -1,22 +1,13 @@
     
-      <%= form_for @status_report, multipart: true do |f| %>
+    <%= form_for :status_reports, url: review_status_report_path, method: :post, html: {class: "form-horizontal", role: "form"} do |f| %>
+      <%# <%= form_for @status_report, multipart: true do |f| %> 
         <div class="mb-4">
           <%# <a class="btn btn-primary" id="catatan">+Catatan</a> %>
           <a class="btn btn-primary" id="catatan" href="#" role="button">+Catatan</a>
         </div>
         
         <div class="card shadow mb-4 " id="form-catatan" >
-          <% if @status_report.errors.any? %>
-            <div id="error_explanation">
-              <h2><%= pluralize(@status_report.errors.count, "error") %> prohibited this site_project from being saved:</h2>
-              <ul>
-              <% @status_report.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-              </ul>
-            </div>
-          <% end %>
-          
+
           <div class="card-header py-3">
             <div class="row justify-content-between">
               <div class="col align-items-center pt-2">
@@ -32,7 +23,9 @@
               <tbody>
                 <div class="form-row">
                   <div class="form-group col text-center">
-                     <%= f.text_area(:catatan, size: '172x10', class: '')%>
+                 
+                       <%= f.text_area(:catatan, size: '172x10', class: '')%>
+                    
                   </div>
                 </div>
                

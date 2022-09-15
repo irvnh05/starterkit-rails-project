@@ -32,10 +32,12 @@ class ActivitySalesController < ApplicationController
     @category = Category.select(:name).map(&:name).uniq
     @cluster_realisasi = RealizationVisitPlan.select(:cluster).map(&:cluster).uniq
     @cluster_plan = SalesVisitPlan.select(:cluster).map(&:cluster).uniq
+    
   end
 
   def status_laporan
     @status_laporan = StatusReport.all
+    
  
   end
 

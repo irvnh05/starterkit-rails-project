@@ -89,14 +89,7 @@ class RealizationVisitPlansController < ApplicationController
     respond_to do |format|
       realization_visit_plans = RealizationVisitPlan.find(params[:id]) 
       # realization_visit_plans.status
-      if realization_visit_plans.status.nil?
-        realization_visit_plans.status = "1"
-        # realization_visit_plans.tgl_direview = Time.new
-        # realization_visit_plans.tgl_direview = Time.new
-        realization_visit_plans.save!
-        format.html { redirect_to rekap_activity_sales_path, notice: "Realization visit plan was successfully updated." }
-        format.json { render :show, status: :ok, location: @realization_visit_plan }
-      elsif @realization_visit_plan.update(realization_visit_plan_params)
+      if @realization_visit_plan.update(realization_visit_plan_params)
         format.html { redirect_to activity_sales_path, notice: "Realization visit plan was successfully updated." }
         format.json { render :show, status: :ok, location: @realization_visit_plan }
       else
@@ -105,6 +98,15 @@ class RealizationVisitPlansController < ApplicationController
       end
     end
   end
+
+#   realization_visit_plans.status.nil?
+#   realization_visit_plans.status = "1"
+#   # realization_visit_plans.tgl_direview = Time.new
+#   # realization_visit_plans.tgl_direview = Time.new
+#   realization_visit_plans.save!
+#   format.html { redirect_to rekap_activity_sales_path, notice: "Realization visit plan was successfully updated." }
+#   format.json { render :show, status: :ok, location: @realization_visit_plan }
+# elsif 
 
   # def update_status
   #   respond_to do |format|

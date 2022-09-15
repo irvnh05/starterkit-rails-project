@@ -7,6 +7,7 @@ class SalesVisitPlan < ApplicationRecord
   
   has_many :realization_visit_plan , dependent: :destroy
   has_many_attached :file_lampiran
-  has_many :status_report
+  # has_many :status_report, dependent: :destroy
+  
   # , dependent: :destroy
 end

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   post 'realization_visit_plans/create'
   post 'realization_visit_plans/update'
-  post 'project_potentials/create', to: 'project_potentials#create'  
+  post 'project_potentials/create', to: 'project_potentials#create'
   # post 'sales_visit_plans/create'
 
   resources :change_passwords, only: [:edit] do
@@ -71,7 +71,12 @@ Rails.application.routes.draw do
       get "rekap", to: "activity_sales#rekap"
       get "status_laporan", to: "activity_sales#status_laporan"
       delete 'status_laporan/:id' => 'activity_sales#status_laporan_destroy'
-      resources :status_reports, :path => "status_laporan" 
+      resources :status_reports, :path => "status_laporan" do
+        member do
+          post 'review', to: 'status_reports#review'
+        end
+      end
+
       get 'cetak_laporan/:id', to: "status_reports#download" , :as => :download  
       get 'cetak_pdf', to: "status_reports#cetak_pdf"
       get 'cetak_excel', to: "status_reports#cetak_excel"
