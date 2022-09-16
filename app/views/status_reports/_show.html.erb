@@ -130,13 +130,13 @@
           <tr>
             <th width="30%">9.Hasil Kunjungan</th>
             <td colspan="3"> 
-           
+              <%= @status_report.try(:hasil_kunjungan)%>
             </td>
           </tr>
           <tr>
             <th width="30%">10.Tindak Lanjut</th>
             <td colspan="3"> 
-          
+              <%= @status_report.try(:tindak_lanjut)%>
             </td>
           </tr>
           <tr>
