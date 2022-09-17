@@ -35,7 +35,7 @@
           <div class="form-row">
             <div class="form-group col">
               <label for="intpuCluster">Klaster</label>
-               <%= select_tag :cluster, options_for_select(["Internal SH Gas","External (Pertamina Grup)","External swasta","External pemerintah",'External BUMN/BUMD'], params[:pilihan]), prompt: "-- Pilih Klaster --", class: "form-control", name: "project_potential[cluster]"  %>
+               <%= f.select :cluster, options_for_select(["Internal SH Gas","Eksternal (Pertamina Grup)","Eksternal Swasta","Eksternal Pemerintah",'Eksternal BUMN/BUMD'], params[:pilihan]), prompt: "-- Pilih Klaster --", class: "form-control", name: "project_potential[cluster]"  %>
             </div>
           </div>
 
@@ -54,15 +54,15 @@
           </div>
 
           <div class="form-row">
-            <div class="form-group col">
-              <label for="intpuCluster">Nilai</label>
-               <%= select_tag :nilai, options_for_select(["IDR(RP)","USD($)"], params[:pilihan]), prompt: "-- Pilih Nilai(IDR) --", class: "form-control nilai" , name: "project_potential[nilai]"%>
+            <div class="form-group col inputNilai">
+              <label for="inputNilai">Nilai</label>
+                <%= f.select :nilai, options_for_select(["IDR(RP)","USD($)"]), prompt: "-- Pilih Nilai(IDR) --"%>
 <%
 =begin
 %>
                 <%= f.text_field :nilai, list: "nama_entitas" , class: "form-control select-realization"%>
               <datalist id="nama_entitas" >
-                <%= select_tag :nilai, options_for_select(["IDR(RP)","USD($)"], params[:pilihan]), id: 'realization-id', prompt: "-- Pilih Cluster --", class: "form-control" %>
+                <%= f.select :nilai, options_for_select(["IDR(RP)","USD($)"], params[:pilihan]), id: 'realization-id', prompt: "-- Pilih Cluster --", class: "form-control" %>
               </datalist>
 <%
 =end
@@ -72,7 +72,7 @@
            <div class="form-row ">
             <div class="form-group col">
               <label for="intpuCluster">Nominal</label>
-              <%= f.number_field :nominal, class: "form-control" %>
+              <%= f.number_field :nominal, :limit => 8, class: "form-control " %>
             </div>
           </div>
 <%
@@ -98,7 +98,7 @@
           <div class="form-row">
             <div class="form-group col">
               <label for="intpuCluster">Lini Bisnis</label>
-              <%= select_tag :lini_bisnis, options_for_select(["EPC","O&M","Supply Chain","Lainnya"], params[:pilihan_lini_bisnis]), prompt: "-- Pilih Lini Bisnis --", class: "form-control", name: "project_potential[lini_bisnis]"%>
+              <%= f.select :lini_bisnis, options_for_select(["EPC","O&M","Supply Chain","Lainnya"], params[:pilihan_lini_bisnis]), prompt: "-- Pilih Lini Bisnis --", class: "form-control", name: "project_potential[lini_bisnis]"%>
               <%# <%= f.text_field :lini_bisnis, class: "form-control" %> 
             </div>
           </div>
@@ -120,7 +120,7 @@
           <div class="form-row">
             <div class="form-group col">
               <label for="intpuCluster">Remark</label>
-              <%= select_tag :remark, options_for_select(["SINERGI","NON SINERGI"], params[:pilihan_remark]), prompt: "-- Pilih Remark --", class: "form-control", name: "project_potential[remark]"%>
+              <%= f.select :remark, options_for_select(["SINERGI","NON SINERGI"], params[:pilihan_remark]), prompt: "-- Pilih Remark --", class: "form-control", name: "project_potential[remark]"%>
               <%# <%= f.text_field :remark, class: "form-control" %> 
             </div>
           </div>
@@ -128,7 +128,7 @@
           <div class="form-row">
             <div class="form-group col">
               <label for="intpuCluster">Konfirmasi (%)</label>
-              <%= select_tag :konfirmasi, options_for_select(["100%","75%","50%"], params[:pilihan_konfirmasi]), prompt: "-- Pilih Konfirmasi --", class: "form-control", name: "project_potential[konfirmasi]" %>
+              <%= f.select :konfirmasi, options_for_select(["100%","75%","50%"], params[:pilihan_konfirmasi]), prompt: "-- Pilih Konfirmasi --", class: "form-control", name: "project_potential[konfirmasi]" %>
               <%# <%= f.number_field :konfirmasi, class: "form-control" %> 
             </div>
           </div>
@@ -207,6 +207,55 @@
     //             }
     //   });
     // }
+function formatAmountNoDecimals( number ) {
+    var rgx = /(\d+)(\d{3})/;
+    while( rgx.test( number ) ) {
+        number = number.replace( rgx, '$1' + '.' + '$2' );
+    }
+    return number;
+}
 
-    
+function formatAmount( number ) {
+
+    // remove all the characters except the numeric values
+    number = number.replace( /[^0-9]/g, '' );
+
+    // set the default value
+    if( number.length == 0 ) number = "0.00";
+    else if( number.length == 1 ) number = "0.0" + number;
+    else if( number.length == 2 ) number = "0." + number;
+    else number = number.substring( 0, number.length - 2 ) + '.' + number.substring( number.length - 2, number.length );
+
+    // set the precision
+    number = new Number( number );
+    number = number.toFixed( 2 );    // only works with the "."
+
+    // change the splitter to ","
+    number = number.replace( /\./g, ',' );
+
+    // format the amount
+    x = number.split( ',' );
+    x1 = x[0];
+    x2 = x.length > 1 ? ',' + x[1] : '';
+
+    return formatAmountNoDecimals( x1 ) + x2;
+}
+
+
+$(function() {
+
+    $( '.amount' ).keyup( function() {
+        $( this ).val( formatAmount( $( this ).val() ) );
+    });
+
+});
+
+$(document).ready( function() {
+  $('#project_potential_nilai').attr('class', 'form-control');
+  $('#project_potential_cluster').attr('class', 'form-control');
+  $('#project_potential_lini_bisnis').attr('class', 'form-control');
+  $('#project_potential_jadwal_perkiraan_tender').attr('class', 'form-control');
+  $('#project_potential_remark').attr('class', 'form-control');
+  $('#project_potential_konfirmasi').attr('class', 'form-control');
+} );
 </script>

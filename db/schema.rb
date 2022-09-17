@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_15_190033) do
+ActiveRecord::Schema.define(version: 2022_09_17_084140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(version: 2022_09_15_190033) do
     t.string "lokasi"
     t.string "judul_tender"
     t.string "nilai"
-    t.integer "nominal"
+    t.bigint "nominal"
     t.string "lini_bisnis"
     t.date "jadwal_perkiraan_tender"
     t.integer "durasi_proyek"

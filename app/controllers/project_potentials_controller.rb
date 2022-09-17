@@ -6,8 +6,9 @@ class ProjectPotentialsController < ApplicationController
     @project_potentials = ProjectPotential.all
     @project_potential = ProjectPotential.new
 
-    @project_by_name = @project_potentials.group_by { |nama_entitas| nama_entitas.nama_entitas}
+    @project_by_name = @project_potentials.group_by { |nama_entitas| [nama_entitas.nama_entitas,nama_entitas.remark]}
     @project_by_remark = @project_potentials.group_by { |nama_entitas| nama_entitas.remark}
+    
    
     # @total = @project_by_remark.transform_values { |values| values.count }
     
