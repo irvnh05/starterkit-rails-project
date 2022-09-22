@@ -81,3 +81,34 @@ module ApplicationHelper
       number_to_currency(number, :unit => "IDR ", :separator => ",", :delimiter => ".")
     end
  
+
+    def get_month_name(num)
+      case num
+      when 1, "1"
+        return "Januari"
+      when 2, "2"
+        return "Februari"
+      when 3, "3"
+        return "Maret"
+      when 4, "4"
+        return "April"
+      when 5, "5"
+        return "Mei"
+      when 6, "6"
+        return "Juni"
+      when 7, "7"
+        return "Juli"
+      when 8, "8"
+        return "Agustus"
+      when 9, "9"
+        return "September"
+      when 10, "10"
+        return "Oktober"
+      when 11, "11"
+        return "November"
+      when 12, "12"
+        return "Desember"
+      else
+        return ""
+      end
+    end

@@ -52,7 +52,8 @@
                 <input class="form-control" type="text" name="status_report[kontak_pic]" id="#">
                   <%# <%= f.text_field :hasil_kunjungan, class: 'form-control border border-secondary' %> 
                 <%else%>
-                  <input class="form-control" type="text" name="status_report[alamat]" value="<%=@status_report.realization_visit_plan.sales_visit_plan.contact.try(:kontak_pic)%>">
+                    <%# <%= f.text_field :hasil_kunjungan, class: 'form-control border border-secondary' %> 
+                  <input class="form-control" type="text" name="status_report[kontak_pic]" value="<%=@status_report.realization_visit_plan.sales_visit_plan.contact.try(:kontak_pic)%>">
                  
                 <%end%>
                <%# @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? "" :  @status_report.realization_visit_plan.sales_visit_plan.data_company.contact.try(:kontak_pic) %>
@@ -66,7 +67,7 @@
                 <input class="form-control" type="text" name="status_report[emaiil_pic]" id="#">
                   <%# <%= f.text_field :hasil_kunjungan, class: 'form-control border border-secondary' %>  
                 <%else%>
-                  <input class="form-control" type="text" name="status_report[alamat]" value="<%=@status_report.realization_visit_plan.sales_visit_plan.contact.try(:emaiil_pic)%>">
+                  <input class="form-control" type="text" name="status_report[emaiil_pic]" value="<%=@status_report.realization_visit_plan.sales_visit_plan.contact.try(:emaiil_pic)%>">
                 <%end%>
               <%# <%=
               @status_report.realization_visit_plan.sales_visit_plan.data_company.nil? ? "" :
@@ -82,7 +83,7 @@
                   <%# <%= f.text_field :website, class: 'form-control border border-secondary' %> 
                   <input class="form-control" type="text" name="status_report[website]" id="#">
                 <%else%>
-                  <input class="form-control" type="text" name="status_report[alamat]" value="<%=@status_report.realization_visit_plan.sales_visit_plan.data_company.try(:website)%>">
+                  <input class="form-control" type="text" name="status_report[website]" value="<%=@status_report.realization_visit_plan.sales_visit_plan.data_company.try(:website)%>">
                 <%end%>
               <%# <%=@status_report.realization_visit_plan.sales_visit_plan.data_company.try(:website)%> 
               </td>
@@ -255,7 +256,7 @@
 <%
 =end%>    
     <div class=" py-3 ">
-      <a href="<%= status_laporan_activity_sales_path %>" class="btn btn-info pull-right ml-2">Kembali</a>
+      <a href="<%= status_reports_path %>" class="btn btn-info pull-right ml-2">Kembali</a>
       <button type="submit" class="btn btn-primary px-3 pull-right" value="form"> Submit</button>
     </div>
   <%# </div> %>

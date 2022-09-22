@@ -70,7 +70,7 @@
                 </tr>
             </thead>
             <tbody>
-            <% @status_laporan.each_with_index do |status_laporan, index| %>
+            <% @status_reports.each_with_index do |status_laporan, index| %>
                 <tr>
                   <td class="text-center"><%= index+1 %></td>
                   <td><%=status_laporan.realization_visit_plan.try(:realisasi_tgl_peretemuan) %></td>

@@ -37,8 +37,10 @@ Rails.application.routes.draw do
     end
   end
   resources :contacts do
+    member do
+      delete "delete_file_lampiran/:attachment_id", to: 'contacts#delete_file_lampiran'  
+    end
     collection do
-      get "delete_file_lampiran/:attachment_id", to: 'contacts#delete_file_lampiran'  
       get 'cetak_pdf', to: "contacts#cetak_pdf"
     end
   end
@@ -53,24 +55,33 @@ Rails.application.routes.draw do
 
       resources :realization_visit_plans, :path => "realisasi" do
         member do 
-          get "delete_file_lampiran/:attachment_id", to: 'realization_visit_plans#delete_file_lampiran'  
+          delete "delete_file_lampiran/:attachment_id", to: 'realization_visit_plans#delete_file_lampiran'  
           get "review", to: "realization_visit_plans#review"
+          post 'review_realisasi', to: "realization_visit_plans#review_update_rekap"
           patch 'update_status'
         end
       end
 
       resources :sales_visit_plans, :path => "rencana" do 
         member do 
-          get "delete_file_lampiran/:attachment_id", to: 'sales_visit_plans#delete_file_lampiran'  
+          delete "delete_file_lampiran/:attachment_id", to: 'sales_visit_plans#delete_file_lampiran'  
           get "review", to: "sales_visit_plans#review"
           post 'review_rencana', to: "sales_visit_plans#review_update_rekap"
         end
       end
 
 
-      get "rekap", to: "activity_sales#rekap"
-      get "status_laporan", to: "activity_sales#status_laporan"
-      delete 'status_laporan/:id' => 'activity_sales#status_laporan_destroy'
+      # get "rekap", to: "recaps#index"
+
+      resources :recaps, :path => "rekap" do 
+        member do
+          get "realisasi/", to: "recaps#show_reallisasi"
+          get "rencana/", to: "recaps#show_rencana"
+        end
+      end
+
+      # get "status_laporan", to: "activity_sales#status_laporan"
+      # delete 'status_laporan/:id' => 'activity_sales#status_laporan_destroy'
       resources :status_reports, :path => "status_laporan" do
         member do
           post 'review', to: 'status_reports#review'

@@ -57,7 +57,9 @@ class ContactsController < ApplicationController
   # POST /contacts or /contacts.json
   def create
     @contact = Contact.new(contact_params)
-    @contact.email_user = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") 
+    # @contact.create_by = current_user.id
+    @contact.create_by = current_user.id
+    @contact.roles_id = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:id)}"}.join(", ") 
     respond_to do |format|
       if @contact.save
         format.html { redirect_to contacts_path, notice: "Contact was successfully created." }

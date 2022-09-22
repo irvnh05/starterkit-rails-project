@@ -1,5 +1,5 @@
 class RealizationVisitPlansController < ApplicationController
-  before_action :set_realization_visit_plan, only: %i[ show edit update destroy review ]
+  before_action :set_realization_visit_plan, only: %i[ show edit update destroy review review_update_rekap ]
 
   # GET /realization_visit_plans or /realization_visit_plans.json
   def index
@@ -99,6 +99,26 @@ class RealizationVisitPlansController < ApplicationController
     end
   end
 
+  def review_update_rekap
+    # @update = SalesVisitPlan.find_by(id: params[:id])
+
+    respond_to do |format|
+      # @catatan =  params[:sales_visit_plan][:catatan]
+      realization_visit_plan = RealizationVisitPlan.find(params[:id]) 
+      if  @realization_visit_plan.update(params_rekap) 
+        realization_visit_plan.status = "1"
+        realization_visit_plan.tgl_direview = Time.new
+        realization_visit_plan.save!
+        format.html { redirect_to recaps_path, notice: "Realization visit plan was successfully updated." }
+        format.json { render :show, status: :ok, location: @realization_visit_plan }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @realization_visit_plan.errors, status: :unprocessable_entity }
+      end
+      # s
+    end
+  end
+
 #   realization_visit_plans.status.nil?
 #   realization_visit_plans.status = "1"
 #   # realization_visit_plans.tgl_direview = Time.new
@@ -128,7 +148,11 @@ class RealizationVisitPlansController < ApplicationController
     end
   end
 
-
+  def delete_file_lampiran
+    @attachment = ActiveStorage::Attachment.find(params[:attachment_id])
+    @attachment.purge # or use purge_later
+    redirect_back(fallback_location: request.referer)
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -163,6 +187,15 @@ class RealizationVisitPlansController < ApplicationController
 
     def id_params
       params.permit(:id)
+    end
+
+    def params_rekap
+      params.require(:realization_visit_plan).permit(
+        # :status,
+        # :review_by,
+        :catatan,
+        # :tgl_direview,
+      )
     end
     # def search_params
     #   params.slice(:category, :realisasi_tgl_peretemuan, :cluster)

@@ -2,9 +2,9 @@ class StatusReportsController < ApplicationController
   before_action :set_status_report, only: [:show, :edit, :update, :destroy, :download,:review]
 
   # GET /status_reports or /status_reports.json
-  # def index
-  #   @status_reports = StatusReport.all
-  # end
+  def index
+    @status_reports = StatusReport.all
+  end
 
   def download
     @status_report = StatusReport.find_by(id: params[:id])

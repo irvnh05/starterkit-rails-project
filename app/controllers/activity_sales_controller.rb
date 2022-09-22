@@ -1,5 +1,5 @@
 class ActivitySalesController < ApplicationController
-  before_action :set_data_status_laporan,  only: [:status_laporan_destroy, :show, :download ]
+  before_action :set_data_status_laporan,  only: [ :show, :download ]
   # GET /activity_sales or /activity_sales.json
   def index
     @sales_visit_plans = SalesVisitPlan.all
@@ -26,30 +26,30 @@ class ActivitySalesController < ApplicationController
   end
 
 
-  def rekap
-    @sales_visit_plans = SalesVisitPlan.all
-    @realization_visit_plans = RealizationVisitPlan.all
-    @category = Category.select(:name).map(&:name).uniq
-    @cluster_realisasi = RealizationVisitPlan.select(:cluster).map(&:cluster).uniq
-    @cluster_plan = SalesVisitPlan.select(:cluster).map(&:cluster).uniq
+  # def rekap
+  #   @sales_visit_plans = SalesVisitPlan.all
+  #   @realization_visit_plans = RealizationVisitPlan.all
+  #   @category = Category.select(:name).map(&:name).uniq
+  #   @cluster_realisasi = RealizationVisitPlan.select(:cluster).map(&:cluster).uniq
+  #   @cluster_plan = SalesVisitPlan.select(:cluster).map(&:cluster).uniq
     
-  end
+  # end
 
-  def status_laporan
-    @status_laporan = StatusReport.all
+  # def status_laporan
+  #   @status_laporan = StatusReport.all
     
  
-  end
+  # end
 
   
 
-  def status_laporan_destroy
-    @status_laporan.destroy
-    respond_to do |format|
-      format.html { redirect_to status_laporan_activity_sales_path, notice: "Status Laporan was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
+  # def status_laporan_destroy
+  #   @status_laporan.destroy
+  #   respond_to do |format|
+  #     format.html { redirect_to status_laporan_activity_sales_path, notice: "Status Laporan was successfully destroyed." }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   def delete_lampiran
     @attachment = ActiveStorage::Attachment.find(params[:attachment_id])
@@ -79,9 +79,10 @@ class ActivitySalesController < ApplicationController
   #   end
   # end
 
-  private
+  # private
   # Use callbacks to share common setup or constraints between actions.
-  def set_data_status_laporan
-    @status_laporan = StatusReport.find(params[:id])
-  end
+  # def set_data_status_laporan
+  #   @status_laporan = StatusReport.find(params[:id])
+  # end
+  
 end

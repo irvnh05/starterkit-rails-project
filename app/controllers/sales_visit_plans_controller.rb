@@ -162,7 +162,7 @@ class SalesVisitPlansController < ApplicationController
         sales_visit_plan.status = "1"
         sales_visit_plan.tgl_direview = Time.new
         sales_visit_plan.save!
-        format.html { redirect_to rekap_activity_sales_path, notice: "Sales visit plan was successfully updated." }
+        format.html { redirect_to recaps_path, notice: "Sales visit plan was successfully updated." }
         format.json { render :show, status: :ok, location: @sales_visit_plan }
       else
         format.html { render :edit, status: :unprocessable_entity }
