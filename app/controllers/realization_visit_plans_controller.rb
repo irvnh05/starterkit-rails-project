@@ -65,12 +65,13 @@ class RealizationVisitPlansController < ApplicationController
     respond_to do |format|
       # @realization_visit_plan.sales_id = params[:sales_id]
       # @status_laporan.realization_visit_plan_id =  @realization_visit_plan.id
+      @realization_visit_plan.roles_id = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:id)}"}.join(", ") 
       @realization_visit_plan.email_user = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") 
       if @realization_visit_plan.save
         status_laporan = StatusReport.new
         # status_laporan.nama_entitas_lokasi_pengadaan = @nama_entitas_lokasi_pengadaan.nama_entitas_lokasi_pengadaan
         # status_laporan.hasil_kunjungan = @realization_visit_plan.subjek_deksripsi_pekerjaan
-        # status_laporan.status_laporan = 0
+        status_laporan.status_laporan = 0
         status_laporan.realization_visit_plan_id = @realization_visit_plan.id
         # status_laporan.tgl_aktivitas = @realization_visit_plan.realisasi_tgl_peretemuan
         status_laporan.save

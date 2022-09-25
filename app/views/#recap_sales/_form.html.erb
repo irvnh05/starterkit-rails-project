@@ -1,0 +1,17 @@
+<%= form_with(model: recap_sale, local: true) do |form| %>
+  <% if recap_sale.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(recap_sale.errors.count, "error") %> prohibited this recap_sale from being saved:</h2>
+
+      <ul>
+      <% recap_sale.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -7,18 +7,21 @@ class DataCompaniesController < ApplicationController
     # @data_category = @data_companies.each do |data_company|
     # @category = DataCompany.select(:category_id).map(&:category_id).uniq
     @category = Category.select(:name).map(&:name).uniq
-
-
+     
     if current_user.roles.any? {|r| r.name == "Superadmin"}
       @data_companies = DataCompany.all.order("data_companies.created_at asc")
     elsif current_user.roles.any? {|r| r.name == "Sales"}
       @data_companies = DataCompany.all.order("data_companies.created_at asc")
     elsif current_user.roles.any? {|r| r.name == "GM Komersial"}
       @data_companies = DataCompany.all.order("data_companies.created_at asc")
-    elsif current_user.roles.any? {|r| r.name == "Kepala Divisi Marketing"}
+    elsif current_user.roles.any? {|r| r.name == "Kepala Divisi Penjualan Layanan"}
+      @data_companies = DataCompany.all.order("data_companies.created_at asc")
+    elsif current_user.roles.any? {|r| r.name == "Komersial"}
+      @data_companies = DataCompany.where("create_by": current_user.id ).order("data_companies.created_at asc")
+    elsif current_user.roles.any? {|r| r.name == "Kepala Departemen Pemasaran"}
       @data_companies = DataCompany.all.order("data_companies.created_at asc")
     else
-      @data_companies = DataCompany.where("email_user": current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") ).order("data_companies.created_at asc")
+      @data_companies = DataCompany.where("create_by": current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") ).order("contacts.created_at asc")
     end
   end
 

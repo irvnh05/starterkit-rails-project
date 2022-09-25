@@ -13,10 +13,14 @@ class ContactsController < ApplicationController
       @contacts = Contact.all.order("contacts.created_at asc")
     elsif current_user.roles.any? {|r| r.name == "GM Komersial"}
       @contacts = Contact.all.order("contacts.created_at asc")
-    elsif current_user.roles.any? {|r| r.name == "Kepala Divisi Marketing"}
+    elsif current_user.roles.any? {|r| r.name == "Kepala Divisi Penjualan Layanan"}
+      @contacts = Contact.all.order("contacts.created_at asc")
+    elsif current_user.roles.any? {|r| r.name == "Komersial"}
+      @contacts = Contact.where("create_by": current_user.id ).order("contacts.created_at asc")
+    elsif current_user.roles.any? {|r| r.name == "Kepala Departemen Pemasaran"}
       @contacts = Contact.all.order("contacts.created_at asc")
     else
-      @contacts = Contact.where("email_user": current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") ).order("contacts.created_at asc")
+      @contacts = Contact.where("create_by": current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") ).order("contacts.created_at asc")
     end
   end
 
@@ -58,6 +62,7 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(contact_params)
     # @contact.create_by = current_user.id
+        # @contact.create_by = current_user.id
     @contact.create_by = current_user.id
     @contact.roles_id = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:id)}"}.join(", ") 
     respond_to do |format|

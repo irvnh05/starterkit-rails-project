@@ -95,6 +95,7 @@ class SalesVisitPlansController < ApplicationController
 
       @contact = params[:sales_visit_plan][:contact_id]
       @data_company = params[:sales_visit_plan][:data_company_id]
+      @sales_visit_plan.roles_id = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:id)}"}.join(", ") 
       @sales_visit_plan.email_user = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") 
       @sales_visit_plan.status = 0
       if @sales_visit_plan.save
@@ -118,7 +119,10 @@ class SalesVisitPlansController < ApplicationController
           @sales_visit_plan.contact_id = contact.id
           @sales_visit_plan.save
          end
-        
+         
+        #  recap_sales = RecapSale.new
+        #  recap_sales.sales_visit_plan_id = @sales_visit_plan.id
+        #  recap_sales.save
 
           # data_company = Contact.new
           # data_company.sales_visit_plan_id = @sales_visit_plan.id
@@ -127,6 +131,7 @@ class SalesVisitPlansController < ApplicationController
         #  end
         format.html { redirect_to activity_sales_path, notice: "Sales visit plan was successfully created." }
         format.json { render :show, status: :created, location: @sales_visit_plan }
+
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @sales_visit_plan.errors, status: :unprocessable_entity }
@@ -215,6 +220,7 @@ class SalesVisitPlansController < ApplicationController
         :review_by,
         :catatan,
         :tgl_direview,
+        # :roles_id,
         file_lampiran: [],
         )
     end

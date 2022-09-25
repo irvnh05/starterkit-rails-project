@@ -1,6 +1,4 @@
-
 <% getRole = RoleAssignment.find_by_user_id(current_user.id) %>
-
 <%# data kontak %>
 <% getNotif = Contact.where('roles_id = ?', getRole.role_id).each do |notif| %>
   <a class="dropdown-item d-flex align-items-center list-notif" href="<%= contact_path(notif.id)%>">
@@ -12,7 +10,8 @@
     <div>
         <span class="font-weight-bold"><%= "#{getRole.role.name}" %></span>
         <div class=" messege-text pt-1">Data Kontak baru telah ditambahkan</div> 
-        <div class="small text-gray-500"><%= "#{notif.updated_at.strftime('%d')} #{get_month_name(notif.updated_at.strftime('%-m'))} #{notif.updated_at.strftime('%Y')} - #{notif.updated_at.strftime('%H:%M:%S')}   "%></div>
+        <%# <div class="small text-gray-500"><%= "#{notif.updated_at.strftime('%d')} #{get_month_name(notif.updated_at.strftime('%-m'))} #{notif.updated_at.strftime('%Y')} - #{notif.updated_at.strftime('%H:%M:%S')}   "%>
+        <%# </div> %> 
     </div>
   </a>
 <% end %>
@@ -28,11 +27,60 @@
     <div>
         <span class="font-weight-bold"><%= "#{getRole.role.name}" %></span>
         <div class=" messege-text pt-1">Data Perusahaan baru telah <br>ditambahkan</div> 
-        <div class="small text-gray-500"><%= "#{notif.updated_at.strftime('%d')} #{get_month_name(notif.updated_at.strftime('%-m'))} #{notif.updated_at.strftime('%Y')} - #{notif.updated_at.strftime('%H:%M:%S')}   "%></div>
+        <%# <div class="small text-gray-500"><%= "#{notif.updated_at.strftime('%d')} #{get_month_name(notif.updated_at.strftime('%-m'))} #{notif.updated_at.strftime('%Y')} - #{notif.updated_at.strftime('%H:%M:%S')}   "%>
+        <%# </div> %> 
     </div>
   </a>
 <% end %>
 
+<%# review rekap laporan aktivitas %>    
+<% getNotif = StatusReport.where('status_laporan = ?', ["1"]).includes(:realization_visit_plan).where("realization_visit_plans.roles_id": getRole.role_id).each do |notif| %>
+  <a class="dropdown-item d-flex align-items-center list-notif" href="<%= realization_visit_plan_path(notif.id)%>">
+    <div class="mr-3">
+        <div class=" text-success ">
+            <i class="fas fa-info-circle"></i>
+        </div>
+    </div>
+    <div>
+        <span class="font-weight-bold"><%= "#{getRole.role.name}" %></span>
+        <div class=" messege-text pt-1">Laporan Aktivitas <%= "#{notif.realization_visit_plan.nama_entitas_lokasi_pengadaan}" %><br>Sudah direview</div> 
+        <%# <div class="small text-gray-500"><%= "#{notif.updated_at.strftime('%d')} #{get_month_name(notif.updated_at.strftime('%-m'))} #{notif.updated_at.strftime('%Y')} - #{notif.updated_at.strftime('%H:%M:%S')}   "%>
+        <%# </div> %> 
+    </div>
+  </a>
+<% end %>
 
-<%# review rekap laporan aktivitas %>   
 <%# review rekap laporan rekap %>
+  <%# sales plan rekap %>
+  <% getNotif = SalesVisitPlan.where('roles_id = ? and status IN (?)', getRole.role_id, ["1"]).each do |notif| %>
+    <a class="dropdown-item d-flex align-items-center list-notif" href="<%= sales_visit_plan_path(notif.id)%>">
+      <div class="mr-3">
+          <div class=" text-success ">
+              <i class="fas fa-info-circle"></i>
+          </div>
+      </div>
+      <div>
+          <span class="font-weight-bold"><%= "#{getRole.role.name}" %></span>
+          <div class=" messege-text pt-1">Rekap Data Plan <%= "#{notif.nama_entitas_lokasi_pengadaan}" %> <br>Sudah Direview</div> 
+          <%# <div class="small text-gray-500"><%= "#{notif.tgl_direview.to_date.strftime('%d')} #{get_month_name(notif.tgl_direview.to_date.strftime('%-m'))} #{notif.tgl_direview.to_date.strftime('%Y')} - #{notif.tgl_direview.to_date.strftime('%H:%M:%S')}   "%>
+          <%# </div> %>
+      </div>
+    </a>
+  <% end %>
+
+  <%# sales plan rekap %>
+  <% getNotif = RealizationVisitPlan.where('roles_id = ? and status IN (?)', getRole.role_id, ["1"]).each do |notif| %>
+    <a class="dropdown-item d-flex align-items-center list-notif" href="<%= sales_visit_plan_path(notif.id)%>">
+      <div class="mr-3">
+          <div class=" text-success ">
+              <i class="fas fa-info-circle"></i>
+          </div>
+      </div>
+      <div>
+          <span class="font-weight-bold"><%= "#{getRole.role.name}" %></span>
+          <div class=" messege-text pt-1">Rekap Data Relasisasi <br><%= "#{notif.nama_entitas_lokasi_pengadaan}" %> <br>Sudah Direview</div> 
+          <%# <div class="small text-gray-500"><%= "#{notif.tgl_direview.to_date.strftime('%d')} #{get_month_name(notif.tgl_direview.to_date.strftime('%-m'))} #{notif.tgl_direview.to_date.strftime('%Y')} - #{notif.tgl_direview.to_date.strftime('%H:%M:%S')}   "%>
+          <%# </div> %>
+      </div>
+    </a>
+  <% end %>

@@ -53,6 +53,12 @@ Rails.application.routes.draw do
     end
     collection do
 
+      resources :recap_sales, :path => "rekap_sales" do
+        member do 
+        
+        end
+      end
+
       resources :realization_visit_plans, :path => "realisasi" do
         member do 
           delete "delete_file_lampiran/:attachment_id", to: 'realization_visit_plans#delete_file_lampiran'  

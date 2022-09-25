@@ -84,24 +84,58 @@
           <li class="dropdown dropdown-list-toggle">
             <a href="#" data-toggle="dropdown"class="nav-link notification-toggle nav-link-lg">
              <i data-feather="bell" class="bell"></i>
-
-        <!-- Counter - Alerts -->
-        <% getRole = RoleAssignment.find_by_user_id(current_user.id) %>
-        <% getNotif = Contact.where('roles_id = ?', getRole.role_id) %>
-        <% getNotifCompany = DataCompany.where('roles_id = ?', getRole.role_id) %>
+              <% getRole = RoleAssignment.find_by_user_id(current_user.id) %>
+              <% if getRole.role_id == 11 %> <%# Sales %>
+                  <%# kontak %>
+                    <% getNotif = Contact.where('roles_id = ?', getRole.role_id) %>
+                  <%# data perusahaan %>
+                    <% getNotifCompany = DataCompany.where('roles_id = ?', getRole.role_id) %>
+                  <%# rekap review %>
+                    <% getNotifSalesPlan = SalesVisitPlan.where('roles_id = ? and status IN (?)', getRole.role_id, ["1"]) %>
+                    <% getNotifRealizationPlan = RealizationVisitPlan.where('roles_id = ? and status IN (?)', getRole.role_id, ["1"]) %>
+                  <%# laporan review %>
+                    <% getNotifLaporan = StatusReport.includes(:realization_visit_plan).where("realization_visit_plans.roles_id": getRole.role_id).where('status_laporan = ?', ["1"]) %>
         
-          <% unless getNotif.empty?%>
-            <% if getNotif.count <= 9 %>
-              <span class="badge badge-danger badge-counter"><%= getNotif.count + getNotifCompany.count %></span>
-            <% else %>
-              <span class="badge badge-danger badge-counter">9+</span>
-            <% end %>
-          <% end %>
-
-          
-          
-
-
+                <% unless getNotif.empty?%>
+                  <% if getNotif.count <= 9 %>
+                    <span class="badge badge-danger badge-counter"><%= getNotif.count + getNotifCompany.count + getNotifSalesPlan.count + getNotifRealizationPlan.count + getNotifLaporan.count %></span>
+                  <% else %>
+                    <span class="badge badge-danger badge-counter">9+</span>
+                  <% end %>
+                <% end %>
+              <% elsif getRole.role_id == 12 %> <%# Komersial %>
+                  <%# kontak %>
+                    <% getNotif = Contact.where('roles_id = ?', getRole.role_id) %>
+                  <%# data perusahaan %>
+                    <% getNotifCompany = DataCompany.where('roles_id = ?', getRole.role_id) %>
+                
+                <% unless getNotif.empty?%>
+                  <% if getNotif.count <= 9 %>
+                    <span class="badge badge-danger badge-counter"><%= getNotif.count + getNotifCompany.count%></span>
+                  <% else %>
+                    <span class="badge badge-danger badge-counter">9+</span>
+                  <% end %>
+                <% end %>
+              <% elsif getRole.role_id == 15 %> <%# GM Komersial %>
+                  <%# kontak %>
+                <% getNotif = Contact.where('roles_id = ?', getRole.role_id) %>
+                  <%# data perusahaan %>
+                <% getNotifCompany = DataCompany.where('roles_id = ?', getRole.role_id) %>
+                
+                <% unless getNotif.empty?%>
+                  <% if getNotif.count <= 9 %>
+                    <span class="badge badge-danger badge-counter"><%= getNotif.count + getNotifCompany.count%></span>
+                  <% else %>
+                    <span class="badge badge-danger badge-counter">9+</span>
+                  <% end %>
+                <% end %>
+              <% elsif getRole.role_id == 13 %> <%# Penjual & layanan %>
+                 <%= render "layouts/partials/notifications/penjualan_layanan" %>
+              <% elsif getRole.role_id == 14 %> <%# Departemen Pemasaran %>
+                 <%= render "layouts/partials/notifications/departemen_pemasaran" %>
+              <% else %>
+              <%#  %>
+              <%end%>
 <%
 =begin
 %> 
