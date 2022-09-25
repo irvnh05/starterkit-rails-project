@@ -84,17 +84,24 @@
           <li class="dropdown dropdown-list-toggle">
             <a href="#" data-toggle="dropdown"class="nav-link notification-toggle nav-link-lg">
              <i data-feather="bell" class="bell"></i>
-            
-               <!-- Counter - Alerts -->
+
+        <!-- Counter - Alerts -->
         <% getRole = RoleAssignment.find_by_user_id(current_user.id) %>
         <% getNotif = Contact.where('roles_id = ?', getRole.role_id) %>
-        <% unless getNotif.empty?%>
-          <% if getNotif.count <= 9 %>
-            <span class="badge badge-danger badge-counter"><%= getNotif.count %></span>
-          <% else %>
-            <span class="badge badge-danger badge-counter">9+</span>
+        <% getNotifCompany = DataCompany.where('roles_id = ?', getRole.role_id) %>
+        
+          <% unless getNotif.empty?%>
+            <% if getNotif.count <= 9 %>
+              <span class="badge badge-danger badge-counter"><%= getNotif.count + getNotifCompany.count %></span>
+            <% else %>
+              <span class="badge badge-danger badge-counter">9+</span>
+            <% end %>
           <% end %>
-        <% end %>
+
+          
+          
+
+
 <%
 =begin
 %> 
@@ -308,20 +315,19 @@
                   <a href="#">Mark All As Read</a>
                 </div> %>
               </div>
-                <% getRole = RoleAssignment.find_by_user_id(current_user.id) %>
-                <% getNotif = Contact.where('roles_id = ?', getRole.role_id).each do |notif| %>
-                      <a class="dropdown-item d-flex align-items-center list-notif" href="<%= contact_path(notif.id)%>">
-                          <div class="mr-3">
-                              <div class=" text-success ">
-                                  <i class="fas fa-info-circle"></i>
-                              </div>
-                          </div>
-                          <div>
-                              <span class="font-weight-bold"><%= "#{getRole.role.name}" %></span> 
-                              <div class="small text-gray-500"><%= "#{notif.updated_at.strftime('%d')} #{get_month_name(notif.updated_at.strftime('%-m'))} #{notif.updated_at.strftime('%Y')} - #{notif.updated_at.strftime('%H:%M:%S')}   "%></div>
-                          </div>
-                      </a>
-                <% end %>
+              <% if getRole.role_id == 11 %> <%# Sales %>
+                 <%= render "layouts/partials/notifications/sales" %>
+              <% elsif getRole.role_id == 12 %> <%# Komersial %>
+                 <%= render "layouts/partials/notifications/komersial" %>
+              <% elsif getRole.role_id == 15 %> <%# GM Komersial %>
+                 <%= render "layouts/partials/notifications/gm_komersial" %>
+              <% elsif getRole.role_id == 13 %> <%# Penjual & layanan %>
+                 <%= render "layouts/partials/notifications/penjualan_layanan" %>
+              <% elsif getRole.role_id == 14 %> <%# Departemen Pemasaran %>
+                 <%= render "layouts/partials/notifications/departemen_pemasaran" %>
+              <% else %>
+
+              <%end%>
 
 
               <div class="dropdown-footer text-center">

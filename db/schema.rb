@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_22_142544) do
+ActiveRecord::Schema.define(version: 2022_09_25_005734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,8 +86,10 @@ ActiveRecord::Schema.define(version: 2022_09_22_142544) do
     t.bigint "sales_visit_plan_id"
     t.string "create_by"
     t.bigint "contact_id"
+    t.bigint "roles_id"
     t.index ["category_id"], name: "index_data_companies_on_category_id"
     t.index ["contact_id"], name: "index_data_companies_on_contact_id"
+    t.index ["roles_id"], name: "index_data_companies_on_roles_id"
     t.index ["sales_visit_plan_id"], name: "index_data_companies_on_sales_visit_plan_id"
   end
 
@@ -234,6 +236,7 @@ ActiveRecord::Schema.define(version: 2022_09_22_142544) do
   add_foreign_key "contacts", "work_units"
   add_foreign_key "data_companies", "categories"
   add_foreign_key "data_companies", "contacts"
+  add_foreign_key "data_companies", "roles", column: "roles_id"
   add_foreign_key "data_companies", "sales_visit_plans"
   add_foreign_key "project_potentials", "realization_visit_plans"
   add_foreign_key "realization_visit_plans", "categories"
