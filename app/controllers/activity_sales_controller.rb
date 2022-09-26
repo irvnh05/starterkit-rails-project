@@ -1,5 +1,6 @@
 class ActivitySalesController < ApplicationController
   before_action :set_data_status_laporan,  only: [ :show, :download ]
+  
   # GET /activity_sales or /activity_sales.json
   def index
     @sales_visit_plans = SalesVisitPlan.all

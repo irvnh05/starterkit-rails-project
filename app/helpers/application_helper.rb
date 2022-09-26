@@ -112,3 +112,32 @@ module ApplicationHelper
         return ""
       end
     end
+
+
+    def convert_currency(usd)
+      # require 'net/http'
+      # require 'json'
+
+      # # Setting URL
+      # url = "https://v6.exchangerate-api.com/v6/f8058921ca695c99ea78c449/latest/USD"
+      # uri = URI(url)
+      # response = Net::HTTP.get(uri)
+      # response_obj = JSON.parse(response)
+
+      # # Getting a rate
+      # rate = response_obj['conversion_rates']['IDR']
+
+      require 'nokogiri'
+      require 'open-uri'
+      url = 'https://www.bi.go.id/biwebservice/wskursbi.asmx/getSubKursLokal3?mts=USD&startdate=2022-09-26&enddate=2022-09-26'
+
+      uri = URI(url)
+      response = Net::HTTP.get(uri)
+
+      doc = Nokogiri::HTML(response)
+      doc.css('jual_subkurslokal').to_s.gsub('<','').gsub('>','').gsub('/','').gsub('jual_subkurslokal','').to_i * usd
+
+     
+
+						
+    end

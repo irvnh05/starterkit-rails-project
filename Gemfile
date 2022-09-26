@@ -84,3 +84,5 @@ gem 'inline_svg'
 gem 'toastr-rails'
 gem "chartkick"
 gem "groupdate"
+gem 'money-rails', '~>1.12' ##currency convert
+gem 'nokogiri', '~> 1.13', '>= 1.13.8'

@@ -145,21 +145,6 @@ ActiveRecord::Schema.define(version: 2022_09_25_040442) do
     t.index ["sales_visit_plan_id"], name: "index_realization_visit_plans_on_sales_visit_plan_id"
   end
 
-  create_table "recap_sales", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "sales_visit_plan_id"
-    t.string "status"
-    t.string "catatan"
-    t.string "review_by"
-    t.bigint "roles_id"
-    t.date "tgl_direview"
-    t.bigint "realization_visit_plan_id"
-    t.index ["realization_visit_plan_id"], name: "index_recap_sales_on_realization_visit_plan_id"
-    t.index ["roles_id"], name: "index_recap_sales_on_roles_id"
-    t.index ["sales_visit_plan_id"], name: "index_recap_sales_on_sales_visit_plan_id"
-  end
-
   create_table "role_assignments", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "role_id"
@@ -270,9 +255,6 @@ ActiveRecord::Schema.define(version: 2022_09_25_040442) do
   add_foreign_key "realization_visit_plans", "project_potentials"
   add_foreign_key "realization_visit_plans", "roles", column: "roles_id"
   add_foreign_key "realization_visit_plans", "sales_visit_plans"
-  add_foreign_key "recap_sales", "realization_visit_plans"
-  add_foreign_key "recap_sales", "roles", column: "roles_id"
-  add_foreign_key "recap_sales", "sales_visit_plans"
   add_foreign_key "role_assignments", "roles"
   add_foreign_key "role_assignments", "users"
   add_foreign_key "sales_visit_plans", "categories"

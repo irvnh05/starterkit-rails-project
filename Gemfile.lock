@@ -139,10 +139,19 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.2)
     minitest (5.16.2)
+    monetize (1.12.0)
+      money (~> 6.12)
+    money (6.16.0)
+      i18n (>= 0.6.4, <= 2)
+    money-rails (1.15.0)
+      activesupport (>= 3.0)
+      monetize (~> 1.9)
+      money (~> 6.13)
+      railties (>= 3.0)
     msgpack (1.5.3)
     net-ldap (0.17.1)
     nio4r (2.5.8)
-    nokogiri (1.13.7-x86_64-linux)
+    nokogiri (1.13.8-x86_64-linux)
       racc (~> 1.4)
     options_model (0.0.18)
       activemodel (>= 5, < 8)
@@ -283,7 +292,9 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)
+  money-rails (~> 1.12)
   net-ldap
+  nokogiri (~> 1.13, >= 1.13.8)
   pg (>= 0.18, < 2.0)
   psych (< 4)
   puma (~> 3.11)
@@ -308,4 +319,4 @@ RUBY VERSION
    ruby 2.6.6p146
 
 BUNDLED WITH
-   2.3.17
+   2.3.20

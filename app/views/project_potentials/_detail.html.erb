@@ -12,12 +12,12 @@
                 ["Rp 0 - Rp 25.000.000.000","Rp 25.000.000.000 - Rp 50.000.000.000","Rp 50.000.000.000 - Rp 100.000.000.000","> Rp 100.000.000.000"
                 ]
                 ),{class: "form-control select col-md-2 ml-2 filter_nilai" ,prompt: "-- Nilai --"} %>
-              <div>
+              <%# <div>
                 <input class="form-control min cek_min" id="min" >     
               </div>
               <div>
                 <input class="form-control max cek_max" id="max" >     
-              </div>
+              </div> %>
             </div>
             <% end %>
             <br>  
@@ -35,7 +35,7 @@
                   <th>Remark</th>
                   <th>Konfirmasi</th>
                   <th>Informasi Tambahan</th>
-                  <th></th>
+                  <%# <th hidden></th> %>
                   <th class="text-center" style="width: 100px;">Aksi</th>
                 </tr>
             </thead>
@@ -54,7 +54,8 @@
                   <td><%= project_potential.remark %></td>
                   <td><%= project_potential.konfirmasi %></td>
                   <td><%= project_potential.informasi_tambahan %></td>
-                  <td><%= project_potential.nominal %></td>
+                  <%# <td hidden><% project_potential.nominal %>
+                  <%# </td> %> 
                   <td class="text-center">
                     <% if current_user.can? { |permissions| permissions.project_potential.read? } %>
                     <a href="<%= project_potential_path(project_potential) %>" class="btn btn-info btn-circle btn-sm">
