@@ -1,0 +1,36 @@
+
+<% getRole = RoleAssignment.find_by_user_id(current_user.id) %>
+
+<%# data kontak %>
+<% getNotif = Contact.where('roles_id = ?', getRole.role_id).each do |notif| %>
+  <a class="dropdown-item d-flex align-items-center list-notif" href="<%= contact_path(notif.id)%>">
+    <div class="mr-3">
+        <div class=" text-success ">
+            <i class="fas fa-info-circle"></i>
+        </div>
+    </div>
+    <div>
+        <span class="font-weight-bold"><%= "#{getRole.role.name}" %></span>
+        <div class=" messege-text pt-1">Data Kontak baru telah ditambahkan</div> 
+        <%# <div class="small text-gray-500"><%= "#{notif.updated_at.strftime('%d')} #{get_month_name(notif.updated_at.strftime('%-m'))} #{notif.updated_at.strftime('%Y')} - #{notif.updated_at.strftime('%H:%M:%S')}   "%>
+        <%# </div> %> 
+    </div>
+  </a>
+<% end %>
+
+<%# data perusahan %>
+<% getNotif = DataCompany.where('roles_id = ?', getRole.role_id).each do |notif| %>
+  <a class="dropdown-item d-flex align-items-center list-notif" href="<%= data_company_path(notif.id)%>">
+    <div class="mr-3">
+        <div class=" text-success ">
+            <i class="fas fa-info-circle"></i>
+        </div>
+    </div>
+    <div>
+        <span class="font-weight-bold"><%= "#{getRole.role.name}" %></span>
+        <div class=" messege-text pt-1">Data Perusahaan baru telah <br>ditambahkan</div> 
+        <%# <div class="small text-gray-500"><%= "#{notif.updated_at.strftime('%d')} #{get_month_name(notif.updated_at.strftime('%-m'))} #{notif.updated_at.strftime('%Y')} - #{notif.updated_at.strftime('%H:%M:%S')}   "%>
+        <%# </div> %> 
+    </div>
+  </a>
+<% end %>

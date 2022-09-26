@@ -8,12 +8,12 @@
                   <h4 class="mx-auto w-100">Internal SH Gas</h4>
                 </div>
                 <div class="card-body">
-                  <div id="chart4" class="chartsh"></div>
+                 <%= column_chart ProjectPotential.where(cluster: "Internal SH Gas").group(:nama_entitas).sum(:nominal) , thousands: ".", prefix: "IDR " %>
                 </div>
                 <div class="card-footer bg-whitesmoke">
                     <div class="row">
                       <div class="col"><h7>Total Nilai Potensi Proyek</h7></div>
-                      <div class="col"><h7>Rp. </h7></div>
+                      <div class="col"><h7>  <%=  number_to_currency_br(ProjectPotential.where(cluster: "Internal SH Gas").sum(:nominal)) %> </h7></div>
                     </div>
                 </div>
               </div>
@@ -21,12 +21,12 @@
             <div class="col-12 col-sm-12 col-lg-6">
               <div class="card">
                 <div class="card-header text-center">
-                  <h4 class="mx-auto w-100">External(Pertamina Non SH Gas)</h4>
+                  <h4 class="mx-auto w-100">Eksternal (Pertamina Non SH Gas)</h4>
                 </div>
                 <div class="card-body">
                   <div class="summary">
                     <div class="summary-chart active" data-tab-group="summary-tab" id="summary-chart">
-                      <div id="chart3" class="chartsh"></div>
+                      <%= column_chart ProjectPotential.where(:cluster => "Eksternal (Pertamina Grup)").group(:nama_entitas).sum(:nominal), thousands: ".", prefix: "IDR " %>
                     </div>
                     <div data-tab-group="summary-tab" id="summary-text">
                     </div>
@@ -35,7 +35,7 @@
                 <div class="card-footer bg-whitesmoke">
                     <div class="row">
                       <div class="col"><h7>Total Nilai Potensi Proyek</h7></div>
-                      <div class="col"><h7>Rp. </h7></div>
+                      <div class="col"><h7>   <%= number_to_currency_br(ProjectPotential.where(:cluster => "Eksternal (Pertamina Grup)").sum(:nominal) )%></h7></div>
                     </div>
                 </div>
               </div>
@@ -45,15 +45,15 @@
             <div class="col-12 col-sm-12 col-lg-6">
               <div class="card">
                 <div class="card-header text-center">
-                  <h4 class="mx-auto w-100">External Swasta</h4>
+                  <h4 class="mx-auto w-100">Eksternal  Swasta</h4>
                 </div>
                 <div class="card-body">
-                  <div id="chart4" class="chartsh"></div>
+                  <%= column_chart ProjectPotential.where(:cluster => "Eksternal Swasta").group(:nama_entitas).sum(:nominal), thousands: ".", prefix: "IDR " %>
                 </div>
                 <div class="card-footer bg-whitesmoke">
                     <div class="row">
                       <div class="col"><h7>Total Nilai Potensi Proyek</h7></div>
-                      <div class="col"><h7>Rp. </h7></div>
+                      <div class="col"><h7> <%=number_to_currency_br(ProjectPotential.where(:cluster => "Eksternal Swasta").sum(:nominal) )%></h7></div>
                     </div>
                 </div>
               </div>
@@ -61,12 +61,12 @@
             <div class="col-12 col-sm-12 col-lg-6">
               <div class="card">
                 <div class="card-header text-center">
-                  <h4 class="mx-auto w-100">External Pemerintah</h4>
+                  <h4 class="mx-auto w-100">Eksternal  Pemerintah</h4>
                 </div>
                 <div class="card-body">
                   <div class="summary">
                     <div class="summary-chart active" data-tab-group="summary-tab" id="summary-chart">
-                      <div id="chart3" class="chartsh"></div>
+                      <%= column_chart ProjectPotential.where(:cluster => "Eksternal Pemerintah").group(:nama_entitas).sum((:nominal)), thousands: ".", prefix: "IDR " %>
                     </div>
                     <div data-tab-group="summary-tab" id="summary-text">
                     </div>
@@ -75,7 +75,7 @@
                 <div class="card-footer bg-whitesmoke">
                     <div class="row">
                       <div class="col"><h7>Total Nilai Potensi Proyek</h7></div>
-                      <div class="col"><h7>Rp. </h7></div>
+                      <div class="col"><h7> <%=number_to_currency_br(ProjectPotential.where(:cluster => "Eksternal Pemerintah").sum(:nominal)) %> </h7></div>
                     </div>
                 </div>
               </div>
@@ -84,11 +84,11 @@
             <div class="col-12 col-sm-12 col-lg-12">
               <div class="card">
                 <div class="card-header text-center">
-                  <h4 class="mx-auto w-100">External BUMN/BUMD</h4>
+                  <h4 class="mx-auto w-100">Eksternal  BUMN/BUMD</h4>
                 </div>
                 <div class="row">
                   <div class="card-body col-lg-7">
-                    <div id="chart4" class="chartsh">s</div>
+                    <%= column_chart ProjectPotential.where(:cluster => "Eksternal BUMN/BUMD").group(:nama_entitas).sum(:nominal), thousands: ".", prefix: "IDR " %>
                   </div>
                   <div class="col-lg-5">
                     <div class="mt-5">
@@ -98,7 +98,7 @@
                             <div class="card-icon card-icon-large"><i class="fa fa-money-bill-alt"></i></div>
                             <div class="card-content">
                               <h4 class="card-title">Total Nilai Potensi Proyek</h4>
-                              <h1>Rp. </h1>
+                              <h1> <%=number_to_currency_br(ProjectPotential.where(:cluster => "Eksternal BUMN/BUMD").sum(:nominal)) %> </h1>
                               <%# <div class="progress mt-1 mb-1" data-height="8" style="height: 8px;">
                                 <div class="progress-bar l-bg-purple" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
                               </div> %>

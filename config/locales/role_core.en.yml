@@ -12,6 +12,7 @@ en:
       project_potential: Data Potensi Proyek 
       sales_visit_plan: Rencana Kunjungan Sales
       realization_visit_plan: Realisasi Kunjungan Sales
+      recap: Rekap
     attributes:
       user:
         create: Tambah User
@@ -92,6 +93,13 @@ en:
         read: Detail Realisasi Kunjungan Sales
         index: Daftar Realisasi Kunjungan Sales
         review: Review Realisasi Kunjungan Sales
+      recap:
+        create: Tambah Rekap
+        destroy: Hapus Rekap
+        update: Ubah Rekap
+        read: Detail Rekap
+        index: Daftar Rekap
+        review: Review Rekap
 
         
         

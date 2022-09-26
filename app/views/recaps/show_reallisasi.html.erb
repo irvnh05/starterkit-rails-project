@@ -1,0 +1,81 @@
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row justify-content-between">
+        <div class="col align-items-center pt-2">
+          <h6 class="font-weight-bold">Realisasi Kunjungan Sales</h6>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="card-body py-3">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td width="30%">Nama Entitas/Lokasi Pengadaan</td>
+            <td><%= @realization_visit_plan.try(:nama_entitas_lokasi_pengadaan) %></td>
+          </tr>
+          <tr>
+            <td width="30%">Kategori</td>
+            <td><%= @realization_visit_plan.category.try(:name) %></td>
+          </tr>
+          <tr>
+            <td width="30%">Jenis Pekerjaan</td>
+            <td><%= @realization_visit_plan.sales_visit_plan.try(:jenis_pekerjaan) %></td>
+          </tr>
+          <tr>
+            <td width="30%">Deskripsi Pekerjaan</td>
+            <td><%= @realization_visit_plan.try(:subjek_deksripsi_pekerjaan) %></td>
+          </tr>
+          <tr>
+            <td width="30%">Klaster</td>
+            <td><%= @realization_visit_plan.cluster%></td>
+          </tr>
+          <tr>
+            <td width="30%">Realisasi tgl peretemuan</td>
+            <td><%= @realization_visit_plan.realisasi_tgl_peretemuan%></td>
+          </tr>
+          <tr>
+            <td width="30%">Catatan</td>
+            <td><%= @realization_visit_plan.try(:catatan)%></td>
+          </tr>
+          <tr>
+            <td width="30%">Status Laporan</td>
+            <td>
+             <%if @realization_visit_plan.status.to_i == 0%>
+              <%# <span>Belum Direview</span> %>
+              <a class="btn btn-icon icon-left btn-danger"><i class="fas "></i> Belum Direview</a>
+             <%else%>
+              <%# <span>Sudah Direview</span> %>
+              <a class="btn btn-icon icon-left btn-success"><i class="fas "></i> Sudah Direview</a>
+             <%end%>
+            </td>
+          </tr>
+          <tr>
+            <td width="30%">Hasil Kunjungan</td>
+            <td><%= @realization_visit_plan.status_report.try(:hasil_kunjungan)%></td>
+          </tr>
+
+          <tr>
+            <td width="30%">File Lampiran</td>
+              <td>
+              <% if @realization_visit_plan.file_lampiran.attached? %>
+                <% @realization_visit_plan.file_lampiran.each do |lampiran| %>
+                 <span style="margin-right: 10px">
+                  <%= link_to "#{[ "#{lampiran.filename}" ]}", rails_blob_path(lampiran, disposition: 'preview'), :target => "_blank" %>
+                  <%= link_to '', url_for(controller: :realization_visit_plans, action: :delete_file_lampiran, attachment_id: lampiran.id), class: 'fa fa-close', method: "DELETE", data: { confirm: 'Are you sure?' } %>
+                  <br>
+                </span>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer py-3 ">
+      <a href="<%= recaps_path %>" class="btn btn-info">Kembali</a>
+    </div>
+  </div>
+</div>

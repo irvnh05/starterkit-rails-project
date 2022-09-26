@@ -9,9 +9,15 @@
               <%= select_tag "project_potential", options_for_select(@status),{class: "form-control select col-md-2 ml-2 filter_remark" ,prompt: "-- Remark --"} %>
               <%= select_tag "project_potential", options_for_select(@konfirmasi),{class: "form-control select col-md-2 ml-2 filter_konfirmasi" ,prompt: "-- Konfirmasi --"} %>
               <%= select_tag "project_potential", options_for_select(
-                ["Rp 0 - Rp 25.000.000","Rp 25.000.000 - Rp 50.000.000","Rp 50.000.000 - Rp 100.000.000","> Rp 100.000.000"
+                ["Rp 0 - Rp 25.000.000.000","Rp 25.000.000.000 - Rp 50.000.000.000","Rp 50.000.000.000 - Rp 100.000.000.000","> Rp 100.000.000.000"
                 ]
                 ),{class: "form-control select col-md-2 ml-2 filter_nilai" ,prompt: "-- Nilai --"} %>
+              <div>
+                <input class="form-control min cek_min" id="min" >     
+              </div>
+              <div>
+                <input class="form-control max cek_max" id="max" >     
+              </div>
             </div>
             <% end %>
             <br>  
@@ -29,6 +35,7 @@
                   <th>Remark</th>
                   <th>Konfirmasi</th>
                   <th>Informasi Tambahan</th>
+                  <th></th>
                   <th class="text-center" style="width: 100px;">Aksi</th>
                 </tr>
             </thead>
@@ -47,6 +54,7 @@
                   <td><%= project_potential.remark %></td>
                   <td><%= project_potential.konfirmasi %></td>
                   <td><%= project_potential.informasi_tambahan %></td>
+                  <td><%= project_potential.nominal %></td>
                   <td class="text-center">
                     <% if current_user.can? { |permissions| permissions.project_potential.read? } %>
                     <a href="<%= project_potential_path(project_potential) %>" class="btn btn-info btn-circle btn-sm">
@@ -75,6 +83,23 @@
 
 
 <script>
+    // $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+    //     var min = parseInt($('#min').val());
+    //     var max = parseInt($('#max').val());
+    //     var nominal = parseFloat(data[13]) || 0; // use data for the age column
+    //   //  console.log(min)
+    //     if (
+    //         (isNaN(min) && isNaN(max)) ||
+    //         (isNaN(min) && nominal <= max) ||
+    //         (min <= nominal && isNaN(max)) ||
+    //         (min <= nominal && nominal <= max)
+    //     ) {
+    //         return true;
+    //     }
+    //     return false;
+    // });
+
+
   $(document).ready(function() {
     var dataTable = $("#dataTable_data_companies").DataTable();
 
@@ -106,13 +131,47 @@
       // (konfirmasi).draw();
     });
 
-    // $('.filter_remark').on('change', function(e){
-    //   var perusahaan = $(this).val();
-    //   $('.filter_remark').val(remark)
-    //   // console.log(remark)
-    //   //dataTable.column(5).search('\\s' + status + '\\s', true, false, true).draw();
-    //   dataTable.column(1).search(remark).draw();
+    $('.filter_nilai').on('change', function(e){
+      var nilai = $(this).val()
+      var split_nilai =  nilai.split(" - ")
+      var min_nilai = split_nilai[0].replace("Rp ", "").replace(".", "").replace(".", "").replace(".", "").replace(".", "").replace(".", "");
+      var max_nilai = split_nilai[1].replace("Rp ", "").replace(".", "").replace(".", "").replace(".", "").replace(".", "").replace(".", "");
+      $('#min').val(min_nilai);
+      $('#max').val(max_nilai);
+
+
+    });
+
+          
+    //     $.fn.dataTable.ext.search.push(
+    //     function (settings, data, dataIndex) {
+    //         var min = $('#min').val();
+    //         var max = $('#max').val();
+    //         var startDate = data[13];
+    //         if (min == null && max == null) { return true; }
+    //         if (min == null && startDate <= max) { return true;}
+    //         if(max == null && startDate >= min) {return true;}
+    //         if (startDate <= max && startDate >= min) { return true; }
+    //         return false;
+    //     }
+    //     );
+
+       
+        
+
+    //         // Event listener to the two range filtering inputs to redraw on input
+    //         $('.cek_min, .cek_max').keyup(function () {
+    //     dataTable.draw();
     // });
+
+ 
+
+      $('#min, #max').keyup( function() {
+             var min_nilai =   $('#min').val();
+
+                dataTable.column(13).search(min_nilai ? '^' + min_nilai + '$' : '', true, false).draw();
+      } );
+    
 
   });   
 </script>

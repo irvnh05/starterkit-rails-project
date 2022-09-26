@@ -1,0 +1,2 @@
+class RecapSale < ApplicationRecord
+end

@@ -61,7 +61,7 @@
                   <th>Nama Aktivitas</th>
                   <th>Hasil Kunjungan</th>
                   <th>Lampiran</th>
-                  <th>Tanggal Review</th>
+                  <%# <th>Tanggal Review</th> %>
                   <%# kondisi catatan hanya untuk sales %>
                   <th>Catatan</th>
                   <%# sstatus laporan untuk kadiv %>
@@ -70,7 +70,7 @@
                 </tr>
             </thead>
             <tbody>
-            <% @status_laporan.each_with_index do |status_laporan, index| %>
+            <% @status_reports.each_with_index do |status_laporan, index| %>
                 <tr>
                   <td class="text-center"><%= index+1 %></td>
                   <td><%=status_laporan.realization_visit_plan.try(:realisasi_tgl_peretemuan) %></td>
@@ -121,7 +121,9 @@
                    <% end %>
                   <% end %>
                   </td>
-                  <td><%=status_laporan.try(:tgl_direview)%></td>
+                  <%# <td> %>
+                  <%# <%=status_laporan.try(:tgl_direview)%> 
+                  <%# </td> %>
                   <td><%=status_laporan.try(:catatan)%></td>
                   <td>
                   <%if status_laporan.status_laporan.to_i == 0%>

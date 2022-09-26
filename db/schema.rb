@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_15_190033) do
+ActiveRecord::Schema.define(version: 2022_09_25_040442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,8 +61,10 @@ ActiveRecord::Schema.define(version: 2022_09_15_190033) do
     t.string "create_by"
     t.bigint "data_company_id"
     t.bigint "sales_visit_plan_id"
+    t.bigint "roles_id"
     t.index ["category_id"], name: "index_contacts_on_category_id"
     t.index ["data_company_id"], name: "index_contacts_on_data_company_id"
+    t.index ["roles_id"], name: "index_contacts_on_roles_id"
     t.index ["sales_visit_plan_id"], name: "index_contacts_on_sales_visit_plan_id"
     t.index ["user_id"], name: "index_contacts_on_user_id"
     t.index ["work_unit_id"], name: "index_contacts_on_work_unit_id"
@@ -84,8 +86,10 @@ ActiveRecord::Schema.define(version: 2022_09_15_190033) do
     t.bigint "sales_visit_plan_id"
     t.string "create_by"
     t.bigint "contact_id"
+    t.bigint "roles_id"
     t.index ["category_id"], name: "index_data_companies_on_category_id"
     t.index ["contact_id"], name: "index_data_companies_on_contact_id"
+    t.index ["roles_id"], name: "index_data_companies_on_roles_id"
     t.index ["sales_visit_plan_id"], name: "index_data_companies_on_sales_visit_plan_id"
   end
 
@@ -103,7 +107,7 @@ ActiveRecord::Schema.define(version: 2022_09_15_190033) do
     t.string "lokasi"
     t.string "judul_tender"
     t.string "nilai"
-    t.integer "nominal"
+    t.bigint "nominal"
     t.string "lini_bisnis"
     t.date "jadwal_perkiraan_tender"
     t.integer "durasi_proyek"
@@ -134,9 +138,26 @@ ActiveRecord::Schema.define(version: 2022_09_15_190033) do
     t.string "status"
     t.string "tgl_direview"
     t.bigint "project_potential_id"
+    t.bigint "roles_id"
     t.index ["category_id"], name: "index_realization_visit_plans_on_category_id"
     t.index ["project_potential_id"], name: "index_realization_visit_plans_on_project_potential_id"
+    t.index ["roles_id"], name: "index_realization_visit_plans_on_roles_id"
     t.index ["sales_visit_plan_id"], name: "index_realization_visit_plans_on_sales_visit_plan_id"
+  end
+
+  create_table "recap_sales", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "sales_visit_plan_id"
+    t.string "status"
+    t.string "catatan"
+    t.string "review_by"
+    t.bigint "roles_id"
+    t.date "tgl_direview"
+    t.bigint "realization_visit_plan_id"
+    t.index ["realization_visit_plan_id"], name: "index_recap_sales_on_realization_visit_plan_id"
+    t.index ["roles_id"], name: "index_recap_sales_on_roles_id"
+    t.index ["sales_visit_plan_id"], name: "index_recap_sales_on_sales_visit_plan_id"
   end
 
   create_table "role_assignments", force: :cascade do |t|
@@ -178,9 +199,11 @@ ActiveRecord::Schema.define(version: 2022_09_15_190033) do
     t.string "review_by"
     t.string "tgl_direview"
     t.bigint "contact_id"
+    t.bigint "roles_id"
     t.index ["category_id"], name: "index_sales_visit_plans_on_category_id"
     t.index ["contact_id"], name: "index_sales_visit_plans_on_contact_id"
     t.index ["data_company_id"], name: "index_sales_visit_plans_on_data_company_id"
+    t.index ["roles_id"], name: "index_sales_visit_plans_on_roles_id"
   end
 
   create_table "status_reports", force: :cascade do |t|
@@ -234,21 +257,28 @@ ActiveRecord::Schema.define(version: 2022_09_15_190033) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "contacts", "categories"
   add_foreign_key "contacts", "data_companies"
+  add_foreign_key "contacts", "roles", column: "roles_id"
   add_foreign_key "contacts", "sales_visit_plans"
   add_foreign_key "contacts", "users"
   add_foreign_key "contacts", "work_units"
   add_foreign_key "data_companies", "categories"
   add_foreign_key "data_companies", "contacts"
+  add_foreign_key "data_companies", "roles", column: "roles_id"
   add_foreign_key "data_companies", "sales_visit_plans"
   add_foreign_key "project_potentials", "realization_visit_plans"
   add_foreign_key "realization_visit_plans", "categories"
   add_foreign_key "realization_visit_plans", "project_potentials"
+  add_foreign_key "realization_visit_plans", "roles", column: "roles_id"
   add_foreign_key "realization_visit_plans", "sales_visit_plans"
+  add_foreign_key "recap_sales", "realization_visit_plans"
+  add_foreign_key "recap_sales", "roles", column: "roles_id"
+  add_foreign_key "recap_sales", "sales_visit_plans"
   add_foreign_key "role_assignments", "roles"
   add_foreign_key "role_assignments", "users"
   add_foreign_key "sales_visit_plans", "categories"
   add_foreign_key "sales_visit_plans", "contacts"
   add_foreign_key "sales_visit_plans", "data_companies"
+  add_foreign_key "sales_visit_plans", "roles", column: "roles_id"
   add_foreign_key "status_reports", "contacts"
   add_foreign_key "status_reports", "realization_visit_plans"
 end

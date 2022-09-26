@@ -7,18 +7,21 @@ class DataCompaniesController < ApplicationController
     # @data_category = @data_companies.each do |data_company|
     # @category = DataCompany.select(:category_id).map(&:category_id).uniq
     @category = Category.select(:name).map(&:name).uniq
-
-
+     
     if current_user.roles.any? {|r| r.name == "Superadmin"}
       @data_companies = DataCompany.all.order("data_companies.created_at asc")
     elsif current_user.roles.any? {|r| r.name == "Sales"}
       @data_companies = DataCompany.all.order("data_companies.created_at asc")
     elsif current_user.roles.any? {|r| r.name == "GM Komersial"}
       @data_companies = DataCompany.all.order("data_companies.created_at asc")
-    elsif current_user.roles.any? {|r| r.name == "Kepala Divisi Marketing"}
+    elsif current_user.roles.any? {|r| r.name == "Kepala Divisi Penjualan Layanan"}
+      @data_companies = DataCompany.all.order("data_companies.created_at asc")
+    elsif current_user.roles.any? {|r| r.name == "Komersial"}
+      @data_companies = DataCompany.where("create_by": current_user.id ).order("data_companies.created_at asc")
+    elsif current_user.roles.any? {|r| r.name == "Kepala Departemen Pemasaran"}
       @data_companies = DataCompany.all.order("data_companies.created_at asc")
     else
-      @data_companies = DataCompany.where("email_user": current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") ).order("data_companies.created_at asc")
+      @data_companies = DataCompany.where("create_by": current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") ).order("contacts.created_at asc")
     end
   end
 
@@ -39,17 +42,21 @@ class DataCompaniesController < ApplicationController
   def create
     @contact = params[:data_company][:contact_id]
     @data_company = DataCompany.new(data_company_params)
-    @data_company.email_user = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") 
+    @data_company.create_by = current_user.id
+    @data_company.roles_id = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:id)}"}.join(", ") 
+    # @data_company.email_user = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") 
     respond_to do |format|
       if @data_company.save
         if @contact.blank?
           contact = Contact.new
           contact.data_company_id = @data_company.id
-          contact.create_by = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") 
+          contact.create_by = current_user.id
+          # current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") 
           contact.nama_entitas = @data_company.nama_entitas
           contact.category_id = @data_company.category_id
           contact.cluster = @data_company.cluster
           contact.lokasi_kerja = @data_company.lokasi_kerja
+          contact.roles_id = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:id)}"}.join(", ") 
           contact.save!
          end
         format.html { redirect_to data_companies_path, notice: "Data company was successfully created." }
@@ -72,11 +79,13 @@ class DataCompaniesController < ApplicationController
         if @contact.blank?
           contact = Contact.find_by("sales_visit_plan_id":@data_company.sales_visit_plan_id )
           contact.data_company_id = @data_company.id
-          contact.create_by = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") 
+          contact.create_by = current_user.id
+          #  current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") 
           contact.nama_entitas = @data_company.nama_entitas
           contact.category_id = @data_company.category_id
           contact.cluster = @data_company.cluster
           contact.lokasi_kerja = @data_company.lokasi_kerja
+          contact.roles_id = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:id)}"}.join(", ") 
           contact.save!
          end
         format.html { redirect_to @data_company, notice: "Data company was successfully updated." }
@@ -90,6 +99,8 @@ class DataCompaniesController < ApplicationController
 
   # DELETE /data_companies/1 or /data_companies/1.json
   def destroy
+    contact = Contact.find_by(data_company_id: @data_company.id)
+    contact.destroy
     @data_company.destroy
     respond_to do |format|
       format.html { redirect_to data_companies_url, notice: "Data company was successfully destroyed." }

@@ -44,7 +44,7 @@ RoleCore.permission_set_class.draw do
   # permission  :approval_kepala_departemen_persediaan
   # permission  :download
 
-  %w(role user category contact data_company work_unit sales_visit_plan realization_visit_plan activity_sale project_potential status_report).each do |item|
+  %w(role user category contact data_company work_unit sales_visit_plan realization_visit_plan activity_sale project_potential status_report recap).each do |item|
     group item.to_sym, model_name: "#{item.camelcase}" do
       permission :index
       permission :create

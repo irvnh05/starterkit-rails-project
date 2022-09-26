@@ -1,5 +1,5 @@
 class RealizationVisitPlansController < ApplicationController
-  before_action :set_realization_visit_plan, only: %i[ show edit update destroy review ]
+  before_action :set_realization_visit_plan, only: %i[ show edit update destroy review review_update_rekap ]
 
   # GET /realization_visit_plans or /realization_visit_plans.json
   def index
@@ -65,12 +65,13 @@ class RealizationVisitPlansController < ApplicationController
     respond_to do |format|
       # @realization_visit_plan.sales_id = params[:sales_id]
       # @status_laporan.realization_visit_plan_id =  @realization_visit_plan.id
+      @realization_visit_plan.roles_id = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:id)}"}.join(", ") 
       @realization_visit_plan.email_user = current_user.role_assignments.each_with_index.map {|role_assignment| "#{role_assignment.role.try(:name)}"}.join(", ") 
       if @realization_visit_plan.save
         status_laporan = StatusReport.new
         # status_laporan.nama_entitas_lokasi_pengadaan = @nama_entitas_lokasi_pengadaan.nama_entitas_lokasi_pengadaan
         # status_laporan.hasil_kunjungan = @realization_visit_plan.subjek_deksripsi_pekerjaan
-        # status_laporan.status_laporan = 0
+        status_laporan.status_laporan = 0
         status_laporan.realization_visit_plan_id = @realization_visit_plan.id
         # status_laporan.tgl_aktivitas = @realization_visit_plan.realisasi_tgl_peretemuan
         status_laporan.save
@@ -96,6 +97,26 @@ class RealizationVisitPlansController < ApplicationController
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @realization_visit_plan.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def review_update_rekap
+    # @update = SalesVisitPlan.find_by(id: params[:id])
+
+    respond_to do |format|
+      # @catatan =  params[:sales_visit_plan][:catatan]
+      realization_visit_plan = RealizationVisitPlan.find(params[:id]) 
+      if  @realization_visit_plan.update(params_rekap) 
+        realization_visit_plan.status = "1"
+        realization_visit_plan.tgl_direview = Time.new
+        realization_visit_plan.save!
+        format.html { redirect_to recaps_path, notice: "Realization visit plan was successfully updated." }
+        format.json { render :show, status: :ok, location: @realization_visit_plan }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @realization_visit_plan.errors, status: :unprocessable_entity }
+      end
+      # s
     end
   end
 
@@ -128,7 +149,11 @@ class RealizationVisitPlansController < ApplicationController
     end
   end
 
-
+  def delete_file_lampiran
+    @attachment = ActiveStorage::Attachment.find(params[:attachment_id])
+    @attachment.purge # or use purge_later
+    redirect_back(fallback_location: request.referer)
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -163,6 +188,15 @@ class RealizationVisitPlansController < ApplicationController
 
     def id_params
       params.permit(:id)
+    end
+
+    def params_rekap
+      params.require(:realization_visit_plan).permit(
+        # :status,
+        # :review_by,
+        :catatan,
+        # :tgl_direview,
+      )
     end
     # def search_params
     #   params.slice(:category, :realisasi_tgl_peretemuan, :cluster)
