@@ -89,6 +89,14 @@ ActiveRecord::Schema.define(version: 2022_09_15_190033) do
     t.index ["sales_visit_plan_id"], name: "index_data_companies_on_sales_visit_plan_id"
   end
 
+  create_table "data_projects", force: :cascade do |t|
+    t.string "project_code"
+    t.string "project_name"
+    t.string "location"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "project_potentials", force: :cascade do |t|
     t.string "nama_entitas"
     t.string "cluster"
