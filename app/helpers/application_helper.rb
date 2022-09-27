@@ -138,15 +138,14 @@ module ApplicationHelper
       # uri = URI(url)
       # response = Net::HTTP.get(uri)
 
-      uri = URI("https://www.bi.go.id/biwebservice/wskursbi.asmx/getSubKursLokal3?mts=USD&startdate=")
-      uri.query = "#{start_date}"  if uri.query.nil?
-      uri.query = "#{start_date}"  if uri.query.nil?
+      uri = URI("https://www.bi.go.id/biwebservice/wskursbi.asmx/getSubKursJisdor4?mts=USD&startdate="+ start_date +)
+      # uri.query = "'#{start_date}'"  if uri.query.nil?
       
 
       response = Net::HTTP.get(uri)
 
-      # doc = Nokogiri::HTML(response)
-      # doc.css('jual_subkurslokal').to_s.gsub('<','').gsub('>','').gsub('/','').gsub('jual_subkurslokal','').to_i * usd
+      doc = Nokogiri::HTML(response)
+      # doc.css('jual_subkursasing').to_s.gsub('<','').gsub('>','').gsub('/','').gsub('jual_subkurslokal','').to_i * usd
 
      
 
