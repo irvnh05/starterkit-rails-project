@@ -143,11 +143,7 @@
     <div class="card-header py-3">
       <h4>Realisasi Kunjungan Sales</h4>
       <div class="card-header-form">
-        <% if current_user.can? { |permissions| permissions.realization_visit_plan.create? } %>
-        <div class="align-items-center">
-          <a href="<%= new_realization_visit_plan_path%>" class="btn btn-primary btn-sm pull-left">+ Tambah Data</a>  
-        </div>
-        <% end %>  
+      
       </div>
     </div>
     <div class="card-body">
@@ -213,8 +209,7 @@
                             </div>
                             <div class="modal-body">
                               <span style="margin-right: 10px">
-                              <%# <%= link_to "", rails_blob_path(lampiran_realisasi, disposition: 'preview'), :target => "_bnk"  %> 
-                              <%# <%= image_tag(lampiran_realisasi) %> 
+                             
                               <%= image_tag(lampiran_realisasi, size: "350x250", class:"img-fluid rounded mx-auto d-block")%>
                                 <br>
                               </span>

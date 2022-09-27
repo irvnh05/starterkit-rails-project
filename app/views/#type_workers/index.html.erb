@@ -5,7 +5,7 @@
         <div class="card-header-form">
           <% if current_user.can? { |permissions| permissions.user.create? } %>
             <div class="align-items-center">
-              <%= link_to "+ Data Jabatan", new_type_worker_path, class: "btn btn-primary btn-sm" %>
+             
             </div>
           <% end %>
         </div>
@@ -18,7 +18,7 @@
             <tr>
               <th style="width: 20px;" class="text-center">No</th>
               <th>Nama</th>
-              <th style="width: 150px;" class="text-center">Aksi</th>
+          
             </tr>
           </thead>
           <tbody>
