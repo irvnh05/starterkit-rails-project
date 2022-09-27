@@ -4,10 +4,10 @@
 </style>
 
 <div class="container-fluid">
-  <%# Rencana %>
+
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h4>Rencana Kunjungan Sales</h4>
+      <h6>Rencana Kunjungan Sales</h6>
       <div class="card-header-form">
       
         <% if current_user.can? { |permissions| permissions.sales_visit_plan.create? } %>
@@ -75,7 +75,7 @@
                 
 
                     <!-- Modal -->
-                  <% if sales_visit_plan.file_lampiran.attached? %>
+            
                    <!-- Button trigger modal -->
                      <a data-toggle="modal" data-target="#exampleModal" class="fas fa-eye"></a>
                    <% sales_visit_plan.file_lampiran.each do |lampiran| %>
@@ -145,7 +145,7 @@
       <div class="card-header-form">
         <% if current_user.can? { |permissions| permissions.realization_visit_plan.create? } %>
         <div class="align-items-center">
-          <a href="<%= new_realization_visit_plan_path%>" class="btn btn-primary btn-sm">+ Tambah Data</a> 
+          <a href="<%= new_realization_visit_plan_path%>" class="btn btn-primary btn-sm pull-left">+ Tambah Data</a>  
         </div>
         <% end %>  
       </div>
@@ -221,8 +221,7 @@
                             
                             </div>
                             <div class="modal-footer">
-                              <%# <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> %>
-                              <%# <button type="button" class="btn btn-primary">Download</button> %>
+                             
                               
                               <%= link_to 'Download', rails_blob_path(lampiran_realisasi, disposition: "attachment"), :class => "btn btn-primary" %>
                             </div>

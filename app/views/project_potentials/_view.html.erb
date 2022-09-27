@@ -42,7 +42,7 @@
 
                  <% @validasi_konfirmasi_potensi =potensi_proyek[1].group_by { |value| value.konfirmasi} %>
                   <td><%=@validasi_konfirmasi_potensi["100%"].to_a.map {|value| value.nama_entitas}.count%></td>
-                  <td><%=number_to_currency_br(@validasi_konfirmasi_potensi["100%"].to_a.map {|value| (value.nominal)}.compact.sum)%></td>
+                  <td><%=number_to_currency_br(@validasi_konfirmasi_potensi["100%"].to_a.map {|value| convert_currency(value.nominal)}.compact.sum)%></td>
 
                   <td><%=@validasi_konfirmasi_potensi["75%"].to_a.map {|value| value.nama_entitas}.count%></td>
                   <td><%=number_to_currency_br(@validasi_konfirmasi_potensi["75%"].to_a.map {|value| value.nominal}.compact.sum)%></td>

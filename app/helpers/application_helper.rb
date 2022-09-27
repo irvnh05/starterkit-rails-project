@@ -129,6 +129,10 @@ module ApplicationHelper
 
       require 'nokogiri'
       require 'open-uri'
+      start_date = DateTime.now.in_time_zone.strftime("%Y-%m-%d")
+      end_date = DateTime.now.in_time_zone.strftime("%Y-%m-%d")
+      
+      # url = "https://www.bi.go.id/biwebservice/wskursbi.asmx/getSubKursLokal3?mts=USD&startdate=" + start_date + "/&enddate=" + end_date +/
       url = 'https://www.bi.go.id/biwebservice/wskursbi.asmx/getSubKursLokal3?mts=USD&startdate=2022-09-26&enddate=2022-09-26'
 
       uri = URI(url)

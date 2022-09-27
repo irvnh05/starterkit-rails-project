@@ -56,7 +56,7 @@
           <div class="form-row">
             <div class="form-group col inputNilai">
               <label for="inputNilai">Nilai</label>
-                <%= f.select :nilai, options_for_select(["IDR(RP)","USD($)"]), prompt: "-- Pilih Nilai(IDR) --"%>
+                <%= f.select :nilai, options_for_select(["IDR(RP)","USD($)"]), prompt: "-- Pilih Nilai(IDR) --", class:"nilai"%>
 <%
 =begin
 %>
@@ -69,12 +69,25 @@
 %>              
             </div>
           </div>
-           <div class="form-row ">
+
+          <div class="form-row form-rp">
             <div class="form-group col">
               <label for="intpuCluster">Nominal</label>
               <%= f.number_field :nominal, :limit => 8, class: "form-control " %>
             </div>
           </div>
+
+<%
+=begin%>
+          <%= f.text_field :nominal, class: "form-control convert-usd-idr" %>
+          <div class="form-row form-usd">
+            <div class="form-group col">
+              <label for="intpuCluster">Nominal</label>
+              <%= f.number_field :nominal_usd, :limit => 8, class: "form-control " %>
+            </div>
+          </div>
+<%
+=end%>          
 <%
 =begin%>         
           <div class="form-row form-rp">
@@ -151,21 +164,22 @@
 </div>
 
 <script>
-//   $(document).ready(function () {
-//     $(".form-rp").hide();
+// $(document).ready(function () {
+//     // $(".form-rp").hide();
 //     $(".form-usd").hide();
 // });
 
 
-// $('.nilai').change(function() {
-//   if($('.nilai').val() == '') {
-//     $('.form-usd, .form-rp').hide();
+// $('#project_potential_nilai').change(function() {
+//   if($('#project_potential_nilai').val() == '') {
+//     $('.form-usd').hide();
+//     $('.form-rp').show();
 //   }
-//   if($('.nilai').val() == 'USD($)') {
+//   if($('#project_potential_nilai').val() == 'USD($)') {
 //     $('.form-rp').hide();
 //     $('.form-usd').show();
 //   }
-//   if($('.nilai').val() == 'IDR(RP)') {
+//   if($('#project_potential_nilai').val() == 'IDR(RP)') {
 //     $('.form-rp').show();
 //     $('.form-usd').hide();
 //   }

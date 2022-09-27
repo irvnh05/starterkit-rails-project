@@ -9,7 +9,7 @@
       <div class="card-header-form">
         <% if current_user.can? { |permissions| permissions.contact.create? } %>
         <div class="align-items-center">
-          <a href="<%= new_contact_path %>" class="btn btn-primary btn-sm">+ Contact</a>
+          <a href="<%= new_contact_path %>" class="btn btn-primary btn-sm">+ Tambah Contact</a>
         </div>
         <% end %>  
       </div>

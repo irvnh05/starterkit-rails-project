@@ -62,9 +62,17 @@ class ProjectPotentialsController < ApplicationController
   # POST /project_potentials or /project_potentials.json
   def create
     @project_potential = ProjectPotential.new(project_potential_params)
-
+    nominal= params[:project_potential][:nominal]
+    nilai = params[:project_potential][:nilai]
     respond_to do |format|
-      if @project_potential.save
+      if @project_potential.nilai.eql? "IDR(RP)"
+        @project_potential.save
+        format.html { redirect_to project_potentials_path, notice: "Project potential was successfully created." }
+        format.json { render :show, status: :created, location: @project_potential }
+      elsif @project_potential.nilai.eql? "USD($)"
+        @project_potential.nominal = convert_currency(nominal.to_i) 
+        @project_potential.nominal_usd = nominal
+        @project_potential.save
         format.html { redirect_to project_potentials_path, notice: "Project potential was successfully created." }
         format.json { render :show, status: :created, location: @project_potential }
       else

@@ -6,10 +6,9 @@
       <%# <%= @cek.inspect%> 
 
         <%= form_for @sales_visit_plan, multipart: true do |f| %>
-          <% if @sales_visit_plan.errors.any? %>
+        
             <div id="error_explanation">
-              <h2><%= pluralize(@sales_visit_plan.errors.count, "error") %> prohibited this site_project from being saved:</h2>
-              <ul>
+              
               <% @sales_visit_plan.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
               <% end %>
