@@ -133,19 +133,22 @@ module ApplicationHelper
       end_date = DateTime.now.in_time_zone.strftime("%Y-%m-%d")
       
       # url = "https://www.bi.go.id/biwebservice/wskursbi.asmx/getSubKursLokal3?mts=USD&startdate=" + start_date + "/&enddate=" + end_date +/
-      # url = 'https://www.bi.go.id/biwebservice/wskursbi.asmx/getSubKursLokal3?mts=USD&startdate=2022-09-26&enddate=2022-09-26'
+      # url = 'https://www.bi.go.id/biwebservice/wskursbi.asmx/getSubKursLokal3?mts=USD&startdate=2022-09-27&enddate=2022-09-27'
 
-      # uri = URI(url)
-      # response = Net::HTTP.get(uri)
+      uri =  URI.parse("https://www.bi.go.id/biwebservice/wskursbi.asmx/getSubKursLokal3?mts=USD&")
+      new_query_ar = URI.decode_www_form(String(uri.query)) << ["startdate", "#{start_date}"]  << ["enddate", "#{end_date}"]
+      uri.query = URI.encode_www_form(new_query_ar)
 
-      uri = URI("https://www.bi.go.id/biwebservice/wskursbi.asmx/getSubKursJisdor4?mts=USD&startdate="+ start_date +)
-      # uri.query = "'#{start_date}'"  if uri.query.nil?
-      
-
+      uri = URI(uri)
       response = Net::HTTP.get(uri)
 
+      # uri = URI("https://www.bi.go.id/biwebservice/wskursbi.asmx/getSubKursLokal3?mts=USD&startdate=")
+      # uri.query = "#{start_date}" if uri.query.nil?
+
+      # response = Net::HTTP.get(uri)
+
       doc = Nokogiri::HTML(response)
-      # doc.css('jual_subkursasing').to_s.gsub('<','').gsub('>','').gsub('/','').gsub('jual_subkurslokal','').to_i * usd
+      doc.css('jual_subkurslokal').to_s.gsub('<','').gsub('>','').gsub('/','').gsub('jual_subkurslokal','').to_i * usd
 
      
 
